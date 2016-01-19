@@ -1,42 +1,28 @@
 package com.andrey7mel.testrx.view;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.widget.Button;
-import android.widget.EditText;
 
 import com.andrey7mel.testrx.R;
-import com.andrey7mel.testrx.model.data.Repo;
-import com.andrey7mel.testrx.presenter.Presenter;
-import com.andrey7mel.testrx.presenter.RepoListPresenter;
-import com.andrey7mel.testrx.view.adapters.RecyclerViewAdapter;
-
-import java.util.List;
+import com.andrey7mel.testrx.presenter.vo.RepositoryVO;
+import com.andrey7mel.testrx.view.fragments.RepoInfoFragment;
+import com.andrey7mel.testrx.view.fragments.RepoListFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements View {
+public class MainActivity extends AppCompatActivity implements ActivityCallback {
 
-    @Bind(R.id.recyclerView)
-    RecyclerView recyclerView;
+    private static String TAG = "TAG";
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-    @Bind(R.id.editText)
-    EditText editText;
-
-    @Bind(R.id.button)
-    Button searchButton;
-
-    private RecyclerViewAdapter adapter;
-
-    private Presenter presenter;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,52 +30,23 @@ public class MainActivity extends AppCompatActivity implements View {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        fragmentManager = getSupportFragmentManager();
 
-        presenter = new RepoListPresenter(this);
-        presenter.onSearchButtonClick();
+        Fragment fragment = fragmentManager.findFragmentByTag(TAG);
+        if (fragment == null) replaceFragment(new RepoListFragment(), false);
+    }
 
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(llm);
-        adapter = new RecyclerViewAdapter();
-        recyclerView.setAdapter(adapter);
-
-        searchButton.setOnClickListener(new android.view.View.OnClickListener() {
-            @Override
-            public void onClick(android.view.View v) {
-                presenter.onSearchButtonClick();
-            }
-        });
-
+    private void replaceFragment(Fragment fragment, boolean addBackStack) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.container, fragment, TAG);
+        if (addBackStack) transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
-    public void showData(List<Repo> list) {
-        if (list != null && !list.isEmpty()) {
-            adapter.setRepos(list);
-        } else {
-            makeToast(getString(R.string.empty_repo_list));
-        }
+    public void startRepoInfoFragment(RepositoryVO repositoryVO) {
+        replaceFragment(RepoInfoFragment.newInstance(repositoryVO), true);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (presenter != null) {
-            presenter.onStop();
-        }
-    }
 
-    private void makeToast(String text) {
-        Snackbar.make(toolbar, text, Snackbar.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void showError(Throwable e) {
-        makeToast(e.getMessage());
-    }
-
-    @Override
-    public String getUserName() {
-        return editText.getText().toString();
-    }
 }

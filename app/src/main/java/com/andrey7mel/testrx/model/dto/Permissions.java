@@ -1,5 +1,5 @@
 
-package com.andrey7mel.testrx.model.data;
+package com.andrey7mel.testrx.model.dto;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

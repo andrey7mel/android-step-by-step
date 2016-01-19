@@ -1,7 +1,5 @@
 package com.andrey7mel.testrx.presenter;
 
-public interface Presenter {
-    void onSearchButtonClick();
-
+public interface IPresenter {
     void onStop();
 }

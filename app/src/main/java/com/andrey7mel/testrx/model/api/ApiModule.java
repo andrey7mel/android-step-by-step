@@ -1,28 +1,27 @@
 package com.andrey7mel.testrx.model.api;
 
-import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
-import java.io.IOException;
+import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 import retrofit.RxJavaCallAdapterFactory;
 
 public class ApiModule {
+    private static final boolean ENABLE_LOG = true;
 
     private static final boolean ENABLE_AUTH = false;
-    private static final String AUTH_64 = "***"; //your code here
+    private static final String AUTH_64 = "***";
 
+    private static final String BASE_URL = "https://api.github.com/";
 
     public static ApiInterface getApiInterface() {
 
         OkHttpClient httpClient = new OkHttpClient();
-        httpClient.interceptors().add(new Interceptor() {
-            @Override
-            public Response intercept(Interceptor.Chain chain) throws IOException {
+
+        if (ENABLE_AUTH) {
+            httpClient.interceptors().add(chain -> {
                 Request original = chain.request();
                 Request request = original.newBuilder()
                         .header("Authorization", "Basic " + AUTH_64)
@@ -30,17 +29,24 @@ public class ApiModule {
                         .build();
 
                 return chain.proceed(request);
-            }
-        });
+            });
+        }
 
+        if (ENABLE_LOG) {
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            httpClient.interceptors().add(interceptor);
+        }
 
         Retrofit.Builder builder = new Retrofit.Builder().
-                baseUrl("https://api.github.com/")
+                baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create());
-        if (ENABLE_AUTH) builder.client(httpClient);
+
+        builder.client(httpClient);
 
         ApiInterface apiInterface = builder.build().create(ApiInterface.class);
         return apiInterface;
     }
+
 }
