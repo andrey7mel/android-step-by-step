@@ -2,11 +2,11 @@ package com.andrey7mel.testrx.presenter.vo;
 
 import java.io.Serializable;
 
-public class RepositoryVO implements Serializable {
+public class Repository implements Serializable {
     private String repoName;
     private String ownerName;
 
-    public RepositoryVO(String repoName, String ownerName) {
+    public Repository(String repoName, String ownerName) {
         this.repoName = repoName;
         this.ownerName = ownerName;
     }

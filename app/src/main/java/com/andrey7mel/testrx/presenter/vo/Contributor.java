@@ -2,10 +2,10 @@ package com.andrey7mel.testrx.presenter.vo;
 
 import java.io.Serializable;
 
-public class BranchVO implements Serializable {
+public class Contributor implements Serializable {
     private String name;
 
-    public BranchVO(String name) {
+    public Contributor(String name) {
         this.name = name;
     }
 

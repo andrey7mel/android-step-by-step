@@ -1,8 +1,8 @@
 package com.andrey7mel.testrx.view;
 
-import com.andrey7mel.testrx.presenter.vo.RepositoryVO;
+import com.andrey7mel.testrx.presenter.vo.Repository;
 
 public interface ActivityCallback {
 
-    void startRepoInfoFragment(RepositoryVO repositoryVO);
+    void startRepoInfoFragment(Repository repository);
 }

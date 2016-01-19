@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.andrey7mel.testrx.R;
-import com.andrey7mel.testrx.presenter.vo.RepositoryVO;
+import com.andrey7mel.testrx.presenter.vo.Repository;
 import com.andrey7mel.testrx.view.fragments.RepoInfoFragment;
 import com.andrey7mel.testrx.view.fragments.RepoListFragment;
 
@@ -44,9 +44,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     @Override
-    public void startRepoInfoFragment(RepositoryVO repositoryVO) {
-        replaceFragment(RepoInfoFragment.newInstance(repositoryVO), true);
+    public void startRepoInfoFragment(Repository repository) {
+        replaceFragment(RepoInfoFragment.newInstance(repository), true);
     }
-
 
 }

@@ -12,9 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.andrey7mel.testrx.R;
-import com.andrey7mel.testrx.presenter.BasePresenter;
+import com.andrey7mel.testrx.presenter.BasePresenterImpl;
 import com.andrey7mel.testrx.presenter.RepoListPresenter;
-import com.andrey7mel.testrx.presenter.vo.RepositoryVO;
+import com.andrey7mel.testrx.presenter.vo.Repository;
 import com.andrey7mel.testrx.view.ActivityCallback;
 import com.andrey7mel.testrx.view.adapters.RepoListAdapterNew;
 
@@ -24,22 +24,19 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class RepoListFragment extends BaseFragment implements IRepoListView {
+public class RepoListFragment extends BaseFragment implements RepoListView {
 
-
-    RepoListPresenter presenter = new RepoListPresenter(this);
-
+    private RepoListPresenter presenter = new RepoListPresenter(this);
 
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
 
-
     @Bind(R.id.edit_text)
     EditText editText;
 
+    private RepoListPresenter presenter = new RepoListPresenter(this);
     @Bind(R.id.button_search)
     Button searchButton;
-
     private RepoListAdapterNew adapter;
 
     @Nullable
@@ -53,7 +50,7 @@ public class RepoListFragment extends BaseFragment implements IRepoListView {
         adapter = new RepoListAdapterNew(new ArrayList<>(), presenter);
         recyclerView.setAdapter(adapter);
 
-        searchButton.setOnClickListener(v -> presenter.loadData());
+        searchButton.setOnClickListener(v -> presenter.onSearchButtonClick());
 
         presenter.onCreate(savedInstanceState);
 
@@ -66,7 +63,7 @@ public class RepoListFragment extends BaseFragment implements IRepoListView {
     }
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected BasePresenterImpl getPresenter() {
         return presenter;
     }
 
@@ -77,13 +74,13 @@ public class RepoListFragment extends BaseFragment implements IRepoListView {
     }
 
     @Override
-    public void setRepoList(List<RepositoryVO> repoList) {
+    public void showRepoList(List<Repository> repoList) {
         adapter.setRepoList(repoList);
     }
 
     @Override
-    public void startRepoInfoFragment(RepositoryVO repositoryVO) {
-        ((ActivityCallback) getActivity()).startRepoInfoFragment(repositoryVO);
+    public void startRepoInfoFragment(Repository repository) {
+        ((ActivityCallback) getActivity()).startRepoInfoFragment(repository);
     }
 
     @Override
@@ -92,7 +89,7 @@ public class RepoListFragment extends BaseFragment implements IRepoListView {
     }
 
     @Override
-    public String getInputName() {
+    public String getUserName() {
         return editText.getText().toString();
     }
 

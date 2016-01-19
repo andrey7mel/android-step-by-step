@@ -11,11 +11,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.andrey7mel.testrx.R;
-import com.andrey7mel.testrx.presenter.BasePresenter;
+import com.andrey7mel.testrx.presenter.BasePresenterImpl;
 import com.andrey7mel.testrx.presenter.RepoInfoPresenter;
-import com.andrey7mel.testrx.presenter.vo.BranchVO;
-import com.andrey7mel.testrx.presenter.vo.ContributorVO;
-import com.andrey7mel.testrx.presenter.vo.RepositoryVO;
+import com.andrey7mel.testrx.presenter.vo.Branch;
+import com.andrey7mel.testrx.presenter.vo.Contributor;
+import com.andrey7mel.testrx.presenter.vo.Repository;
 import com.andrey7mel.testrx.view.adapters.BranchesAdapter;
 import com.andrey7mel.testrx.view.adapters.ContributorsAdapter;
 
@@ -24,24 +24,29 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class RepoInfoFragment extends BaseFragment implements IRepoInfoView {
+public class RepoInfoFragment extends BaseFragment implements RepoInfoView {
 
-    public static final String BUNDLE_REPO_KEY = "BUNDLE_REPO_KEY";
+    private static final String BUNDLE_REPO_KEY = "BUNDLE_REPO_KEY";
+
     @Bind(R.id.repo_info)
     TextView info;
+
     @Bind(R.id.recycler_view_branches)
     RecyclerView branchesRecyclerView;
+
     @Bind(R.id.recycler_view_contributors)
     RecyclerView contributorsRecyclerView;
+
     @Bind(R.id.linear_layout)
     View layout;
+
     private RepoInfoPresenter presenter;
 
-    public static RepoInfoFragment newInstance(RepositoryVO repositoryVO) {
+    public static RepoInfoFragment newInstance(Repository repository) {
         RepoInfoFragment myFragment = new RepoInfoFragment();
 
         Bundle args = new Bundle();
-        args.putSerializable(BUNDLE_REPO_KEY, repositoryVO);
+        args.putSerializable(BUNDLE_REPO_KEY, repository);
         myFragment.setArguments(args);
 
         return myFragment;
@@ -49,12 +54,12 @@ public class RepoInfoFragment extends BaseFragment implements IRepoInfoView {
 
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected BasePresenterImpl getPresenter() {
         return presenter;
     }
 
-    private RepositoryVO getRepositoryVO() {
-        return (RepositoryVO) getArguments().getSerializable(BUNDLE_REPO_KEY);
+    private Repository getRepositoryVO() {
+        return (Repository) getArguments().getSerializable(BUNDLE_REPO_KEY);
     }
 
     @Nullable
@@ -94,12 +99,12 @@ public class RepoInfoFragment extends BaseFragment implements IRepoInfoView {
     }
 
     @Override
-    public void showContributors(List<ContributorVO> contributors) {
+    public void showContributors(List<Contributor> contributors) {
         branchesRecyclerView.setAdapter(new ContributorsAdapter(contributors));
     }
 
     @Override
-    public void showBranches(List<BranchVO> branches) {
+    public void showBranches(List<Branch> branches) {
         contributorsRecyclerView.setAdapter(new BranchesAdapter(branches));
 
     }

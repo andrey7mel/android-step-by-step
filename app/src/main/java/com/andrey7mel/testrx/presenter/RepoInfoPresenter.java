@@ -4,10 +4,10 @@ import android.os.Bundle;
 
 import com.andrey7mel.testrx.presenter.mappers.RepoBranchesMapper;
 import com.andrey7mel.testrx.presenter.mappers.RepoContributorsMapper;
-import com.andrey7mel.testrx.presenter.vo.BranchVO;
-import com.andrey7mel.testrx.presenter.vo.ContributorVO;
-import com.andrey7mel.testrx.presenter.vo.RepositoryVO;
-import com.andrey7mel.testrx.view.fragments.IRepoInfoView;
+import com.andrey7mel.testrx.presenter.vo.Branch;
+import com.andrey7mel.testrx.presenter.vo.Contributor;
+import com.andrey7mel.testrx.presenter.vo.Repository;
+import com.andrey7mel.testrx.view.fragments.RepoInfoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,29 +15,33 @@ import java.util.List;
 import rx.Observer;
 import rx.Subscription;
 
-public class RepoInfoPresenter extends BasePresenter {
+public class RepoInfoPresenter extends BasePresenterImpl {
 
-    public static final String BUNDLE_BRANCHES_KEY = "BUNDLE_BRANCHES_KEY";
-    public static final String BUNDLE_CONTRIBUTORS_KEY = "BUNDLE_CONTRIBUTORS_KEY";
-    private IRepoInfoView view;
+    private static final String BUNDLE_BRANCHES_KEY = "BUNDLE_BRANCHES_KEY";
+    private static final String BUNDLE_CONTRIBUTORS_KEY = "BUNDLE_CONTRIBUTORS_KEY";
+
+    private RepoInfoView view;
+
     private RepoBranchesMapper branchesMapper = new RepoBranchesMapper();
     private RepoContributorsMapper contributorsMapper = new RepoContributorsMapper();
-    private List<ContributorVO> contributorList;
-    private List<BranchVO> branchList;
-    private RepositoryVO repositoryVO;
 
-    public RepoInfoPresenter(IRepoInfoView view, RepositoryVO repositoryVO) {
+    private List<Contributor> contributorList;
+    private List<Branch> branchList;
+
+    private Repository repository;
+
+    public RepoInfoPresenter(RepoInfoView view, Repository repository) {
         this.view = view;
-        this.repositoryVO = repositoryVO;
+        this.repository = repository;
     }
 
     public void loadData() {
-        String owner = repositoryVO.getOwnerName();
-        String name = repositoryVO.getRepoName();
+        String owner = repository.getOwnerName();
+        String name = repository.getRepoName();
 
         Subscription subscriptionBranches = dataRepository.getRepoBranches(owner, name)
                 .map(branchesMapper)
-                .subscribe(new Observer<List<BranchVO>>() {
+                .subscribe(new Observer<List<Branch>>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -48,7 +52,7 @@ public class RepoInfoPresenter extends BasePresenter {
                     }
 
                     @Override
-                    public void onNext(List<BranchVO> list) {
+                    public void onNext(List<Branch> list) {
                         branchList = list;
                         view.showBranches(list);
                     }
@@ -57,7 +61,7 @@ public class RepoInfoPresenter extends BasePresenter {
 
         Subscription subscriptionContributors = dataRepository.getRepoContributors(owner, name)
                 .map(contributorsMapper)
-                .subscribe(new Observer<List<ContributorVO>>() {
+                .subscribe(new Observer<List<Contributor>>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -68,7 +72,7 @@ public class RepoInfoPresenter extends BasePresenter {
                     }
 
                     @Override
-                    public void onNext(List<ContributorVO> list) {
+                    public void onNext(List<Contributor> list) {
                         contributorList = list;
                         view.showContributors(list);
                     }
@@ -80,8 +84,8 @@ public class RepoInfoPresenter extends BasePresenter {
     public void onCreate(Bundle savedInstanceState) {
 
         if (savedInstanceState != null) {
-            contributorList = (List<ContributorVO>) savedInstanceState.getSerializable(BUNDLE_CONTRIBUTORS_KEY);
-            branchList = (List<BranchVO>) savedInstanceState.getSerializable(BUNDLE_BRANCHES_KEY);
+            contributorList = (List<Contributor>) savedInstanceState.getSerializable(BUNDLE_CONTRIBUTORS_KEY);
+            branchList = (List<Branch>) savedInstanceState.getSerializable(BUNDLE_BRANCHES_KEY);
         }
 
         if (contributorList == null || branchList == null) {

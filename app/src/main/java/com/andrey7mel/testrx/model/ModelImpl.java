@@ -12,12 +12,12 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class DataRepository implements IDataRepository {
+public class ModelImpl implements Model {
 
     private final Observable.Transformer schedulersTransformer;
     private ApiInterface apiInterface = ApiModule.getApiInterface();
 
-    public DataRepository() {
+    public ModelImpl() {
         schedulersTransformer = o -> ((Observable) o).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io()) // TODO: remove when https://github.com/square/okhttp/issues/1592 is fixed
