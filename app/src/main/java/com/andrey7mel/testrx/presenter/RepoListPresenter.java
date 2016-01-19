@@ -57,21 +57,24 @@ public class RepoListPresenter extends BasePresenterImpl {
     }
 
     public void onCreate(Bundle savedInstanceState) {
-
         if (savedInstanceState != null) {
             repoList = (List<Repository>) savedInstanceState.getSerializable(BUNDLE_REPO_LIST_KEY);
+
+            if (isRepoListNotEmpty()) {
+                view.showRepoList(repoList);
+            }
         }
 
-        if (repoList == null) {
-            onSearchButtonClick();
-        } else {
-            view.showRepoList(repoList);
-        }
+    }
+
+    private boolean isRepoListNotEmpty() {
+        return (repoList != null && !repoList.isEmpty());
     }
 
     public void onSaveInstanceState(Bundle outState) {
-        if (repoList != null)
+        if (isRepoListNotEmpty()) {
             outState.putSerializable(BUNDLE_REPO_LIST_KEY, new ArrayList<>(repoList));
+        }
     }
 
     public void clickRepo(Repository repository) {
