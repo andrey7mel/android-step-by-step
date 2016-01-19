@@ -48,7 +48,7 @@ public class RepoInfoPresenter extends BasePresenterImpl {
 
                     @Override
                     public void onError(Throwable e) {
-                        view.showError(e);
+                        view.showError(e.getMessage());
                     }
 
                     @Override
@@ -68,7 +68,7 @@ public class RepoInfoPresenter extends BasePresenterImpl {
 
                     @Override
                     public void onError(Throwable e) {
-                        view.showError(e);
+                        view.showError(e.getMessage());
                     }
 
                     @Override

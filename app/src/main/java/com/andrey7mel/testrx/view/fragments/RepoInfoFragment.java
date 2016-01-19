@@ -89,8 +89,8 @@ public class RepoInfoFragment extends BaseFragment implements RepoInfoView {
 
 
     @Override
-    public void showError(Throwable e) {
-        makeToast(e.getMessage());
+    public void showError(String error) {
+        makeToast(error);
     }
 
 

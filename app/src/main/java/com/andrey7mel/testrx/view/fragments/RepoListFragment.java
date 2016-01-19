@@ -66,8 +66,8 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
 
 
     @Override
-    public void showError(Throwable e) {
-        makeToast(e.getMessage());
+    public void showError(String error) {
+        makeToast(error);
     }
 
     @Override
