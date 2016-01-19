@@ -1,1 +1,2 @@
-# android-step1
+# android-simple-architecture
+Android simple architecture
