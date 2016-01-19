@@ -40,7 +40,7 @@ public class RepoListPresenter extends BasePresenterImpl {
 
                     @Override
                     public void onError(Throwable e) {
-                        view.showError(e);
+                        view.showError(e.getMessage());
                     }
 
                     @Override
