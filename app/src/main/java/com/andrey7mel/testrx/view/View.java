@@ -8,7 +8,7 @@ public interface View {
 
     void showData(List<Repo> list);
 
-    void showError(Throwable e);
+    void showError(String error);
 
     String getUserName();
 }

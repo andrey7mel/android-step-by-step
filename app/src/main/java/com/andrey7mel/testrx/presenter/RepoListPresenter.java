@@ -33,7 +33,7 @@ public class RepoListPresenter implements Presenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        view.showError(e);
+                        view.showError(e.getMessage());
                     }
 
                     @Override

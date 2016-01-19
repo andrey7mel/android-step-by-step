@@ -84,8 +84,8 @@ public class MainActivity extends AppCompatActivity implements View {
     }
 
     @Override
-    public void showError(Throwable e) {
-        makeToast(e.getMessage());
+    public void showError(String error) {
+        makeToast(error);
     }
 
     @Override
