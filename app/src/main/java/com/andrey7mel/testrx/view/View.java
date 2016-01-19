@@ -10,5 +10,7 @@ public interface View {
 
     void showError(String error);
 
+    void showEmptyList();
+
     String getUserName();
 }

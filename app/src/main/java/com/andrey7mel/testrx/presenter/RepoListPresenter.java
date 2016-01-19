@@ -13,7 +13,7 @@ import rx.subscriptions.Subscriptions;
 
 public class RepoListPresenter implements Presenter {
 
-    private Model dataRepository = new ModelImpl();
+    private Model model = new ModelImpl();
 
     private View view;
     private Subscription subscription = Subscriptions.empty();
@@ -24,7 +24,12 @@ public class RepoListPresenter implements Presenter {
 
     @Override
     public void onSearchButtonClick() {
-        subscription = dataRepository.getRepoList(view.getUserName())
+
+        if (!subscription.isUnsubscribed()) {
+            subscription.isUnsubscribed();
+        }
+
+        subscription = model.getRepoList(view.getUserName())
                 .subscribe(new Observer<List<Repo>>() {
                     @Override
                     public void onCompleted() {
@@ -38,7 +43,11 @@ public class RepoListPresenter implements Presenter {
 
                     @Override
                     public void onNext(List<Repo> data) {
-                        view.showData(data);
+                        if (data != null && !data.isEmpty()) {
+                            view.showData(data);
+                        } else {
+                            view.showEmptyList();
+                        }
                     }
                 });
     }

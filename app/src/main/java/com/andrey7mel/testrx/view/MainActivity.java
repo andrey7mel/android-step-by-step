@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements View {
         setSupportActionBar(toolbar);
 
         presenter = new RepoListPresenter(this);
-        presenter.onSearchButtonClick();
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
@@ -59,16 +58,11 @@ public class MainActivity extends AppCompatActivity implements View {
                 presenter.onSearchButtonClick();
             }
         });
-
     }
 
     @Override
     public void showData(List<Repo> list) {
-        if (list != null && !list.isEmpty()) {
-            adapter.setRepos(list);
-        } else {
-            makeToast(getString(R.string.empty_repo_list));
-        }
+        adapter.setRepoList(list);
     }
 
     @Override
@@ -86,6 +80,11 @@ public class MainActivity extends AppCompatActivity implements View {
     @Override
     public void showError(String error) {
         makeToast(error);
+    }
+
+    @Override
+    public void showEmptyList() {
+        makeToast(getString(R.string.empty_repo_list));
     }
 
     @Override
