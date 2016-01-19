@@ -4,9 +4,11 @@ import com.andrey7mel.testrx.model.data.Repo;
 
 import java.util.List;
 
-public interface IView {
+public interface View {
 
-    void inflateData(List<Repo> list);
+    void showData(List<Repo> list);
 
     void showError(Throwable e);
+
+    String getUserName();
 }

@@ -6,16 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.andrey7mel.testrx.R;
 import com.andrey7mel.testrx.model.data.Repo;
-import com.andrey7mel.testrx.presenter.IPresenter;
+import com.andrey7mel.testrx.presenter.Presenter;
 import com.andrey7mel.testrx.presenter.RepoListPresenter;
-import com.andrey7mel.testrx.presenter.filters.RepoListFilter;
 import com.andrey7mel.testrx.view.adapters.RecyclerViewAdapter;
 
 import java.util.List;
@@ -23,7 +20,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements IView {
+public class MainActivity extends AppCompatActivity implements View {
 
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -39,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements IView {
 
     private RecyclerViewAdapter adapter;
 
-    private IPresenter presenter;
+    private Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,30 +46,24 @@ public class MainActivity extends AppCompatActivity implements IView {
         setSupportActionBar(toolbar);
 
         presenter = new RepoListPresenter(this);
-        presenter.setFilter(new RepoListFilter(editText.getText().toString()));
-        presenter.loadData();
+        presenter.onSearchButtonClick();
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
         adapter = new RecyclerViewAdapter();
         recyclerView.setAdapter(adapter);
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        searchButton.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                String text = editText.getText().toString();
-                if (!TextUtils.isEmpty(text)) {
-                    presenter.setFilter(new RepoListFilter(text));
-                    presenter.loadData();
-                }
-
+            public void onClick(android.view.View v) {
+                presenter.onSearchButtonClick();
             }
         });
 
     }
 
     @Override
-    public void inflateData(List<Repo> list) {
+    public void showData(List<Repo> list) {
         if (list != null && !list.isEmpty()) {
             adapter.setRepos(list);
         } else {
@@ -84,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements IView {
     protected void onStop() {
         super.onStop();
         if (presenter != null) {
-            presenter.unsubscribe();
+            presenter.onStop();
         }
     }
 
@@ -95,5 +86,10 @@ public class MainActivity extends AppCompatActivity implements IView {
     @Override
     public void showError(Throwable e) {
         makeToast(e.getMessage());
+    }
+
+    @Override
+    public String getUserName() {
+        return editText.getText().toString();
     }
 }
