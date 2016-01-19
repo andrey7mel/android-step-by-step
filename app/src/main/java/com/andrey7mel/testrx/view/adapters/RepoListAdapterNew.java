@@ -6,8 +6,8 @@ import com.andrey7mel.testrx.presenter.vo.Repository;
 import java.util.List;
 
 public class RepoListAdapterNew extends BaseAdapter<Repository> {
-    private RepoListPresenter presenter;
 
+    private RepoListPresenter presenter;
 
     public RepoListAdapterNew(List<Repository> list, RepoListPresenter presenter) {
         super(list);

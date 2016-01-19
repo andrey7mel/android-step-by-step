@@ -15,6 +15,7 @@ import rx.schedulers.Schedulers;
 public class ModelImpl implements Model {
 
     private final Observable.Transformer schedulersTransformer;
+
     private ApiInterface apiInterface = ApiModule.getApiInterface();
 
     public ModelImpl() {

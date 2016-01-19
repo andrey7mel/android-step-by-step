@@ -9,6 +9,7 @@ import retrofit.Retrofit;
 import retrofit.RxJavaCallAdapterFactory;
 
 public class ApiModule {
+
     private static final boolean ENABLE_LOG = true;
 
     private static final boolean ENABLE_AUTH = false;

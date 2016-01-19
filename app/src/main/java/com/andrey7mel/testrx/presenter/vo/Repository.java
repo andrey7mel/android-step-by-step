@@ -3,6 +3,7 @@ package com.andrey7mel.testrx.presenter.vo;
 import java.io.Serializable;
 
 public class Repository implements Serializable {
+
     private String repoName;
     private String ownerName;
 
