@@ -12,11 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.andrey7mel.testrx.R;
-import com.andrey7mel.testrx.presenter.BasePresenterImpl;
+import com.andrey7mel.testrx.presenter.BasePresenter;
 import com.andrey7mel.testrx.presenter.RepoListPresenter;
 import com.andrey7mel.testrx.presenter.vo.Repository;
 import com.andrey7mel.testrx.view.ActivityCallback;
-import com.andrey7mel.testrx.view.adapters.RepoListAdapterNew;
+import com.andrey7mel.testrx.view.adapters.RepoListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
     @Bind(R.id.button_search)
     Button searchButton;
     private RepoListPresenter presenter = new RepoListPresenter(this);
-    private RepoListAdapterNew adapter;
+    private RepoListAdapter adapter;
 
     @Nullable
     @Override
@@ -44,7 +44,7 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);
-        adapter = new RepoListAdapterNew(new ArrayList<>(), presenter);
+        adapter = new RepoListAdapter(new ArrayList<>(), presenter);
         recyclerView.setAdapter(adapter);
 
         searchButton.setOnClickListener(v -> presenter.onSearchButtonClick());
@@ -60,7 +60,7 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
     }
 
     @Override
-    protected BasePresenterImpl getPresenter() {
+    protected BasePresenter getPresenter() {
         return presenter;
     }
 

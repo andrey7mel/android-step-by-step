@@ -6,7 +6,7 @@ import com.andrey7mel.testrx.model.ModelImpl;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
-public abstract class BasePresenterImpl implements Presenter {
+public abstract class BasePresenter implements Presenter {
 
     protected Model dataRepository = new ModelImpl();
     private CompositeSubscription compositeSubscription = new CompositeSubscription();

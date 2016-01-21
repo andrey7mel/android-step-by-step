@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.andrey7mel.testrx.R;
-import com.andrey7mel.testrx.presenter.BasePresenterImpl;
+import com.andrey7mel.testrx.presenter.BasePresenter;
 import com.andrey7mel.testrx.presenter.RepoInfoPresenter;
 import com.andrey7mel.testrx.presenter.vo.Branch;
 import com.andrey7mel.testrx.presenter.vo.Contributor;
@@ -54,7 +54,7 @@ public class RepoInfoFragment extends BaseFragment implements RepoInfoView {
 
 
     @Override
-    protected BasePresenterImpl getPresenter() {
+    protected BasePresenter getPresenter() {
         return presenter;
     }
 

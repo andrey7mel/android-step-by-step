@@ -13,7 +13,7 @@ import java.util.List;
 import rx.Observer;
 import rx.Subscription;
 
-public class RepoListPresenter extends BasePresenterImpl {
+public class RepoListPresenter extends BasePresenter {
 
     private static final String BUNDLE_REPO_LIST_KEY = "BUNDLE_REPO_LIST_KEY";
 

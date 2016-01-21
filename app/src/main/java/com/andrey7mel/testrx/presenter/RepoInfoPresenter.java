@@ -15,7 +15,7 @@ import java.util.List;
 import rx.Observer;
 import rx.Subscription;
 
-public class RepoInfoPresenter extends BasePresenterImpl {
+public class RepoInfoPresenter extends BasePresenter {
 
     private static final String BUNDLE_BRANCHES_KEY = "BUNDLE_BRANCHES_KEY";
     private static final String BUNDLE_CONTRIBUTORS_KEY = "BUNDLE_CONTRIBUTORS_KEY";

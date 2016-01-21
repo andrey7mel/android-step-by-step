@@ -5,11 +5,11 @@ import com.andrey7mel.testrx.presenter.vo.Repository;
 
 import java.util.List;
 
-public class RepoListAdapterNew extends BaseAdapter<Repository> {
+public class RepoListAdapter extends BaseAdapter<Repository> {
     private RepoListPresenter presenter;
 
 
-    public RepoListAdapterNew(List<Repository> list, RepoListPresenter presenter) {
+    public RepoListAdapter(List<Repository> list, RepoListPresenter presenter) {
         super(list);
         this.presenter = presenter;
     }
