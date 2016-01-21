@@ -44,19 +44,20 @@ public class RepoListPresenterTest extends BaseForPresenterTest {
     @Test
     public void testLoadData() {
         repoListPresenter.onCreate(null);
+        repoListPresenter.onSearchButtonClick();
         repoListPresenter.onStop();
 
-        verify(mockView, times(0)).showRepoList(repoList);
+        verify(mockView).showRepoList(repoList);
     }
 
     @Test
     public void testSubscribe() {
         repoListPresenter.onCreate(null);
         repoListPresenter.onSearchButtonClick();
+        repoListPresenter.onStop();
+
 
         verify(repoListPresenter).addSubscription(any());
-
-        repoListPresenter.onStop();
         assertTrue(repoListPresenter.compositeSubscription.isUnsubscribed());
 
     }
@@ -72,7 +73,7 @@ public class RepoListPresenterTest extends BaseForPresenterTest {
 
         repoListPresenter.onCreate(bundle);
 
-        verify(mockView).showRepoList(repoList);
+        verify(mockView, times(2)).showRepoList(repoList);
 
         verify(model).getRepoList(TestConst.TEST_OWNER);
     }

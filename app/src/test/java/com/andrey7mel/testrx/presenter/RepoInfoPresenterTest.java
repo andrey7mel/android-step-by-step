@@ -48,6 +48,7 @@ public class RepoInfoPresenterTest extends BaseForPresenterTest {
         repoInfoPresenter.onCreate(null);
         repoInfoPresenter.onStop();
 
+
         verify(mockView).showBranches(branchList);
         verify(mockView).showContributors(contributorList);
     }
