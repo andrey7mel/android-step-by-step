@@ -1,5 +1,6 @@
 package com.andrey7mel.testrx.view.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -31,10 +32,29 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
 
     @Bind(R.id.edit_text)
     EditText editText;
+
     @Bind(R.id.button_search)
     Button searchButton;
+
     private RepoListPresenter presenter = new RepoListPresenter(this);
+
     private RepoListAdapter adapter;
+
+    private ActivityCallback activityCallback;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            activityCallback = (ActivityCallback) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement activityCallback");
+        }
+    }
 
     @Nullable
     @Override
@@ -77,7 +97,7 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
 
     @Override
     public void startRepoInfoFragment(Repository repository) {
-        ((ActivityCallback) getActivity()).startRepoInfoFragment(repository);
+        activityCallback.startRepoInfoFragment(repository);
     }
 
     @Override
