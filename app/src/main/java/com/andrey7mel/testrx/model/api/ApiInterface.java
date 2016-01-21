@@ -12,7 +12,7 @@ import rx.Observable;
 
 public interface ApiInterface {
 
-    @GET("users/{user}/repos")
+    @GET("/users/{user}/repos")
     Observable<List<RepositoryDTO>> getRepositories(@Path("user") String user);
 
     @GET("/repos/{owner}/{repo}/contributors")

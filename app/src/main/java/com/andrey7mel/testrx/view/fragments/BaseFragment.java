@@ -15,5 +15,6 @@ public abstract class BaseFragment extends Fragment {
             getPresenter().onStop();
         }
     }
+
 }
 

@@ -26,20 +26,15 @@ import butterknife.ButterKnife;
 
 public class RepoInfoFragment extends BaseFragment implements RepoInfoView {
 
-    private static final String BUNDLE_REPO_KEY = "BUNDLE_REPO_KEY";
-
+    public static final String BUNDLE_REPO_KEY = "BUNDLE_REPO_KEY";
     @Bind(R.id.repo_info)
     TextView info;
-
     @Bind(R.id.recycler_view_branches)
     RecyclerView branchesRecyclerView;
-
     @Bind(R.id.recycler_view_contributors)
     RecyclerView contributorsRecyclerView;
-
     @Bind(R.id.linear_layout)
     View layout;
-
     private RepoInfoPresenter presenter;
 
     public static RepoInfoFragment newInstance(Repository repository) {

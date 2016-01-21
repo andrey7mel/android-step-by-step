@@ -28,6 +28,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.Vi
         return new ViewHolder(v);
     }
 
+
     @Override
     public int getItemCount() {
         return list.size();

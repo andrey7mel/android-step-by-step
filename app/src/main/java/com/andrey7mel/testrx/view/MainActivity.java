@@ -48,4 +48,5 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         replaceFragment(RepoInfoFragment.newInstance(repository), true);
     }
 
+
 }

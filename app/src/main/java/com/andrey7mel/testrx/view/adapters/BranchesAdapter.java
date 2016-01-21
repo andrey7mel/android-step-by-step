@@ -15,4 +15,6 @@ public class BranchesAdapter extends BaseAdapter<Branch> {
         String text = list.get(position).getName();
         holder.text.setText(text);
     }
+
+
 }

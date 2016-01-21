@@ -2,6 +2,7 @@ package com.andrey7mel.testrx.presenter;
 
 import android.os.Bundle;
 
+import com.andrey7mel.testrx.other.App;
 import com.andrey7mel.testrx.presenter.mappers.RepoBranchesMapper;
 import com.andrey7mel.testrx.presenter.mappers.RepoContributorsMapper;
 import com.andrey7mel.testrx.presenter.vo.Branch;
@@ -12,6 +13,8 @@ import com.andrey7mel.testrx.view.fragments.RepoInfoView;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import rx.Observer;
 import rx.Subscription;
 
@@ -20,10 +23,13 @@ public class RepoInfoPresenter extends BasePresenter {
     private static final String BUNDLE_BRANCHES_KEY = "BUNDLE_BRANCHES_KEY";
     private static final String BUNDLE_CONTRIBUTORS_KEY = "BUNDLE_CONTRIBUTORS_KEY";
 
-    private RepoInfoView view;
+    @Inject
+    protected RepoBranchesMapper branchesMapper;
 
-    private RepoBranchesMapper branchesMapper = new RepoBranchesMapper();
-    private RepoContributorsMapper contributorsMapper = new RepoContributorsMapper();
+    @Inject
+    protected RepoContributorsMapper contributorsMapper;
+
+    private RepoInfoView view;
 
     private List<Contributor> contributorList;
     private List<Branch> branchList;
@@ -31,6 +37,8 @@ public class RepoInfoPresenter extends BasePresenter {
     private Repository repository;
 
     public RepoInfoPresenter(RepoInfoView view, Repository repository) {
+        super();
+        App.getComponent().inject(this);
         this.view = view;
         this.repository = repository;
     }
@@ -39,7 +47,7 @@ public class RepoInfoPresenter extends BasePresenter {
         String owner = repository.getOwnerName();
         String name = repository.getRepoName();
 
-        Subscription subscriptionBranches = dataRepository.getRepoBranches(owner, name)
+        Subscription subscriptionBranches = model.getRepoBranches(owner, name)
                 .map(branchesMapper)
                 .subscribe(new Observer<List<Branch>>() {
                     @Override
@@ -59,7 +67,7 @@ public class RepoInfoPresenter extends BasePresenter {
                 });
         addSubscription(subscriptionBranches);
 
-        Subscription subscriptionContributors = dataRepository.getRepoContributors(owner, name)
+        Subscription subscriptionContributors = model.getRepoContributors(owner, name)
                 .map(contributorsMapper)
                 .subscribe(new Observer<List<Contributor>>() {
                     @Override

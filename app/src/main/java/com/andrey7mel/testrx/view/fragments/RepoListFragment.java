@@ -26,15 +26,20 @@ import butterknife.ButterKnife;
 
 public class RepoListFragment extends BaseFragment implements RepoListView {
 
+    RepoListPresenter presenter = new RepoListPresenter(this);
+
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
 
+
     @Bind(R.id.edit_text)
     EditText editText;
+
     @Bind(R.id.button_search)
     Button searchButton;
-    private RepoListPresenter presenter = new RepoListPresenter(this);
+
     private RepoListAdapter adapter;
+
 
     @Nullable
     @Override

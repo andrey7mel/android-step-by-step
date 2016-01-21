@@ -5,10 +5,16 @@ import com.andrey7mel.testrx.presenter.vo.Branch;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import rx.Observable;
 import rx.functions.Func1;
 
 public class RepoBranchesMapper implements Func1<List<BranchDTO>, List<Branch>> {
+
+    @Inject
+    public RepoBranchesMapper() {
+    }
 
     @Override
     public List<Branch> call(List<BranchDTO> branchDTOs) {

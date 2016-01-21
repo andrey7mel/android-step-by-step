@@ -3,12 +3,15 @@ package com.andrey7mel.testrx.presenter;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.andrey7mel.testrx.other.App;
 import com.andrey7mel.testrx.presenter.mappers.RepoListMapper;
 import com.andrey7mel.testrx.presenter.vo.Repository;
 import com.andrey7mel.testrx.view.fragments.RepoListView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import rx.Observer;
 import rx.Subscription;
@@ -17,13 +20,16 @@ public class RepoListPresenter extends BasePresenter {
 
     private static final String BUNDLE_REPO_LIST_KEY = "BUNDLE_REPO_LIST_KEY";
 
-    private RepoListView view;
+    @Inject
+    protected RepoListMapper repoListMapper;
 
-    private RepoListMapper repoListMapper = new RepoListMapper();
+    private RepoListView view;
 
     private List<Repository> repoList;
 
     public RepoListPresenter(RepoListView view) {
+        super();
+        App.getComponent().inject(this);
         this.view = view;
     }
 
@@ -31,7 +37,7 @@ public class RepoListPresenter extends BasePresenter {
         String name = view.getUserName();
         if (TextUtils.isEmpty(name)) return;
 
-        Subscription subscription = dataRepository.getRepoList(name)
+        Subscription subscription = model.getRepoList(name)
                 .map(repoListMapper)
                 .subscribe(new Observer<List<Repository>>() {
                     @Override

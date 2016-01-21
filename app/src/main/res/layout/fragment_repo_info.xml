@@ -59,7 +59,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_contributors"
             android:layout_width="match_parent"

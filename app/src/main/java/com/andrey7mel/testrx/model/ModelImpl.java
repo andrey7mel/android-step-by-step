@@ -1,27 +1,40 @@
 package com.andrey7mel.testrx.model;
 
 import com.andrey7mel.testrx.model.api.ApiInterface;
-import com.andrey7mel.testrx.model.api.ApiModule;
 import com.andrey7mel.testrx.model.dto.BranchDTO;
 import com.andrey7mel.testrx.model.dto.ContributorDTO;
 import com.andrey7mel.testrx.model.dto.RepositoryDTO;
+import com.andrey7mel.testrx.other.App;
+import com.andrey7mel.testrx.other.Const;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import rx.Scheduler;
 
 public class ModelImpl implements Model {
 
     private final Observable.Transformer schedulersTransformer;
-    private ApiInterface apiInterface = ApiModule.getApiInterface();
+
+    @Inject
+    protected ApiInterface apiInterface;
+
+    @Inject
+    @Named(Const.UI_THREAD)
+    Scheduler uiThread;
+
+    @Inject
+    @Named(Const.IO_THREAD)
+    Scheduler ioThread;
 
     public ModelImpl() {
-        schedulersTransformer = o -> ((Observable) o).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.io()) // TODO: remove when https://github.com/square/okhttp/issues/1592 is fixed
-        ;
+        App.getComponent().inject(this);
+        schedulersTransformer = o -> ((Observable) o).subscribeOn(ioThread)
+                .observeOn(uiThread)
+                .unsubscribeOn(ioThread); // TODO: remove when https://github.com/square/okhttp/issues/1592 is fixed
     }
 
     @Override
