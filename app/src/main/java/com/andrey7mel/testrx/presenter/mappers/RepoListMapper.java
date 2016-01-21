@@ -8,7 +8,7 @@ import java.util.List;
 import rx.Observable;
 import rx.functions.Func1;
 
-public class UserReposMapper implements Func1<List<RepositoryDTO>, List<Repository>> {
+public class RepoListMapper implements Func1<List<RepositoryDTO>, List<Repository>> {
     @Override
     public List<Repository> call(List<RepositoryDTO> repositoryDTOs) {
         List<Repository> repoList = Observable.from(repositoryDTOs)
