@@ -3,7 +3,7 @@ package com.andrey7mel.testrx.presenter;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.andrey7mel.testrx.presenter.mappers.UserReposMapper;
+import com.andrey7mel.testrx.presenter.mappers.RepoListMapper;
 import com.andrey7mel.testrx.presenter.vo.Repository;
 import com.andrey7mel.testrx.view.fragments.RepoListView;
 
@@ -13,13 +13,13 @@ import java.util.List;
 import rx.Observer;
 import rx.Subscription;
 
-public class RepoListPresenter extends BasePresenterImpl {
+public class RepoListPresenter extends BasePresenter {
 
     private static final String BUNDLE_REPO_LIST_KEY = "BUNDLE_REPO_LIST_KEY";
 
     private RepoListView view;
 
-    private UserReposMapper userReposMapper = new UserReposMapper();
+    private RepoListMapper repoListMapper = new RepoListMapper();
 
     private List<Repository> repoList;
 
@@ -32,7 +32,7 @@ public class RepoListPresenter extends BasePresenterImpl {
         if (TextUtils.isEmpty(name)) return;
 
         Subscription subscription = dataRepository.getRepoList(name)
-                .map(userReposMapper)
+                .map(repoListMapper)
                 .subscribe(new Observer<List<Repository>>() {
                     @Override
                     public void onCompleted() {
