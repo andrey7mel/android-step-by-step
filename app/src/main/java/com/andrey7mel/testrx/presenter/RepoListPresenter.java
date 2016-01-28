@@ -26,7 +26,7 @@ public class RepoListPresenter implements Presenter {
     public void onSearchButtonClick() {
 
         if (!subscription.isUnsubscribed()) {
-            subscription.isUnsubscribed();
+            subscription.unsubscribe();
         }
 
         subscription = model.getRepoList(view.getUserName())
