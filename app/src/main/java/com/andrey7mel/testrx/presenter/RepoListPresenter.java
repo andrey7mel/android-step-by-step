@@ -65,12 +65,10 @@ public class RepoListPresenter extends BasePresenter {
     public void onCreate(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             repoList = (List<Repository>) savedInstanceState.getSerializable(BUNDLE_REPO_LIST_KEY);
-
-            if (isRepoListNotEmpty()) {
-                view.showRepoList(repoList);
-            }
         }
-
+        if (isRepoListNotEmpty()) {
+            view.showRepoList(repoList);
+        }
     }
 
     private boolean isRepoListNotEmpty() {
