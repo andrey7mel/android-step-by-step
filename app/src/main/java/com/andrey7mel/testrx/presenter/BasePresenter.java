@@ -26,7 +26,7 @@ public abstract class BasePresenter implements Presenter {
 
     @Override
     public void onStop() {
-        compositeSubscription.unsubscribe();
+        compositeSubscription.clear();
     }
 
 }
