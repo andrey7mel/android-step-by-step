@@ -1,11 +1,13 @@
 package com.andrey7mel.testrx.presenter.mappers;
 
+import com.andrey7mel.testrx.model.dto.RepositoryDTO;
 import com.andrey7mel.testrx.other.BaseTest;
 import com.andrey7mel.testrx.presenter.vo.Repository;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,10 +17,16 @@ public class RepoListMapperTest extends BaseTest {
     @Inject
     protected RepoListMapper repoListMapper;
 
+    protected List<RepositoryDTO> repositoryDTOs;
+
+
     @Before
     public void setUp() throws Exception {
         super.setUp();
         component.inject(this);
+        RepositoryDTO[] repositoryDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/repos"), RepositoryDTO[].class);
+        repositoryDTOs = Arrays.asList(repositoryDTOArray);
+
     }
 
     @Test

@@ -17,9 +17,6 @@ import org.junit.Test;
 
 import java.util.List;
 
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
-import retrofit.RxJavaCallAdapterFactory;
 import rx.observers.TestSubscriber;
 
 public class ApiInterfaceTest extends BaseTest {
@@ -53,12 +50,7 @@ public class ApiInterfaceTest extends BaseTest {
         server.setDispatcher(dispatcher);
         HttpUrl baseUrl = server.url("/");
 
-        Retrofit.Builder builder = new Retrofit.Builder().
-                baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create());
-
-        apiInterface = builder.build().create(ApiInterface.class);
+        apiInterface = ApiModule.getApiInterface(baseUrl.toString());
     }
 
 

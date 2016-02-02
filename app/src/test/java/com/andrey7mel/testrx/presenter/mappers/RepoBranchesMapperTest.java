@@ -1,11 +1,13 @@
 package com.andrey7mel.testrx.presenter.mappers;
 
+import com.andrey7mel.testrx.model.dto.BranchDTO;
 import com.andrey7mel.testrx.other.BaseTest;
 import com.andrey7mel.testrx.presenter.vo.Branch;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,10 +17,16 @@ public class RepoBranchesMapperTest extends BaseTest {
     @Inject
     protected RepoBranchesMapper branchesMapper;
 
+    private List<BranchDTO> branchDTOs;
+
+
     @Before
     public void setUp() throws Exception {
         super.setUp();
         component.inject(this);
+        BranchDTO[] branchDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/branches"), BranchDTO[].class);
+        branchDTOs = Arrays.asList(branchDTOArray);
+
     }
 
     @Test

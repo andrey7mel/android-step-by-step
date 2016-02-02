@@ -36,12 +36,6 @@ public class RepoInfoPresenter extends BasePresenter {
 
     private Repository repository;
 
-    public RepoInfoPresenter(RepoInfoView view, Repository repository) {
-        super();
-        App.getComponent().inject(this);
-        this.view = view;
-        this.repository = repository;
-    }
 
     public void loadData() {
         String owner = repository.getOwnerName();
@@ -89,7 +83,13 @@ public class RepoInfoPresenter extends BasePresenter {
         addSubscription(subscriptionContributors);
     }
 
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(RepoInfoView view, Repository repository) {
+        App.getComponent().inject(this);
+        this.view = view;
+        this.repository = repository;
+    }
+
+    public void onCreateView(Bundle savedInstanceState) {
 
         if (savedInstanceState != null) {
             contributorList = (List<Contributor>) savedInstanceState.getSerializable(BUNDLE_CONTRIBUTORS_KEY);

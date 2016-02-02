@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.andrey7mel.testrx.R;
+import com.andrey7mel.testrx.other.di.view.DaggerViewComponent;
+import com.andrey7mel.testrx.other.di.view.ViewDynamicModule;
 import com.andrey7mel.testrx.presenter.BasePresenter;
 import com.andrey7mel.testrx.presenter.RepoListPresenter;
 import com.andrey7mel.testrx.presenter.vo.Repository;
@@ -21,6 +23,8 @@ import com.andrey7mel.testrx.view.adapters.RepoListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -36,7 +40,8 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
     @Bind(R.id.button_search)
     Button searchButton;
 
-    private RepoListPresenter presenter = new RepoListPresenter(this);
+    @Inject
+    RepoListPresenter presenter;
 
     private RepoListAdapter adapter;
 
@@ -56,6 +61,15 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
         }
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        DaggerViewComponent.builder()
+                .viewDynamicModule(new ViewDynamicModule(this))
+                .build()
+                .inject(this);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,7 +83,7 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
 
         searchButton.setOnClickListener(v -> presenter.onSearchButtonClick());
 
-        presenter.onCreate(savedInstanceState);
+        presenter.onCreateView(savedInstanceState);
 
         return view;
     }

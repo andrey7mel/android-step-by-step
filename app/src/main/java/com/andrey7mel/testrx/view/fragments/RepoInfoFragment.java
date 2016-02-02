@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.andrey7mel.testrx.R;
+import com.andrey7mel.testrx.other.App;
 import com.andrey7mel.testrx.presenter.BasePresenter;
 import com.andrey7mel.testrx.presenter.RepoInfoPresenter;
 import com.andrey7mel.testrx.presenter.vo.Branch;
@@ -20,6 +21,8 @@ import com.andrey7mel.testrx.view.adapters.BranchesAdapter;
 import com.andrey7mel.testrx.view.adapters.ContributorsAdapter;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,7 +38,9 @@ public class RepoInfoFragment extends BaseFragment implements RepoInfoView {
     RecyclerView contributorsRecyclerView;
     @Bind(R.id.linear_layout)
     View layout;
-    private RepoInfoPresenter presenter;
+
+    @Inject
+    RepoInfoPresenter presenter;
 
     public static RepoInfoFragment newInstance(Repository repository) {
         RepoInfoFragment myFragment = new RepoInfoFragment();
@@ -50,11 +55,20 @@ public class RepoInfoFragment extends BaseFragment implements RepoInfoView {
 
     @Override
     protected BasePresenter getPresenter() {
+        App.getComponent().inject(this);
         return presenter;
     }
 
     private Repository getRepositoryVO() {
         return (Repository) getArguments().getSerializable(BUNDLE_REPO_KEY);
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        App.getComponent().inject(this);
+        presenter.onCreate(this, getRepositoryVO());
     }
 
     @Nullable
@@ -69,8 +83,7 @@ public class RepoInfoFragment extends BaseFragment implements RepoInfoView {
         branchesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         contributorsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        presenter = new RepoInfoPresenter(this, getRepositoryVO());
-        presenter.onCreate(savedInstanceState);
+        presenter.onCreateView(savedInstanceState);
 
         return view;
     }

@@ -62,7 +62,7 @@ public class RepoListPresenter extends BasePresenter {
         addSubscription(subscription);
     }
 
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreateView(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             repoList = (List<Repository>) savedInstanceState.getSerializable(BUNDLE_REPO_LIST_KEY);
         }
