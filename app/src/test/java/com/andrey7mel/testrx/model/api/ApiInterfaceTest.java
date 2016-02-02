@@ -27,6 +27,7 @@ public class ApiInterfaceTest extends BaseTest {
 
     @Before
     public void setUp() throws Exception {
+        super.setUp();
         server = new MockWebServer();
         server.start();
         final Dispatcher dispatcher = new Dispatcher() {

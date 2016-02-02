@@ -17,6 +17,7 @@ import com.andrey7mel.testrx.view.fragments.RepoInfoView;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -34,8 +35,10 @@ public class RepoInfoPresenterTest extends BaseTest {
 
     protected List<ContributorDTO> contributorDTOs;
     protected List<BranchDTO> branchDTOs;
+
     protected List<Contributor> contributorList;
     protected List<Branch> branchList;
+
     @Inject
     protected RepoBranchesMapper branchesMapper;
     @Inject
@@ -50,6 +53,12 @@ public class RepoInfoPresenterTest extends BaseTest {
     public void setUp() throws Exception {
         super.setUp();
         component.inject(this);
+
+        ContributorDTO[] contributorDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/contributors"), ContributorDTO[].class);
+        BranchDTO[] branchDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/branches"), BranchDTO[].class);
+        contributorDTOs = Arrays.asList(contributorDTOArray);
+        branchDTOs = Arrays.asList(branchDTOArray);
+
 
         contributorList = contributorsMapper.call(contributorDTOs);
         branchList = branchesMapper.call(branchDTOs);

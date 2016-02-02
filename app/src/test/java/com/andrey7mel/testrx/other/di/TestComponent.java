@@ -6,6 +6,7 @@ import com.andrey7mel.testrx.presenter.RepoListPresenterTest;
 import com.andrey7mel.testrx.presenter.mappers.RepoBranchesMapperTest;
 import com.andrey7mel.testrx.presenter.mappers.RepoContributorsMapperTest;
 import com.andrey7mel.testrx.presenter.mappers.RepoListMapperTest;
+import com.andrey7mel.testrx.view.fragments.RepoInfoFragmentTest;
 
 import javax.inject.Singleton;
 
@@ -27,4 +28,6 @@ public interface TestComponent extends AppComponent {
     void inject(RepoContributorsMapperTest repoContributorsMapperTest);
 
     void inject(RepoListMapperTest userReposMapperTest);
+
+    void inject(RepoInfoFragmentTest repoInfoFragmentTest);
 }
