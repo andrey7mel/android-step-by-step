@@ -17,6 +17,7 @@ import org.robolectric.Robolectric;
 
 import javax.inject.Inject;
 
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 public class RepoInfoFragmentTest extends BaseTest {
@@ -28,6 +29,10 @@ public class RepoInfoFragmentTest extends BaseTest {
 
     Repository repository;
 
+    MainActivity activity;
+
+    Bundle bundle;
+
     @Override
     @Before
     public void setUp() throws Exception {
@@ -36,53 +41,45 @@ public class RepoInfoFragmentTest extends BaseTest {
         repository = new Repository(TestConst.TEST_REPO, TestConst.TEST_OWNER);
 
         repoInfoFragment = RepoInfoFragment.newInstance(repository);
+        activity = Robolectric.setupActivity(MainActivity.class);
+        bundle = Bundle.EMPTY;
+
+        repoInfoFragment.onCreate(null); // need for DI
     }
 
 
     @Test
     public void testOnCreate() {
         repoInfoFragment.onCreate(null);
-        verify(repoInfoPresenter).onCreate(repoInfoFragment, repository);
+        verify(repoInfoPresenter, times(2)).onCreate(repoInfoFragment, repository); //2 times setUp() + testOnCreate()
     }
 
     @Test
     public void testOnCreateView() {
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-        repoInfoFragment.onCreate(null); // need for DI
         repoInfoFragment.onCreateView(LayoutInflater.from(activity), (ViewGroup) activity.findViewById(R.id.container), null);
         verify(repoInfoPresenter).onCreateView(null);
     }
 
     @Test
     public void testOnCreateViewWithBundle() {
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-        Bundle bundle = Bundle.EMPTY;
-        repoInfoFragment.onCreate(null); // need for DI
         repoInfoFragment.onCreateView(LayoutInflater.from(activity), (ViewGroup) activity.findViewById(R.id.container), bundle);
         verify(repoInfoPresenter).onCreateView(bundle);
     }
 
     @Test
     public void testOnStop() {
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-        repoInfoFragment.onCreate(null); // need for DI
         repoInfoFragment.onStop();
         verify(repoInfoPresenter).onStop();
     }
 
     @Test
     public void testOnSaveInstanceState() {
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-        repoInfoFragment.onCreate(null); // need for DI
         repoInfoFragment.onSaveInstanceState(null);
         verify(repoInfoPresenter).onSaveInstanceState(null);
     }
 
     @Test
     public void testOnSaveInstanceStateWithBundle() {
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-        Bundle bundle = Bundle.EMPTY;
-        repoInfoFragment.onCreate(null); // need for DI
         repoInfoFragment.onSaveInstanceState(bundle);
         verify(repoInfoPresenter).onSaveInstanceState(bundle);
     }
