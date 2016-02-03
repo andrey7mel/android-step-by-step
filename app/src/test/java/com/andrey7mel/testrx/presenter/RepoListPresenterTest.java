@@ -12,6 +12,7 @@ import com.andrey7mel.testrx.view.fragments.RepoListView;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,8 +20,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import rx.Observable;
+import rx.Subscription;
 
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
@@ -75,11 +76,11 @@ public class RepoListPresenterTest extends BaseTest {
         repoListPresenter.onSearchButtonClick();
         repoListPresenter.onStop();
 
-
-        // Нужно перехватить Subscription в методе addSubscription и проверить что она отписана
-        verify(repoListPresenter).addSubscription(any());
-        assertTrue(repoListPresenter.compositeSubscription.isUnsubscribed());
-
+        ArgumentCaptor<Subscription> captor = ArgumentCaptor.forClass(Subscription.class);
+        verify(repoListPresenter).addSubscription(captor.capture());
+        List<Subscription> subscriptions = captor.getAllValues();
+        assertEquals(1, subscriptions.size());
+        assertTrue(subscriptions.get(0).isUnsubscribed());
     }
 
     @Test
@@ -94,7 +95,6 @@ public class RepoListPresenterTest extends BaseTest {
         repoListPresenter.onCreateView(bundle);
 
         verify(mockView, times(2)).showRepoList(repoList);
-
         verify(model).getRepoList(TestConst.TEST_OWNER);
     }
 }

@@ -16,6 +16,7 @@ import com.andrey7mel.testrx.view.fragments.RepoInfoView;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,8 +24,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import rx.Observable;
+import rx.Subscription;
 
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
@@ -94,11 +95,14 @@ public class RepoInfoPresenterTest extends BaseTest {
     public void testSubscribe() {
         repoInfoPresenter.onCreateView(null);
 
-        verify(repoInfoPresenter, times(2)).addSubscription(any());
-
         repoInfoPresenter.onStop();
-        assertTrue(repoInfoPresenter.compositeSubscription.isUnsubscribed());
 
+        ArgumentCaptor<Subscription> captor = ArgumentCaptor.forClass(Subscription.class);
+        verify(repoInfoPresenter, times(2)).addSubscription(captor.capture());
+        List<Subscription> subscriptions = captor.getAllValues();
+        assertEquals(2, subscriptions.size());
+        assertTrue(subscriptions.get(0).isUnsubscribed());
+        assertTrue(subscriptions.get(1).isUnsubscribed());
     }
 
     @Test

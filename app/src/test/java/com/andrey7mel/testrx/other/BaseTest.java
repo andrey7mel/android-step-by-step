@@ -10,10 +10,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
-
-/**
- * Created by an.melnikov on 17.09.2015.
- */
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(application = TestApplication.class,
         constants = BuildConfig.class,
