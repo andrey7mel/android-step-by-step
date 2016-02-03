@@ -22,16 +22,14 @@ import static org.mockito.Mockito.verify;
 
 public class RepoInfoFragmentTest extends BaseTest {
 
-    RepoInfoFragment repoInfoFragment;
-
     @Inject
     RepoInfoPresenter repoInfoPresenter;
+    private RepoInfoFragment repoInfoFragment;
+    private Repository repository;
 
-    Repository repository;
+    private MainActivity activity;
 
-    MainActivity activity;
-
-    Bundle bundle;
+    private Bundle bundle;
 
     @Override
     @Before

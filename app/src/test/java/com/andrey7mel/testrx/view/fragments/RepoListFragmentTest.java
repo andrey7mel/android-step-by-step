@@ -18,13 +18,13 @@ import static org.mockito.Mockito.verify;
 
 public class RepoListFragmentTest extends BaseTest {
 
-    RepoListFragment repoListFragment;
+    private RepoListFragment repoListFragment;
 
-    RepoListPresenter repoListPresenter;
+    private RepoListPresenter repoListPresenter;
 
-    MainActivity activity;
+    private MainActivity activity;
 
-    Bundle bundle;
+    private Bundle bundle;
 
     @Override
     @Before

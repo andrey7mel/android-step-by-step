@@ -21,9 +21,8 @@ import rx.observers.TestSubscriber;
 
 public class ApiInterfaceTest extends BaseTest {
 
-
-    MockWebServer server;
-    ApiInterface apiInterface;
+    private MockWebServer server;
+    private ApiInterface apiInterface;
 
     @Before
     public void setUp() throws Exception {
@@ -48,9 +47,9 @@ public class ApiInterfaceTest extends BaseTest {
                 return new MockResponse().setResponseCode(404);
             }
         };
+
         server.setDispatcher(dispatcher);
         HttpUrl baseUrl = server.url("/");
-
         apiInterface = ApiModule.getApiInterface(baseUrl.toString());
     }
 

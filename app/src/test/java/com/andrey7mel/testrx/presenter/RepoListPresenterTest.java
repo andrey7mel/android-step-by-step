@@ -27,14 +27,13 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-//TODO Fix tests without autoload
 public class RepoListPresenterTest extends BaseTest {
 
     @Inject
-    protected RepoListMapper repoListMapper;
-    protected List<Repository> repoList;
+    RepoListMapper repoListMapper;
     @Inject
     Model model;
+    private List<Repository> repoList;
     private RepoListView mockView;
     private RepoListPresenter repoListPresenter;
 
