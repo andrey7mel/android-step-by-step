@@ -13,7 +13,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.andrey7mel.testrx"
+        applicationId "com.andrey7mel.stepbystep"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
@@ -72,9 +72,9 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
                        '**/*$ViewBinder*.*',   //DI
                        '**/*_MembersInjector*.*',  //DI
                        '**/*_Factory*.*',  //DI
-                       '**/testrx/model/dto/*.*', //dto model
-                       '**/testrx/presenter/vo/*.*', //vo model
-                       '**/testrx/other/**',
+                       '**/stepbystep/model/dto/*.*', //dto model
+                       '**/stepbystep/presenter/vo/*.*', //vo model
+                       '**/stepbystep/other/**',
                        '**/BuildConfig.*',
                        '**/Manifest*.*',
                        '**/Lambda$*.class',

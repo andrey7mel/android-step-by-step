@@ -1,4 +1,4 @@
-package com.andrey7mel.testrx;
+package com.andrey7mel.stepbystep;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
