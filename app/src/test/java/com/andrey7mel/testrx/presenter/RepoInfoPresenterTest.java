@@ -91,10 +91,33 @@ public class RepoInfoPresenterTest extends BaseTest {
         verify(mockView).showContributors(contributorList);
     }
 
+
+    @Test
+    public void testOnErrorBranches() {
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoBranches(TestConst.TEST_OWNER, TestConst.TEST_REPO);
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).showError(TestConst.TEST_ERROR);
+    }
+
+    @Test
+    public void testOnErrorContributors() {
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO);
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).showError(TestConst.TEST_ERROR);
+    }
+
+
     @Test
     public void testSubscribe() {
         repoInfoPresenter.onCreateView(null);
-
         repoInfoPresenter.onStop();
 
         ArgumentCaptor<Subscription> captor = ArgumentCaptor.forClass(Subscription.class);

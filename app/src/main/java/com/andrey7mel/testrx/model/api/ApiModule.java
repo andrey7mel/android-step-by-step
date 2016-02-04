@@ -8,11 +8,14 @@ import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 import retrofit.RxJavaCallAdapterFactory;
 
-public class ApiModule {
+public final class ApiModule {
     private static final boolean ENABLE_LOG = true;
 
     private static final boolean ENABLE_AUTH = false;
     private static final String AUTH_64 = "***";
+
+    private ApiModule() {
+    }
 
     public static ApiInterface getApiInterface(String url) {
 

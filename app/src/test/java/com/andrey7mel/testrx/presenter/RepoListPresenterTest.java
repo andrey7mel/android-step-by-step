@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,6 +25,7 @@ import rx.Subscription;
 
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -68,6 +70,62 @@ public class RepoListPresenterTest extends BaseTest {
         repoListPresenter.onStop();
 
         verify(mockView).showRepoList(repoList);
+    }
+
+    @Test
+    public void testLoadNullData() {
+        doAnswer(invocation -> Observable.just(null))
+                .when(model)
+                .getRepoList(TestConst.TEST_OWNER);
+
+        repoListPresenter.onSearchButtonClick();
+
+        verify(mockView).showEmptyList();
+    }
+
+    @Test
+    public void testLoadEmptyData() {
+        doAnswer(invocation -> Observable.just(Collections.emptyList()))
+                .when(model)
+                .getRepoList(TestConst.TEST_OWNER);
+
+        repoListPresenter.onSearchButtonClick();
+
+        verify(mockView).showEmptyList();
+    }
+
+
+    @Test
+    public void testOnError() {
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoList(TestConst.TEST_OWNER);
+
+        repoListPresenter.onSearchButtonClick();
+
+        verify(mockView).showError(TestConst.TEST_ERROR);
+    }
+
+    @Test
+    public void testEmptyName() {
+        doAnswer(invocation -> "")
+                .when(mockView)
+                .getUserName();
+
+        repoListPresenter.onSearchButtonClick();
+
+        verify(mockView, never()).showEmptyList();
+        verify(mockView, never()).showRepoList(repoList);
+
+    }
+
+    @Test
+    public void testClickRepo() {
+        Repository repository = new Repository(TestConst.TEST_REPO, TestConst.TEST_OWNER);
+
+        repoListPresenter.clickRepo(repository);
+
+        verify(mockView).startRepoInfoFragment(repository);
     }
 
     @Test

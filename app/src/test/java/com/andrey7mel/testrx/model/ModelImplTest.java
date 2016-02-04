@@ -42,7 +42,7 @@ public class ModelImplTest extends BaseTest {
         when(apiInterface.getRepositories(TestConst.TEST_OWNER)).thenReturn(Observable.just(Arrays.asList(repositoryDTOs)));
 
         TestSubscriber<List<RepositoryDTO>> testSubscriber = new TestSubscriber<>();
-        apiInterface.getRepositories(TestConst.TEST_OWNER).subscribe(testSubscriber);
+        model.getRepoList(TestConst.TEST_OWNER).subscribe(testSubscriber);
 
         testSubscriber.assertNoErrors();
         testSubscriber.assertValueCount(1);
@@ -84,7 +84,7 @@ public class ModelImplTest extends BaseTest {
 
 
         TestSubscriber<List<ContributorDTO>> testSubscriber = new TestSubscriber<>();
-        apiInterface.getContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO).subscribe(testSubscriber);
+        model.getRepoContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO).subscribe(testSubscriber);
 
         testSubscriber.assertNoErrors();
         testSubscriber.assertValueCount(1);
