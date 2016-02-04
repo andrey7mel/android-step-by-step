@@ -69,11 +69,11 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
             excludes: ['**/R.class',
                        '**/R$*.class',
                        '**/*$ViewInjector*.*',
-                       '**/*$ViewBinder*.*',
-                       '**/*_MembersInjector*.*',
-                       '**/*_Factory*.*',
-                       '**/testrx/model/dto/*.*',
-                       '**/testrx/presenter/vo/*.*',
+                       '**/*$ViewBinder*.*',   //DI
+                       '**/*_MembersInjector*.*',  //DI
+                       '**/*_Factory*.*',  //DI
+                       '**/testrx/model/dto/*.*', //dto model
+                       '**/testrx/presenter/vo/*.*', //vo model
                        '**/testrx/other/**',
                        '**/BuildConfig.*',
                        '**/Manifest*.*',
