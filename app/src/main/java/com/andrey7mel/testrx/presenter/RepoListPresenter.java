@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.andrey7mel.testrx.other.App;
 import com.andrey7mel.testrx.presenter.mappers.RepoListMapper;
 import com.andrey7mel.testrx.presenter.vo.Repository;
+import com.andrey7mel.testrx.view.ActivityCallback;
 import com.andrey7mel.testrx.view.fragments.RepoListView;
 
 import java.util.ArrayList;
@@ -25,12 +26,15 @@ public class RepoListPresenter extends BasePresenter {
 
     private RepoListView view;
 
+    private ActivityCallback activityCallback;
+
     private List<Repository> repoList;
 
-    public RepoListPresenter(RepoListView view) {
+    public RepoListPresenter(RepoListView view, ActivityCallback activityCallback) {
         super();
         App.getComponent().inject(this);
         this.view = view;
+        this.activityCallback = activityCallback;
     }
 
     public void onSearchButtonClick() {
@@ -82,7 +86,7 @@ public class RepoListPresenter extends BasePresenter {
     }
 
     public void clickRepo(Repository repository) {
-        view.startRepoInfoFragment(repository);
+        activityCallback.startRepoInfoFragment(repository);
     }
 
 }

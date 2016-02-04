@@ -65,7 +65,7 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DaggerViewComponent.builder()
-                .viewDynamicModule(new ViewDynamicModule(this))
+                .viewDynamicModule(new ViewDynamicModule(this, activityCallback))
                 .build()
                 .inject(this);
     }
@@ -107,11 +107,6 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
     @Override
     public void showRepoList(List<Repository> repoList) {
         adapter.setRepoList(repoList);
-    }
-
-    @Override
-    public void startRepoInfoFragment(Repository repository) {
-        activityCallback.startRepoInfoFragment(repository);
     }
 
     @Override

@@ -26,8 +26,10 @@ import javax.inject.Inject;
 import rx.Observable;
 import rx.Subscription;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -89,6 +91,21 @@ public class RepoInfoPresenterTest extends BaseTest {
 
         verify(mockView).showBranches(branchList);
         verify(mockView).showContributors(contributorList);
+    }
+
+    @Test
+    public void testLoadNullData() {
+        doAnswer(invocation -> Observable.just(null))
+                .when(model)
+                .getRepoBranches(TestConst.TEST_OWNER, TestConst.TEST_REPO);
+
+        doAnswer(invocation -> Observable.just(null))
+                .when(model)
+                .getRepoContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO);
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView, never()).showError(any());
     }
 
 

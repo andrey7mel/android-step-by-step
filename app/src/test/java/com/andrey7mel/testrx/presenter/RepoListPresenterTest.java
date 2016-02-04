@@ -8,6 +8,7 @@ import com.andrey7mel.testrx.other.BaseTest;
 import com.andrey7mel.testrx.other.TestConst;
 import com.andrey7mel.testrx.presenter.mappers.RepoListMapper;
 import com.andrey7mel.testrx.presenter.vo.Repository;
+import com.andrey7mel.testrx.view.ActivityCallback;
 import com.andrey7mel.testrx.view.fragments.RepoListView;
 
 import org.junit.Before;
@@ -36,6 +37,7 @@ public class RepoListPresenterTest extends BaseTest {
     RepoListMapper repoListMapper;
     @Inject
     Model model;
+    ActivityCallback activityCallback;
     private List<Repository> repoList;
     private RepoListView mockView;
     private RepoListPresenter repoListPresenter;
@@ -48,10 +50,10 @@ public class RepoListPresenterTest extends BaseTest {
         RepositoryDTO[] repositoryDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/repos"), RepositoryDTO[].class);
         List<RepositoryDTO> repositoryDTOs = Arrays.asList(repositoryDTOArray);
         repoList = repoListMapper.call(repositoryDTOs);
-
+        activityCallback = mock(ActivityCallback.class);
 
         mockView = mock(RepoListView.class);
-        repoListPresenter = spy(new RepoListPresenter(mockView));
+        repoListPresenter = spy(new RepoListPresenter(mockView, activityCallback));
 
         doAnswer(invocation -> Observable.just(repositoryDTOs))
                 .when(model)
@@ -125,7 +127,7 @@ public class RepoListPresenterTest extends BaseTest {
 
         repoListPresenter.clickRepo(repository);
 
-        verify(mockView).startRepoInfoFragment(repository);
+        verify(activityCallback).startRepoInfoFragment(repository);
     }
 
     @Test

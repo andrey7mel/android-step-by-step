@@ -8,8 +8,6 @@ public interface RepoListView extends View {
 
     void showRepoList(List<Repository> vo);
 
-    void startRepoInfoFragment(Repository vo);
-
     void showEmptyList();
 
     String getUserName();

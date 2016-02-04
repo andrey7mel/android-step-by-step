@@ -17,8 +17,11 @@ public class RepoContributorsMapper implements Func1<List<ContributorDTO>, List<
     }
 
     @Override
-    public List<Contributor> call(List<ContributorDTO> branchDTOs) {
-        List<Contributor> contributors = Observable.from(branchDTOs)
+    public List<Contributor> call(List<ContributorDTO> contributorDTOs) {
+        if (contributorDTOs == null) {
+            return null;
+        }
+        List<Contributor> contributors = Observable.from(contributorDTOs)
                 .map(contributorDTO -> new Contributor(contributorDTO.getLogin()))
                 .toList()
                 .toBlocking()
