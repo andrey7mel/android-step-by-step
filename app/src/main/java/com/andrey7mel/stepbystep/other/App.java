@@ -4,8 +4,6 @@ import android.app.Application;
 
 import com.andrey7mel.stepbystep.other.di.AppComponent;
 import com.andrey7mel.stepbystep.other.di.DaggerAppComponent;
-import com.andrey7mel.stepbystep.other.di.ModelModule;
-import com.andrey7mel.stepbystep.other.di.PresenterModule;
 
 public class App extends Application {
     private static AppComponent component;
@@ -22,8 +20,6 @@ public class App extends Application {
 
     protected AppComponent buildComponent() {
         return DaggerAppComponent.builder()
-                .modelModule(new ModelModule())
-                .presenterModule(new PresenterModule())
                 .build();
     }
 
