@@ -27,5 +27,4 @@ public class IntegrationBaseTest extends Assert {
         component = (IntegrationTestComponent) App.getComponent();
         testUtils = new TestUtils();
     }
-
 }
