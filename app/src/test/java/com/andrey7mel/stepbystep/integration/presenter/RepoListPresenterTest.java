@@ -1,11 +1,11 @@
-package com.andrey7mel.stepbystep.presenter;
+package com.andrey7mel.stepbystep.integration.presenter;
 
 import android.os.Bundle;
 
+import com.andrey7mel.stepbystep.integration.other.IntegrationBaseTest;
 import com.andrey7mel.stepbystep.model.Model;
-import com.andrey7mel.stepbystep.model.dto.RepositoryDTO;
-import com.andrey7mel.stepbystep.other.BaseTest;
 import com.andrey7mel.stepbystep.other.TestConst;
+import com.andrey7mel.stepbystep.presenter.RepoListPresenter;
 import com.andrey7mel.stepbystep.presenter.mappers.RepoListMapper;
 import com.andrey7mel.stepbystep.presenter.vo.Repository;
 import com.andrey7mel.stepbystep.view.ActivityCallback;
@@ -13,15 +13,10 @@ import com.andrey7mel.stepbystep.view.fragments.RepoListView;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
-
-import rx.Observable;
-import rx.Subscription;
 
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
@@ -30,24 +25,19 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-public class RepoListPresenterTest extends BaseTest {
+public class RepoListPresenterTest extends IntegrationBaseTest {
 
     @Inject
     protected RepoListMapper repoListMapper;
-
     @Inject
     protected Model model;
 
     @Inject
     protected List<Repository> repoList;
 
-    @Inject
-    protected List<RepositoryDTO> repositoryDTOs;
-
     private RepoListView mockView;
     private RepoListPresenter repoListPresenter;
     private ActivityCallback activityCallback;
-
 
     @Before
     public void setUp() throws Exception {
@@ -57,15 +47,10 @@ public class RepoListPresenterTest extends BaseTest {
         activityCallback = mock(ActivityCallback.class);
 
         mockView = mock(RepoListView.class);
-        repoListPresenter = spy(new RepoListPresenter(mockView, activityCallback));
-
-        doAnswer(invocation -> Observable.just(repositoryDTOs))
-                .when(model)
-                .getRepoList(TestConst.TEST_OWNER);
-
         doAnswer(invocation -> TestConst.TEST_OWNER)
                 .when(mockView)
                 .getUserName();
+        repoListPresenter = spy(new RepoListPresenter(mockView, activityCallback));
     }
 
 
@@ -78,39 +63,6 @@ public class RepoListPresenterTest extends BaseTest {
         verify(mockView).showRepoList(repoList);
     }
 
-    @Test
-    public void testLoadNullData() {
-        doAnswer(invocation -> Observable.just(null))
-                .when(model)
-                .getRepoList(TestConst.TEST_OWNER);
-
-        repoListPresenter.onSearchButtonClick();
-
-        verify(mockView).showEmptyList();
-    }
-
-    @Test
-    public void testLoadEmptyData() {
-        doAnswer(invocation -> Observable.just(Collections.emptyList()))
-                .when(model)
-                .getRepoList(TestConst.TEST_OWNER);
-
-        repoListPresenter.onSearchButtonClick();
-
-        verify(mockView).showEmptyList();
-    }
-
-
-    @Test
-    public void testOnError() {
-        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
-                .when(model)
-                .getRepoList(TestConst.TEST_OWNER);
-
-        repoListPresenter.onSearchButtonClick();
-
-        verify(mockView).showError(TestConst.TEST_ERROR);
-    }
 
     @Test
     public void testEmptyName() {
@@ -134,18 +86,6 @@ public class RepoListPresenterTest extends BaseTest {
         verify(activityCallback).startRepoInfoFragment(repository);
     }
 
-    @Test
-    public void testSubscribe() {
-        repoListPresenter.onCreateView(null);
-        repoListPresenter.onSearchButtonClick();
-        repoListPresenter.onStop();
-
-        ArgumentCaptor<Subscription> captor = ArgumentCaptor.forClass(Subscription.class);
-        verify(repoListPresenter).addSubscription(captor.capture());
-        List<Subscription> subscriptions = captor.getAllValues();
-        assertEquals(1, subscriptions.size());
-        assertTrue(subscriptions.get(0).isUnsubscribed());
-    }
 
     @Test
     public void testSaveState() {
@@ -159,6 +99,5 @@ public class RepoListPresenterTest extends BaseTest {
         repoListPresenter.onCreateView(bundle);
 
         verify(mockView, times(2)).showRepoList(repoList);
-        verify(model).getRepoList(TestConst.TEST_OWNER);
     }
 }

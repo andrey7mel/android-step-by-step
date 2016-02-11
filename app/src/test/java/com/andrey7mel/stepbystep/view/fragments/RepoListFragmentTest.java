@@ -6,6 +6,9 @@ import android.view.ViewGroup;
 
 import com.andrey7mel.stepbystep.R;
 import com.andrey7mel.stepbystep.other.BaseTest;
+import com.andrey7mel.stepbystep.other.di.view.DaggerTestViewComponent;
+import com.andrey7mel.stepbystep.other.di.view.TestViewComponent;
+import com.andrey7mel.stepbystep.other.di.view.TestViewDynamicModule;
 import com.andrey7mel.stepbystep.presenter.RepoListPresenter;
 import com.andrey7mel.stepbystep.view.MainActivity;
 
@@ -13,15 +16,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.robolectric.Robolectric;
 
-import static org.mockito.Mockito.mock;
+import javax.inject.Inject;
+
 import static org.mockito.Mockito.verify;
 
 public class RepoListFragmentTest extends BaseTest {
 
+    @Inject
+    RepoListPresenter repoListPresenter;
     private RepoListFragment repoListFragment;
-
-    private RepoListPresenter repoListPresenter;
-
     private MainActivity activity;
 
     private Bundle bundle;
@@ -30,16 +33,20 @@ public class RepoListFragmentTest extends BaseTest {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        component.inject(this);
+
+        TestViewComponent testViewComponent = DaggerTestViewComponent.builder()
+                .testViewDynamicModule(new TestViewDynamicModule())
+                .build();
+
+        testViewComponent.inject(this);
 
         repoListFragment = new RepoListFragment();
         activity = Robolectric.setupActivity(MainActivity.class);
         bundle = Bundle.EMPTY;
 
-        repoListPresenter = mock(RepoListPresenter.class);
+        repoListFragment.setViewComponent(testViewComponent);
 
         repoListFragment.onCreate(null); // need for DI
-        repoListFragment.presenter = repoListPresenter;
     }
 
 

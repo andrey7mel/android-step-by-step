@@ -30,6 +30,12 @@ public class RepoListPresenter extends BasePresenter {
 
     private List<Repository> repoList;
 
+
+    // for DI
+    @Inject
+    public RepoListPresenter() {
+    }
+
     public RepoListPresenter(RepoListView view, ActivityCallback activityCallback) {
         super();
         App.getComponent().inject(this);

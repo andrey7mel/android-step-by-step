@@ -36,7 +36,6 @@ public class RepoInfoPresenter extends BasePresenter {
 
     private Repository repository;
 
-
     public void loadData() {
         String owner = repository.getOwnerName();
         String name = repository.getRepoName();

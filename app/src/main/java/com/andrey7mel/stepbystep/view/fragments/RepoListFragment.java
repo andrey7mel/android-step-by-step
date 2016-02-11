@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import com.andrey7mel.stepbystep.R;
 import com.andrey7mel.stepbystep.other.di.view.DaggerViewComponent;
+import com.andrey7mel.stepbystep.other.di.view.ViewComponent;
 import com.andrey7mel.stepbystep.other.di.view.ViewDynamicModule;
 import com.andrey7mel.stepbystep.presenter.BasePresenter;
 import com.andrey7mel.stepbystep.presenter.RepoListPresenter;
@@ -28,6 +29,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class RepoListFragment extends BaseFragment implements RepoListView {
 
@@ -47,6 +49,15 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
 
     private ActivityCallback activityCallback;
 
+    private ViewComponent viewComponent;
+
+    @OnClick(R.id.button_search)
+    public void onClickSearch(View v) {
+        if (presenter != null) {
+            presenter.onSearchButtonClick();
+        }
+    }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -64,10 +75,16 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DaggerViewComponent.builder()
-                .viewDynamicModule(new ViewDynamicModule(this, activityCallback))
-                .build()
-                .inject(this);
+        if (viewComponent == null) {
+            viewComponent = DaggerViewComponent.builder()
+                    .viewDynamicModule(new ViewDynamicModule(this, activityCallback))
+                    .build();
+        }
+        viewComponent.inject(this);
+    }
+
+    public void setViewComponent(ViewComponent viewComponent) {
+        this.viewComponent = viewComponent;
     }
 
     @Nullable
@@ -81,12 +98,17 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
         adapter = new RepoListAdapter(new ArrayList<>(), presenter);
         recyclerView.setAdapter(adapter);
 
-        searchButton.setOnClickListener(v -> presenter.onSearchButtonClick());
+//        searchButton.setOnClickListener(v -> presenter.onSearchButtonClick());
 
         presenter.onCreateView(savedInstanceState);
 
         return view;
     }
+
+    public void clickSearchButton() {
+
+    }
+
 
 
     private void makeToast(String text) {

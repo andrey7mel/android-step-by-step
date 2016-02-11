@@ -18,7 +18,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,37 +35,39 @@ import static org.mockito.Mockito.verify;
 
 public class RepoInfoPresenterTest extends BaseTest {
 
+    @Inject
     protected List<ContributorDTO> contributorDTOs;
+
+    @Inject
     protected List<BranchDTO> branchDTOs;
 
+    @Inject
     protected List<Contributor> contributorList;
+
+    @Inject
     protected List<Branch> branchList;
 
     @Inject
     protected RepoBranchesMapper branchesMapper;
+
     @Inject
     protected RepoContributorsMapper contributorsMapper;
+
     @Inject
-    Model model;
+    protected Model model;
+    @Inject
+    protected Repository repository;
     private RepoInfoView mockView;
     private RepoInfoPresenter repoInfoPresenter;
-    private Repository repository;
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
         component.inject(this);
 
-        ContributorDTO[] contributorDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/contributors"), ContributorDTO[].class);
-        BranchDTO[] branchDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/branches"), BranchDTO[].class);
-        contributorDTOs = Arrays.asList(contributorDTOArray);
-        branchDTOs = Arrays.asList(branchDTOArray);
-
-
         contributorList = contributorsMapper.call(contributorDTOs);
         branchList = branchesMapper.call(branchDTOs);
 
-        repository = new Repository(TestConst.TEST_REPO, TestConst.TEST_OWNER);
         mockView = mock(RepoInfoView.class);
         repoInfoPresenter = spy(new RepoInfoPresenter());
         repoInfoPresenter.onCreate(mockView, repository);
@@ -78,8 +79,6 @@ public class RepoInfoPresenterTest extends BaseTest {
         doAnswer(invocation -> Observable.just(contributorDTOs))
                 .when(model)
                 .getRepoContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO);
-
-
     }
 
 

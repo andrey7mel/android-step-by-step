@@ -7,16 +7,13 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-import static org.mockito.Mockito.mock;
-
 @Module
 public class IntegrationTestViewModule {
 
     @Provides
     @Singleton
     RepoInfoPresenter provideRepoInfoPresenter() {
-//        return spy(new RepoInfoPresenter());
-        return mock(RepoInfoPresenter.class);
+        return new RepoInfoPresenter();
     }
 
 }

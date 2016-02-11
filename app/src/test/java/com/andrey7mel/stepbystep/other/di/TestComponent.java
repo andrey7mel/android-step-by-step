@@ -14,7 +14,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {ModelTestModule.class, PresenterTestModule.class, ViewTestModule.class})
+@Component(modules = {ModelTestModule.class, PresenterTestModule.class, ViewTestModule.class, DataTestModule.class})
 public interface TestComponent extends AppComponent {
 
 
