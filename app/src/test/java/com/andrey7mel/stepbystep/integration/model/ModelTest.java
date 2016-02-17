@@ -17,6 +17,8 @@ import javax.inject.Inject;
 
 import rx.observers.TestSubscriber;
 
+import static org.junit.Assert.assertEquals;
+
 public class ModelTest extends IntegrationBaseTest {
 
 

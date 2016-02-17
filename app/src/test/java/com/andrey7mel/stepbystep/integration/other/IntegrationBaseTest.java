@@ -10,7 +10,6 @@ import com.squareup.okhttp.mockwebserver.MockWebServer;
 import com.squareup.okhttp.mockwebserver.RecordedRequest;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
@@ -24,7 +23,7 @@ import javax.inject.Inject;
         constants = BuildConfig.class,
         sdk = 21)
 @Ignore
-public class IntegrationBaseTest extends Assert {
+public class IntegrationBaseTest {
 
     public IntegrationTestComponent component;
     public TestUtils testUtils;
