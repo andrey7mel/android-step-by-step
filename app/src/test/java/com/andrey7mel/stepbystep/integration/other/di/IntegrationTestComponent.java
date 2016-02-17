@@ -1,6 +1,7 @@
 package com.andrey7mel.stepbystep.integration.other.di;
 
 import com.andrey7mel.stepbystep.integration.model.ModelTest;
+import com.andrey7mel.stepbystep.integration.other.IntegrationBaseTest;
 import com.andrey7mel.stepbystep.integration.presenter.RepoInfoPresenterTest;
 import com.andrey7mel.stepbystep.integration.presenter.RepoListPresenterTest;
 import com.andrey7mel.stepbystep.integration.view.RepoInfoFragmentTest;
@@ -26,4 +27,6 @@ public interface IntegrationTestComponent extends AppComponent {
     void inject(RepoInfoFragmentTest repoInfoFragmentTest);
 
     void inject(RepoListFragmentTest repoListFragmentTest);
+
+    void inject(IntegrationBaseTest integrationBaseTest);
 }

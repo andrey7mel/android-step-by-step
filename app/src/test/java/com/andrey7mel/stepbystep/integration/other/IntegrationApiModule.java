@@ -12,13 +12,10 @@ import com.squareup.okhttp.mockwebserver.RecordedRequest;
 
 import java.io.IOException;
 
-public final class IntegrationApiModule {
-    private IntegrationApiModule() {
-    }
+public class IntegrationApiModule {
 
-    public static ApiInterface getApiInterface() throws IOException {
-        MockWebServer server = new MockWebServer();
-        server.start();
+    public ApiInterface getApiInterface(MockWebServer mockWebServer) throws IOException {
+        mockWebServer.start();
         TestUtils testUtils = new TestUtils();
         final Dispatcher dispatcher = new Dispatcher() {
 
@@ -39,8 +36,8 @@ public final class IntegrationApiModule {
             }
         };
 
-        server.setDispatcher(dispatcher);
-        HttpUrl baseUrl = server.url("/");
+        mockWebServer.setDispatcher(dispatcher);
+        HttpUrl baseUrl = mockWebServer.url("/");
         return ApiModule.getApiInterface(baseUrl.toString());
     }
 }
