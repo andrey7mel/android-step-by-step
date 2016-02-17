@@ -4,7 +4,10 @@ import com.andrey7mel.stepbystep.BuildConfig;
 import com.andrey7mel.stepbystep.integration.other.di.IntegrationTestComponent;
 import com.andrey7mel.stepbystep.other.App;
 import com.andrey7mel.stepbystep.other.TestUtils;
+import com.squareup.okhttp.mockwebserver.Dispatcher;
+import com.squareup.okhttp.mockwebserver.MockResponse;
 import com.squareup.okhttp.mockwebserver.MockWebServer;
+import com.squareup.okhttp.mockwebserver.RecordedRequest;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -39,5 +42,14 @@ public class IntegrationBaseTest extends Assert {
     @After
     public void tearDown() throws Exception {
         mockWebServer.shutdown();
+    }
+
+    protected void setErrorAnswerWebServer() {
+        mockWebServer.setDispatcher(new Dispatcher() {
+            @Override
+            public MockResponse dispatch(RecordedRequest request) throws InterruptedException {
+                return new MockResponse().setResponseCode(500);
+            }
+        });
     }
 }

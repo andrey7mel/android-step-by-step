@@ -48,11 +48,21 @@ public class RepoListFragmentTest extends IntegrationBaseTest {
 
     @Test
     public void testOnCreate() {
-        repoListFragment.onCreate(null); // need for DI
+        repoListFragment.onCreate(null);
         repoListFragment.onCreateView(LayoutInflater.from(activity), (ViewGroup) activity.findViewById(R.id.container), null);
         repoListFragment.onClickSearch(null);
         repoListFragment.onStop();
         verify(repoListFragment).showRepoList(repoList);
+    }
+
+    @Test
+    public void testOnCreateWithError() {
+        setErrorAnswerWebServer();
+        repoListFragment.onCreate(null);
+        repoListFragment.onCreateView(LayoutInflater.from(activity), (ViewGroup) activity.findViewById(R.id.container), null);
+        repoListFragment.onClickSearch(null);
+        repoListFragment.onStop();
+        verify(repoListFragment).showError(TestConst.ERROR_RESPONSE);
     }
 
 }

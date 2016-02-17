@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.andrey7mel.stepbystep.integration.other.IntegrationBaseTest;
 import com.andrey7mel.stepbystep.model.Model;
+import com.andrey7mel.stepbystep.other.TestConst;
 import com.andrey7mel.stepbystep.presenter.RepoInfoPresenter;
 import com.andrey7mel.stepbystep.presenter.mappers.RepoBranchesMapper;
 import com.andrey7mel.stepbystep.presenter.mappers.RepoContributorsMapper;
@@ -11,9 +12,6 @@ import com.andrey7mel.stepbystep.presenter.vo.Branch;
 import com.andrey7mel.stepbystep.presenter.vo.Contributor;
 import com.andrey7mel.stepbystep.presenter.vo.Repository;
 import com.andrey7mel.stepbystep.view.fragments.RepoInfoView;
-import com.squareup.okhttp.mockwebserver.Dispatcher;
-import com.squareup.okhttp.mockwebserver.MockResponse;
-import com.squareup.okhttp.mockwebserver.RecordedRequest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -71,17 +69,12 @@ public class RepoInfoPresenterTest extends IntegrationBaseTest {
 
     @Test
     public void testLoadDataWithError() {
-        mockWebServer.setDispatcher(new Dispatcher() {
-            @Override
-            public MockResponse dispatch(RecordedRequest request) throws InterruptedException {
-                return new MockResponse().setResponseCode(500);
-            }
-        });
+        setErrorAnswerWebServer();
 
         repoInfoPresenter.onCreateView(null);
         repoInfoPresenter.onStop();
 
-        verify(mockView, times(2)).showError("HTTP 500 OK");
+        verify(mockView, times(2)).showError(TestConst.ERROR_RESPONSE);
     }
 
 

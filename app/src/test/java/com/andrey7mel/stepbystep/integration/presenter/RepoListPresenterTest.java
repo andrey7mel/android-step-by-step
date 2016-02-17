@@ -21,7 +21,6 @@ import javax.inject.Inject;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -50,7 +49,7 @@ public class RepoListPresenterTest extends IntegrationBaseTest {
         doAnswer(invocation -> TestConst.TEST_OWNER)
                 .when(mockView)
                 .getUserName();
-        repoListPresenter = spy(new RepoListPresenter(mockView, activityCallback));
+        repoListPresenter = new RepoListPresenter(mockView, activityCallback);
     }
 
 
@@ -84,6 +83,16 @@ public class RepoListPresenterTest extends IntegrationBaseTest {
         repoListPresenter.clickRepo(repository);
 
         verify(activityCallback).startRepoInfoFragment(repository);
+    }
+
+    @Test
+    public void testLoadDataWithError() {
+        setErrorAnswerWebServer();
+        repoListPresenter.onCreateView(null);
+        repoListPresenter.onSearchButtonClick();
+        repoListPresenter.onStop();
+
+        verify(mockView).showError(TestConst.ERROR_RESPONSE);
     }
 
 

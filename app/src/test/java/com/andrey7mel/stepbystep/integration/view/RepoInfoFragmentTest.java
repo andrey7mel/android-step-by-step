@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import com.andrey7mel.stepbystep.R;
 import com.andrey7mel.stepbystep.integration.other.IntegrationBaseTest;
+import com.andrey7mel.stepbystep.other.TestConst;
 import com.andrey7mel.stepbystep.presenter.vo.Branch;
 import com.andrey7mel.stepbystep.presenter.vo.Contributor;
 import com.andrey7mel.stepbystep.presenter.vo.Repository;
@@ -21,6 +22,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 public class RepoInfoFragmentTest extends IntegrationBaseTest {
@@ -54,5 +56,14 @@ public class RepoInfoFragmentTest extends IntegrationBaseTest {
         verify(repoInfoFragment).showBranches(branchList);
         verify(repoInfoFragment).showContributors(contributorList);
 
+    }
+
+
+    @Test
+    public void testLoadDataWithError() {
+        setErrorAnswerWebServer();
+        repoInfoFragment.onCreate(null);
+        repoInfoFragment.onCreateView(LayoutInflater.from(activity), (ViewGroup) activity.findViewById(R.id.container), null);
+        verify(repoInfoFragment, times(2)).showError(TestConst.ERROR_RESPONSE);
     }
 }
