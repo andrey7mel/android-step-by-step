@@ -81,7 +81,7 @@ public class RepoInfoPresenterTest extends IntegrationBaseTest {
         repoInfoPresenter.onCreateView(null);
         repoInfoPresenter.onStop();
 
-        verify(mockView).showError("HTTP 500 OK");
+        verify(mockView, times(2)).showError("HTTP 500 OK");
     }
 
 
