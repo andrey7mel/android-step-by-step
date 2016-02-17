@@ -18,7 +18,7 @@ import rx.Scheduler;
 public class ModelImpl implements Model {
 
     private final Observable.Transformer schedulersTransformer;
-    
+
     @Inject
     protected ApiInterface apiInterface;
 

@@ -19,7 +19,7 @@ public class RepoListMapper implements Func1<List<RepositoryDTO>, List<Repositor
 
     @Override
     public List<Repository> call(List<RepositoryDTO> repositoryDTOs) {
-        if(repositoryDTOs == null) {
+        if (repositoryDTOs == null) {
             return null;
         }
         List<Repository> repoList = Observable.from(repositoryDTOs)
