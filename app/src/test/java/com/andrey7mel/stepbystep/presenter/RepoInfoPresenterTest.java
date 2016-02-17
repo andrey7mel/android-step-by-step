@@ -69,7 +69,7 @@ public class RepoInfoPresenterTest extends BaseTest {
         branchList = branchesMapper.call(branchDTOs);
 
         mockView = mock(RepoInfoView.class);
-        repoInfoPresenter = spy(new RepoInfoPresenter());
+        repoInfoPresenter = new RepoInfoPresenter();
         repoInfoPresenter.onCreate(mockView, repository);
 
         doAnswer(invocation -> Observable.just(branchDTOs))
@@ -133,6 +133,8 @@ public class RepoInfoPresenterTest extends BaseTest {
 
     @Test
     public void testSubscribe() {
+        repoInfoPresenter = spy(new RepoInfoPresenter()); //for ArgumentCaptor
+        repoInfoPresenter.onCreate(mockView, repository);
         repoInfoPresenter.onCreateView(null);
         repoInfoPresenter.onStop();
 
