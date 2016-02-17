@@ -12,6 +12,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import static org.junit.Assert.assertEquals;
+
 public class RepoListMapperTest extends BaseTest {
 
     @Inject
