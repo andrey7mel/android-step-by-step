@@ -15,7 +15,6 @@ public class ViewTestModule {
     @Provides
     @Singleton
     RepoInfoPresenter provideRepoInfoPresenter() {
-//        return spy(new RepoInfoPresenter());
         return mock(RepoInfoPresenter.class);
     }
 

@@ -26,8 +26,8 @@ public class TestUtils {
     }
 
     public String readString(String fileName) {
+        InputStream stream = getClass().getClassLoader().getResourceAsStream(fileName);
         try {
-            InputStream stream = getClass().getClassLoader().getResourceAsStream(fileName);
             int size = stream.available();
             byte[] buffer = new byte[size];
             int result = stream.read(buffer);
@@ -35,6 +35,14 @@ public class TestUtils {
         } catch (IOException e) {
             e.printStackTrace();
             return null;
+        } finally {
+            try {
+                if (stream != null) {
+                    stream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
     }

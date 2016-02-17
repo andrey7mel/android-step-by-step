@@ -22,17 +22,16 @@ import static org.mockito.Mockito.when;
 
 public class ModelImplTest extends BaseTest {
 
-
     @Inject
     ApiInterface apiInterface;
 
-    @Inject
     Model model;
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
         component.inject(this);
+        model = new ModelImpl();
     }
 
     @Test
