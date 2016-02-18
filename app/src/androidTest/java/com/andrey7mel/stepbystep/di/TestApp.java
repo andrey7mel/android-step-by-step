@@ -1,6 +1,5 @@
-package com.andrey7mel.stepbystep;
+package com.andrey7mel.stepbystep.di;
 
-import com.andrey7mel.stepbystep.di.DaggerTestComponent;
 import com.andrey7mel.stepbystep.other.App;
 import com.andrey7mel.stepbystep.other.di.AppComponent;
 

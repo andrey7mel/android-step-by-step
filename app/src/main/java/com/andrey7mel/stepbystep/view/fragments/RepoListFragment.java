@@ -62,8 +62,6 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
         try {
             activityCallback = (ActivityCallback) activity;
         } catch (ClassCastException e) {
@@ -98,18 +96,10 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
         adapter = new RepoListAdapter(new ArrayList<>(), presenter);
         recyclerView.setAdapter(adapter);
 
-//        searchButton.setOnClickListener(v -> presenter.onSearchButtonClick());
-
         presenter.onCreateView(savedInstanceState);
 
         return view;
     }
-
-    public void clickSearchButton() {
-
-    }
-
-
 
     private void makeToast(String text) {
         Snackbar.make(recyclerView, text, Snackbar.LENGTH_LONG).show();

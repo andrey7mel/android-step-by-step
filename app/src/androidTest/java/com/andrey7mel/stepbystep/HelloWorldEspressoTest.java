@@ -6,6 +6,8 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
+import com.andrey7mel.stepbystep.di.TestApiModule;
+import com.andrey7mel.stepbystep.tools.EspressoTools;
 import com.andrey7mel.stepbystep.view.MainActivity;
 
 import org.junit.BeforeClass;
@@ -17,7 +19,10 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -31,27 +36,26 @@ public class HelloWorldEspressoTest {
         TestApiModule.server.start();
     }
 
-//    @Test
-//    public void testSearchButtonDisplayed() {
-//        onView(withId(R.id.button_search)).check(matches(isDisplayed()));
-//    }
-//
-//    @Test
-//    public void testEditTextDisplayed() {
-//        onView(withId(R.id.edit_text)).check(matches(isDisplayed()));
-//    }
-//
-//    @Test
-//    public void testGetUserRepo(){
-//        onView(withId(R.id.edit_text)).perform(clearText());
-//        onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
-//        onView(withId(R.id.button_search)).perform(click());
-//        SystemClock.sleep(1000);
-//        onView(withId(R.id.recycler_view)).check(EspressoTools.hasViewWithTextAtPosition(0, "Android-Rate"));
-//        onView(withId(R.id.recycler_view)).check(EspressoTools.hasViewWithTextAtPosition(1, "android-simple-architecture"));
-//        onView(withId(R.id.recycler_view)).check(EspressoTools.hasViewWithTextAtPosition(2, TestConst.TEST_REPO));
-//
-//    }
+    @Test
+    public void testElementsDisplayed() {
+        onView(withId(R.id.button_search)).check(matches(isDisplayed()));
+        onView(withId(R.id.edit_text)).check(matches(isDisplayed()));
+
+    }
+
+    @Test
+    public void testGetUserRepo() {
+        onView(withId(R.id.edit_text)).perform(clearText());
+        onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
+        onView(withId(R.id.button_search)).perform(click());
+        SystemClock.sleep(1000);
+
+        onView(withId(R.id.recycler_view)).check(EspressoTools.hasItemsCount(7));
+
+        onView(withId(R.id.recycler_view)).check(EspressoTools.hasViewWithTextAtPosition(0, "Android-Rate"));
+        onView(withId(R.id.recycler_view)).check(EspressoTools.hasViewWithTextAtPosition(1, "android-simple-architecture"));
+        onView(withId(R.id.recycler_view)).check(EspressoTools.hasViewWithTextAtPosition(2, TestConst.TEST_REPO));
+    }
 
     @Test
     public void testClickUserRepo() {
@@ -63,6 +67,31 @@ public class HelloWorldEspressoTest {
                 RecyclerViewActions.actionOnItemAtPosition(2, click()));
         SystemClock.sleep(1000);
 
+        //check view items
+        onView(withId(R.id.repo_info))
+                .check(matches(isDisplayed()))
+                .check(matches(withText(TestConst.TEST_REPO + " (" + TestConst.TEST_OWNER + ")")));
+        onView(withId(R.id.branches_title))
+                .check(matches(isDisplayed()))
+                .check(matches(withText(R.string.branches)));
+        onView(withId(R.id.contributors_title))
+                .check(matches(isDisplayed()))
+                .check(matches(withText(R.string.contributors)));
+        onView(withId(R.id.recycler_view_branches)).check(matches(isDisplayed()));
+        onView(withId(R.id.recycler_view_contributors)).check(matches(isDisplayed()));
+
+        //check RecyclerView count
+        onView(withId(R.id.recycler_view_branches)).check(EspressoTools.hasItemsCount(3));
+        onView(withId(R.id.recycler_view_contributors)).check(EspressoTools.hasItemsCount(11));
+
+        //check RecyclerView items
+        onView(withId(R.id.recycler_view_branches)).check(EspressoTools.hasViewWithTextAtPosition(0, "QuickStart"));
+        onView(withId(R.id.recycler_view_branches)).check(EspressoTools.hasViewWithTextAtPosition(1, "gh-pages"));
+        onView(withId(R.id.recycler_view_branches)).check(EspressoTools.hasViewWithTextAtPosition(2, "master"));
+
+        onView(withId(R.id.recycler_view_contributors)).check(EspressoTools.hasViewWithTextAtPosition(0, "hotchemi"));
+        onView(withId(R.id.recycler_view_contributors)).check(EspressoTools.hasViewWithTextAtPosition(1, "mrmike"));
+        onView(withId(R.id.recycler_view_contributors)).check(EspressoTools.hasViewWithTextAtPosition(2, "amitkot"));
     }
 
 
