@@ -108,12 +108,12 @@ public class RepoInfoFragment extends BaseFragment implements RepoInfoView {
 
     @Override
     public void showContributors(List<Contributor> contributors) {
-        branchesRecyclerView.setAdapter(new ContributorsAdapter(contributors));
+        contributorsRecyclerView.setAdapter(new ContributorsAdapter(contributors));
     }
 
     @Override
     public void showBranches(List<Branch> branches) {
-        contributorsRecyclerView.setAdapter(new BranchesAdapter(branches));
+        branchesRecyclerView.setAdapter(new BranchesAdapter(branches));
 
     }
 
