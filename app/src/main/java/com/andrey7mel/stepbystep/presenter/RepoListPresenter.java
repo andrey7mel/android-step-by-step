@@ -26,8 +26,6 @@ public class RepoListPresenter extends BasePresenter {
 
     private RepoListView view;
 
-    private ActivityCallback activityCallback;
-
     private List<Repository> repoList;
 
 
@@ -37,10 +35,8 @@ public class RepoListPresenter extends BasePresenter {
     }
 
     public RepoListPresenter(RepoListView view, ActivityCallback activityCallback) {
-        super();
         App.getComponent().inject(this);
         this.view = view;
-        this.activityCallback = activityCallback;
     }
 
     public void onSearchButtonClick() {
@@ -92,7 +88,7 @@ public class RepoListPresenter extends BasePresenter {
     }
 
     public void clickRepo(Repository repository) {
-        activityCallback.startRepoInfoFragment(repository);
+        view.startRepoInfoFragment(repository);
     }
 
 }

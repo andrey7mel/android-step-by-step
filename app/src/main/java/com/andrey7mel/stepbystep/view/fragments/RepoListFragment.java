@@ -132,6 +132,11 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
     }
 
     @Override
+    public void startRepoInfoFragment(Repository repository) {
+        activityCallback.startRepoInfoFragment(repository);
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         presenter.onSaveInstanceState(outState);
