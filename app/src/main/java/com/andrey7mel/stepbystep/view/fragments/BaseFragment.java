@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 
 import com.andrey7mel.stepbystep.presenter.Presenter;
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements View {
 
     protected abstract Presenter getPresenter();
 
@@ -16,5 +16,14 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    @Override
+    public void showLoadingState() {
+
+    }
+
+    @Override
+    public void hideLoadingState() {
+
+    }
 }
 

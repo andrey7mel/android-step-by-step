@@ -29,4 +29,11 @@ public abstract class BasePresenter implements Presenter {
         compositeSubscription.clear();
     }
 
+    void showLoadingState() {
+
+    }
+
+    void hideLoadingState() {
+    }
+
 }
