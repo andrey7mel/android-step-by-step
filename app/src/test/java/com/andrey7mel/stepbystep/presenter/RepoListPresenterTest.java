@@ -165,4 +165,26 @@ public class RepoListPresenterTest extends BaseTest {
         verify(mockView, times(2)).showRepoList(repoList);
         verify(model).getRepoList(TestConst.TEST_OWNER);
     }
+
+    @Test
+    public void testLoadingState() {
+        repoListPresenter.onCreateView(null);
+        repoListPresenter.onSearchButtonClick();
+        repoListPresenter.onStop();
+
+        verify(mockView).showLoadingState();
+        verify(mockView).hideLoadingState();
+    }
+
+    @Test
+    public void testOnErrorLoadingState() {
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoList(TestConst.TEST_OWNER);
+
+        repoListPresenter.onSearchButtonClick();
+
+        verify(mockView).showLoadingState();
+        verify(mockView).hideLoadingState();
+    }
 }
