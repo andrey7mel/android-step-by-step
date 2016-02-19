@@ -14,17 +14,29 @@ import java.io.IOException;
 
 public final class TestApiModule {
 
-    public static MockWebServer server = new MockWebServer();
+    private static MockWebServer server;
+    private static TestUtils testUtils = new TestUtils();
 
     private TestApiModule() {
     }
 
-    public static ApiInterface getApiInterface() throws IOException {
-        TestUtils testUtils = new TestUtils();
-        final Dispatcher dispatcher = new Dispatcher() {
+    public static void startServer() throws IOException {
+        server = new MockWebServer();
+        server.start();
+    }
+
+    public static void shutdownServer() throws IOException {
+        if (server != null) {
+            server.shutdown();
+        }
+    }
+
+    public static void setCorrectAnswer() {
+        Dispatcher dispatcher = new Dispatcher() {
 
             @Override
             public MockResponse dispatch(RecordedRequest request) throws InterruptedException {
+
                 if (request.getPath().equals("/users/" + TestConst.TEST_OWNER + "/repos")) {
                     return new MockResponse().setResponseCode(200)
                             .setBody(testUtils.readString("json/repos"));
@@ -38,8 +50,22 @@ public final class TestApiModule {
                 return new MockResponse().setResponseCode(404);
             }
         };
-
         server.setDispatcher(dispatcher);
+    }
+
+    public static void setErrorAnswer() {
+        Dispatcher dispatcher = new Dispatcher() {
+
+            @Override
+            public MockResponse dispatch(RecordedRequest request) throws InterruptedException {
+                return new MockResponse().setResponseCode(500);
+            }
+        };
+        server.setDispatcher(dispatcher);
+    }
+
+    public static ApiInterface getApiInterface() throws IOException {
+        setCorrectAnswer();
         HttpUrl baseUrl = server.url("/");
         return ApiModule.getApiInterface(baseUrl.toString());
     }

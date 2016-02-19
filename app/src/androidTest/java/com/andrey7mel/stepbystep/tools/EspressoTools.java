@@ -33,6 +33,9 @@ public final class EspressoTools {
                     throw e;
                 }
                 RecyclerView rv = (RecyclerView) view;
+                if (rv.getAdapter() == null && count == 0) {
+                    return;
+                }
                 Truth.assertThat(rv.getAdapter().getItemCount()).isEqualTo(count);
             }
         };
