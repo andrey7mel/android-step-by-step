@@ -92,7 +92,7 @@ public class RepoListPresenterTest extends IntegrationBaseTest {
         repoListPresenter.onSearchButtonClick();
         repoListPresenter.onStop();
 
-        verify(mockView).showError(TestConst.ERROR_RESPONSE);
+        verify(mockView).showError(TestConst.ERROR_RESPONSE_500);
     }
 
 
@@ -108,5 +108,25 @@ public class RepoListPresenterTest extends IntegrationBaseTest {
         repoListPresenter.onCreateView(bundle);
 
         verify(mockView, times(2)).showRepoList(repoList);
+    }
+
+
+    @Test
+    public void testLoadingState() {
+        repoListPresenter.onCreateView(null);
+        repoListPresenter.onSearchButtonClick();
+        repoListPresenter.onStop();
+
+        verify(mockView).showLoadingState();
+        verify(mockView).hideLoadingState();
+    }
+
+    @Test
+    public void testOnErrorLoadingState() {
+        setErrorAnswerWebServer();
+        repoListPresenter.onSearchButtonClick();
+
+        verify(mockView).showLoadingState();
+        verify(mockView).hideLoadingState();
     }
 }

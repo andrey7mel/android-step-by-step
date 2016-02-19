@@ -3,6 +3,7 @@ package com.andrey7mel.stepbystep.integration.other;
 import com.andrey7mel.stepbystep.BuildConfig;
 import com.andrey7mel.stepbystep.integration.other.di.IntegrationTestComponent;
 import com.andrey7mel.stepbystep.other.App;
+import com.andrey7mel.stepbystep.other.TestConst;
 import com.andrey7mel.stepbystep.other.TestUtils;
 import com.squareup.okhttp.mockwebserver.Dispatcher;
 import com.squareup.okhttp.mockwebserver.MockResponse;
@@ -51,4 +52,27 @@ public class IntegrationBaseTest {
             }
         });
     }
+
+    protected void setCustomAnswer(boolean enableBranches, boolean enableContributors) {
+        mockWebServer.setDispatcher(new Dispatcher() {
+            @Override
+            public MockResponse dispatch(RecordedRequest request) throws InterruptedException {
+
+                if (request.getPath().equals("/users/" + TestConst.TEST_OWNER + "/repos")) {
+                    return new MockResponse().setResponseCode(200)
+                            .setBody(testUtils.readString("json/repos"));
+                } else if (request.getPath().equals("/repos/" + TestConst.TEST_OWNER + "/" + TestConst.TEST_REPO + "/branches") && enableBranches) {
+                    return new MockResponse().setResponseCode(200)
+                            .setBody(testUtils.readString("json/branches"));
+                } else if (request.getPath().equals("/repos/" + TestConst.TEST_OWNER + "/" + TestConst.TEST_REPO + "/contributors") && enableContributors) {
+                    return new MockResponse().setResponseCode(200)
+                            .setBody(testUtils.readString("json/contributors"));
+                }
+                return new MockResponse().setResponseCode(404);
+            }
+        });
+
+
+    }
+
 }

@@ -62,7 +62,7 @@ public class RepoListFragmentTest extends IntegrationBaseTest {
         repoListFragment.onCreateView(LayoutInflater.from(activity), (ViewGroup) activity.findViewById(R.id.container), null);
         repoListFragment.onClickSearch(null);
         repoListFragment.onStop();
-        verify(repoListFragment).showError(TestConst.ERROR_RESPONSE);
+        verify(repoListFragment).showError(TestConst.ERROR_RESPONSE_500);
     }
 
 }

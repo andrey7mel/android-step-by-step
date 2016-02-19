@@ -66,7 +66,6 @@ public class RepoInfoPresenterTest extends IntegrationBaseTest {
         verify(mockView).showContributors(contributorList);
     }
 
-
     @Test
     public void testLoadDataWithError() {
         setErrorAnswerWebServer();
@@ -74,7 +73,27 @@ public class RepoInfoPresenterTest extends IntegrationBaseTest {
         repoInfoPresenter.onCreateView(null);
         repoInfoPresenter.onStop();
 
-        verify(mockView, times(2)).showError(TestConst.ERROR_RESPONSE);
+        verify(mockView, times(2)).showError(TestConst.ERROR_RESPONSE_500);
+    }
+
+    @Test
+    public void testOnErrorBranches() {
+        setCustomAnswer(false, true);
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).showError(TestConst.ERROR_RESPONSE_404);
+        verify(mockView).showContributors(contributorList);
+    }
+
+    @Test
+    public void testOnErrorContributors() {
+        setCustomAnswer(true, false);
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).showError(TestConst.ERROR_RESPONSE_404);
+        verify(mockView).showBranches(branchList);
     }
 
 
@@ -90,6 +109,48 @@ public class RepoInfoPresenterTest extends IntegrationBaseTest {
 
         verify(mockView, times(2)).showBranches(branchList);
         verify(mockView, times(2)).showContributors(contributorList);
+    }
+
+
+    @Test
+    public void testLoadingState() {
+        repoInfoPresenter.onCreateView(null);
+        repoInfoPresenter.onStop();
+
+
+        verify(mockView).showLoadingState();
+        verify(mockView).hideLoadingState();
+    }
+
+    @Test
+    public void testLoadingStateWithError() {
+        setErrorAnswerWebServer();
+
+        repoInfoPresenter.onCreateView(null);
+        repoInfoPresenter.onStop();
+
+        verify(mockView).showLoadingState();
+        verify(mockView).hideLoadingState();
+    }
+
+    @Test
+    public void testOnErrorBranchesLoadingState() {
+        setCustomAnswer(false, true);
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).showLoadingState();
+        verify(mockView).hideLoadingState();
+    }
+
+    @Test
+    public void testOnErrorContributorsLoadingState() {
+        setCustomAnswer(true, false);
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).showLoadingState();
+        verify(mockView).hideLoadingState();
     }
 
 

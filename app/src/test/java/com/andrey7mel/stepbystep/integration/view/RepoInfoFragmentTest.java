@@ -1,6 +1,5 @@
 package com.andrey7mel.stepbystep.integration.view;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -29,14 +28,16 @@ public class RepoInfoFragmentTest extends IntegrationBaseTest {
 
     @Inject
     protected List<Contributor> contributorList;
+
     @Inject
     protected List<Branch> branchList;
+
     @Inject
     protected Repository repository;
+
     private RepoInfoFragment repoInfoFragment;
     private MainActivity activity;
 
-    private Bundle bundle;
 
     @Override
     @Before
@@ -45,7 +46,6 @@ public class RepoInfoFragmentTest extends IntegrationBaseTest {
         component.inject(this);
         repoInfoFragment = spy(RepoInfoFragment.newInstance(repository));
         activity = Robolectric.setupActivity(MainActivity.class);
-        bundle = Bundle.EMPTY;
     }
 
 
@@ -64,6 +64,6 @@ public class RepoInfoFragmentTest extends IntegrationBaseTest {
         setErrorAnswerWebServer();
         repoInfoFragment.onCreate(null);
         repoInfoFragment.onCreateView(LayoutInflater.from(activity), (ViewGroup) activity.findViewById(R.id.container), null);
-        verify(repoInfoFragment, times(2)).showError(TestConst.ERROR_RESPONSE);
+        verify(repoInfoFragment, times(2)).showError(TestConst.ERROR_RESPONSE_500);
     }
 }
