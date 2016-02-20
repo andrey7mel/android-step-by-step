@@ -2,6 +2,7 @@ package com.andrey7mel.stepbystep.presenter;
 
 import com.andrey7mel.stepbystep.model.Model;
 import com.andrey7mel.stepbystep.other.App;
+import com.andrey7mel.stepbystep.view.fragments.View;
 
 import javax.inject.Inject;
 
@@ -16,8 +17,12 @@ public abstract class BasePresenter implements Presenter {
     @Inject
     protected CompositeSubscription compositeSubscription;
 
-    public BasePresenter() {
+    private View view;
+
+    @Override
+    public void onCreate(View view) {
         App.getComponent().inject(this);
+        this.view = view;
     }
 
     protected void addSubscription(Subscription subscription) {
@@ -29,11 +34,12 @@ public abstract class BasePresenter implements Presenter {
         compositeSubscription.clear();
     }
 
-    void showLoadingState() {
-
+    protected void showLoadingState() {
+        view.showLoadingState();
     }
 
-    void hideLoadingState() {
-    }
 
+    protected void hideLoadingState() {
+        view.hideLoadingState();
+    }
 }
