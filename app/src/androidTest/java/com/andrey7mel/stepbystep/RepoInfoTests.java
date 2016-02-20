@@ -2,6 +2,7 @@ package com.andrey7mel.stepbystep;
 
 import android.os.SystemClock;
 import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -26,6 +27,7 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.AllOf.allOf;
@@ -48,13 +50,13 @@ public class RepoInfoTests {
         onView(withId(R.id.edit_text)).perform(clearText());
         onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
         onView(withId(R.id.button_search)).perform(click());
-        SystemClock.sleep(1000);
+        SystemClock.sleep(TestConst.STANDARD_DELAY);
     }
 
     private void clickRepo() {
         onView(withId(R.id.recycler_view)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(2, click()));
-        SystemClock.sleep(1000);
+        SystemClock.sleep(TestConst.STANDARD_DELAY);
     }
 
     @Test
@@ -198,6 +200,61 @@ public class RepoInfoTests {
 
         onView(allOf(withId(android.support.design.R.id.snackbar_text), withText(TestConst.TEST_ERROR)))
                 .check(matches(isDisplayed()));
+    }
+
+
+    @Test
+    public void testLoadingState() {
+        onView(withId(R.id.recycler_view)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(2, click()));
+
+        SystemClock.sleep(TestConst.SHOW_LOADING_DELAY);
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(isDisplayed()));
+
+        SystemClock.sleep(TestConst.HIDE_LOADING_DELAY);
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+    }
+
+    @Test
+    public void testLoadingStateError() {
+        apiConfig.setErrorAnswer();
+
+        onView(withId(R.id.recycler_view)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(2, click()));
+
+        SystemClock.sleep(TestConst.SHOW_LOADING_DELAY);
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(isDisplayed()));
+
+        SystemClock.sleep(TestConst.HIDE_LOADING_DELAY);
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+    }
+
+    @Test
+    public void testLoadingStateErrorBranches() {
+        apiConfig.setCustomAnswer(false, true);
+
+        onView(withId(R.id.recycler_view)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(2, click()));
+
+        SystemClock.sleep(TestConst.SHOW_LOADING_DELAY);
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(isDisplayed()));
+
+        SystemClock.sleep(TestConst.HIDE_LOADING_DELAY);
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+    }
+
+    @Test
+    public void testLoadingStateErrorContributors() {
+        apiConfig.setCustomAnswer(true, false);
+
+        onView(withId(R.id.recycler_view)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(2, click()));
+
+        SystemClock.sleep(TestConst.SHOW_LOADING_DELAY);
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(isDisplayed()));
+
+        SystemClock.sleep(TestConst.HIDE_LOADING_DELAY);
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
     }
 
 

@@ -1,6 +1,7 @@
 package com.andrey7mel.stepbystep;
 
 import android.os.SystemClock;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -25,6 +26,7 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.AllOf.allOf;
@@ -57,7 +59,7 @@ public class RepoListTests {
         onView(withId(R.id.edit_text)).perform(clearText());
         onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
         onView(withId(R.id.button_search)).perform(click());
-        SystemClock.sleep(1000);
+        SystemClock.sleep(TestConst.STANDARD_DELAY);
 
         onView(withId(R.id.recycler_view)).check(EspressoTools.hasItemsCount(7));
 
@@ -72,12 +74,44 @@ public class RepoListTests {
         onView(withId(R.id.edit_text)).perform(clearText());
         onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
         onView(withId(R.id.button_search)).perform(click());
-        SystemClock.sleep(1000);
+        SystemClock.sleep(TestConst.STANDARD_DELAY);
 
         onView(allOf(withId(android.support.design.R.id.snackbar_text), withText(TestConst.TEST_ERROR)))
                 .check(matches(isDisplayed()));
 
         onView(withId(R.id.recycler_view)).check(EspressoTools.hasItemsCount(0));
     }
+
+    @Test
+    public void testLoadingState() {
+        apiConfig.setCorrectAnswer();
+        onView(withId(R.id.edit_text)).perform(clearText());
+        onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
+        onView(withId(R.id.button_search)).perform(click());
+
+        SystemClock.sleep(TestConst.SHOW_LOADING_DELAY);
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(isDisplayed()));
+
+        SystemClock.sleep(TestConst.HIDE_LOADING_DELAY);
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+
+    }
+
+
+    @Test
+    public void testLoadingStateError() {
+        apiConfig.setErrorAnswer();
+        onView(withId(R.id.edit_text)).perform(clearText());
+        onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
+        onView(withId(R.id.button_search)).perform(click());
+
+        SystemClock.sleep(TestConst.SHOW_LOADING_DELAY);
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(isDisplayed()));
+
+        SystemClock.sleep(TestConst.HIDE_LOADING_DELAY);
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+
+    }
+
 
 }
