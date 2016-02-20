@@ -19,7 +19,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "com.andrey7mel.stepbystep.MockTestRunner"
+        testInstrumentationRunner "com.andrey7mel.stepbystep.tools.MockTestRunner"
     }
     buildTypes {
         release {
@@ -64,6 +64,8 @@ dependencies {
     androidTestCompile 'com.android.support:support-annotations:23.1.1'
     androidTestCompile 'com.squareup.okhttp:mockwebserver:2.7.0'
     androidTestCompile 'org.mockito:mockito-core:1.10.19'
+    androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
+    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
 
 }
 

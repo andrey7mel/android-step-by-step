@@ -1,4 +1,4 @@
-package com.andrey7mel.stepbystep;
+package com.andrey7mel.stepbystep.tools;
 
 import android.app.Application;
 import android.content.Context;
