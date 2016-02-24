@@ -49,13 +49,11 @@ public class RepoInfoTests {
         onView(withId(R.id.edit_text)).perform(clearText());
         onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
         onView(withId(R.id.button_search)).perform(click());
-//        SystemClock.sleep(TestConst.TEST_DELAY);
     }
 
     private void clickRepo() {
         onView(withId(R.id.recycler_view)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(2, click()));
-//        SystemClock.sleep(TestConst.TEST_DELAY);
     }
 
     @Test
@@ -239,6 +237,5 @@ public class RepoInfoTests {
 
         onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
     }
-
 
 }

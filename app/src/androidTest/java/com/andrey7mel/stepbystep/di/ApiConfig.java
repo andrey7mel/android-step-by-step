@@ -5,7 +5,6 @@ import com.andrey7mel.stepbystep.model.dto.BranchDTO;
 import com.andrey7mel.stepbystep.model.dto.ContributorDTO;
 import com.andrey7mel.stepbystep.model.dto.RepositoryDTO;
 import com.andrey7mel.stepbystep.tools.TestConst;
-import com.andrey7mel.stepbystep.tools.TestUtils;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -30,11 +29,8 @@ public class ApiConfig {
     @Inject
     protected List<BranchDTO> branchDTOs;
 
-    TestUtils testUtils = new TestUtils();
-
     @Inject
     public ApiConfig() {
-//        setCorrectAnswer();
     }
 
     public void setCorrectAnswer() {
