@@ -46,6 +46,7 @@ public class RepoInfoFragmentTest extends IntegrationBaseTest {
         component.inject(this);
         repoInfoFragment = spy(RepoInfoFragment.newInstance(repository));
         activity = Robolectric.setupActivity(MainActivity.class);
+        repoInfoFragment.onAttach(activity);
     }
 
 

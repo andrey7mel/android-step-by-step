@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import com.andrey7mel.stepbystep.other.App;
 import com.andrey7mel.stepbystep.presenter.mappers.RepoListMapper;
 import com.andrey7mel.stepbystep.presenter.vo.Repository;
-import com.andrey7mel.stepbystep.view.ActivityCallback;
 import com.andrey7mel.stepbystep.view.fragments.RepoListView;
 
 import java.util.ArrayList;
@@ -34,7 +33,8 @@ public class RepoListPresenter extends BasePresenter {
     public RepoListPresenter() {
     }
 
-    public RepoListPresenter(RepoListView view, ActivityCallback activityCallback) {
+    // Выпилить activityCallback
+    public RepoListPresenter(RepoListView view) {
         App.getComponent().inject(this);
         this.view = view;
     }
@@ -43,16 +43,19 @@ public class RepoListPresenter extends BasePresenter {
         String name = view.getUserName();
         if (TextUtils.isEmpty(name)) return;
 
+        showLoadingState();
         Subscription subscription = model.getRepoList(name)
                 .map(repoListMapper)
                 .subscribe(new Observer<List<Repository>>() {
                     @Override
                     public void onCompleted() {
+                        hideLoadingState();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        view.showError(e.getMessage());
+                        hideLoadingState();
+                        showError(e);
                     }
 
                     @Override

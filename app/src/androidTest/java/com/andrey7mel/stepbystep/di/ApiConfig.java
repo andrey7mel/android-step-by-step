@@ -8,6 +8,7 @@ import com.andrey7mel.stepbystep.tools.TestConst;
 import com.andrey7mel.stepbystep.tools.TestUtils;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -39,25 +40,25 @@ public class ApiConfig {
     public void setCorrectAnswer() {
 
         when(apiInterface.getRepositories(TestConst.TEST_OWNER))
-                .thenReturn(Observable.just((repositoryDTOs)));
+                .thenReturn(getObservableWithDelay((repositoryDTOs)));
 
         when(apiInterface.getBranches(TestConst.TEST_OWNER, TestConst.TEST_REPO))
-                .thenReturn(Observable.just((branchDTOs)));
+                .thenReturn(getObservableWithDelay((branchDTOs)));
 
         when(apiInterface.getContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO))
-                .thenReturn(Observable.just((contributorDTOs)));
+                .thenReturn(getObservableWithDelay((contributorDTOs)));
 
     }
 
     public void setErrorAnswer() {
         when(apiInterface.getRepositories(TestConst.TEST_OWNER))
-                .thenReturn(Observable.error(new Throwable(TestConst.TEST_ERROR)));
+                .thenReturn(getErrorObservableWithDelay());
 
         when(apiInterface.getBranches(TestConst.TEST_OWNER, TestConst.TEST_REPO))
-                .thenReturn(Observable.error(new Throwable(TestConst.TEST_ERROR)));
+                .thenReturn(getErrorObservableWithDelay());
 
         when(apiInterface.getContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO))
-                .thenReturn(Observable.error(new Throwable(TestConst.TEST_ERROR)));
+                .thenReturn(getErrorObservableWithDelay());
     }
 
     public void setCustomAnswer(boolean enableBranches, boolean enableContributors) {
@@ -66,12 +67,22 @@ public class ApiConfig {
                 .thenReturn(Observable.just((repositoryDTOs)));
 
         when(apiInterface.getBranches(TestConst.TEST_OWNER, TestConst.TEST_REPO))
-                .thenReturn(enableBranches ? Observable.just((branchDTOs))
-                        : Observable.error(new Throwable(TestConst.TEST_ERROR)));
+                .thenReturn(enableBranches ? getObservableWithDelay((branchDTOs))
+                        : getErrorObservableWithDelay());
 
         when(apiInterface.getContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO))
-                .thenReturn(enableContributors ? Observable.just((contributorDTOs))
-                        : Observable.error(new Throwable(TestConst.TEST_ERROR)));
+                .thenReturn(enableContributors ? getObservableWithDelay((contributorDTOs))
+                        : getErrorObservableWithDelay());
+    }
+
+    private <T> Observable<T> getObservableWithDelay(final T value) {
+        return Observable.timer(TestConst.API_DELAY, TimeUnit.MILLISECONDS)
+                .concatMap(aLong -> Observable.just(value));
+    }
+
+    private <T> Observable<T> getErrorObservableWithDelay() {
+        return Observable.timer(TestConst.API_DELAY, TimeUnit.MILLISECONDS)
+                .concatMap(aLong -> Observable.error(new Throwable(TestConst.TEST_ERROR)));
     }
 
 }

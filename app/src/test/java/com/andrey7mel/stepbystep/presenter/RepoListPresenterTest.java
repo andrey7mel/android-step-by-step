@@ -60,8 +60,8 @@ public class RepoListPresenterTest extends BaseTest {
         activityCallback = mock(ActivityCallback.class);
 
         mockView = mock(RepoListView.class);
-        repoListPresenter = new RepoListPresenter(mockView, activityCallback);
-
+        repoListPresenter = new RepoListPresenter(mockView);
+        repoListPresenter.onCreate(mockView);
         doAnswer(invocation -> Observable.just(repositoryDTOs))
                 .when(model)
                 .getRepoList(TestConst.TEST_OWNER);
@@ -134,12 +134,13 @@ public class RepoListPresenterTest extends BaseTest {
 
         repoListPresenter.clickRepo(repository);
 
-        verify(activityCallback).startRepoInfoFragment(repository);
+        verify(mockView).startRepoInfoFragment(repository);
     }
 
     @Test
     public void testSubscribe() {
-        repoListPresenter = spy(new RepoListPresenter(mockView, activityCallback)); //for ArgumentCaptor
+        repoListPresenter = spy(new RepoListPresenter(mockView)); //for ArgumentCaptor
+        repoListPresenter.onCreate(mockView);
         repoListPresenter.onCreateView(null);
         repoListPresenter.onSearchButtonClick();
         repoListPresenter.onStop();

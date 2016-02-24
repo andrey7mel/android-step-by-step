@@ -42,4 +42,9 @@ public abstract class BasePresenter implements Presenter {
     protected void hideLoadingState() {
         view.hideLoadingState();
     }
+
+    protected void showError(Throwable e) {
+        view.showError(e.getMessage());
+    }
+
 }

@@ -22,13 +22,11 @@ public class RepoInfoPresenter extends BasePresenter {
 
     private static final String BUNDLE_BRANCHES_KEY = "BUNDLE_BRANCHES_KEY";
     private static final String BUNDLE_CONTRIBUTORS_KEY = "BUNDLE_CONTRIBUTORS_KEY";
-
     @Inject
     protected RepoBranchesMapper branchesMapper;
-
     @Inject
     protected RepoContributorsMapper contributorsMapper;
-
+    private int countCompletedSubscription = 0;
     private RepoInfoView view;
 
     private List<Contributor> contributorList;
@@ -40,16 +38,19 @@ public class RepoInfoPresenter extends BasePresenter {
         String owner = repository.getOwnerName();
         String name = repository.getRepoName();
 
+        showLoadingState();
         Subscription subscriptionBranches = model.getRepoBranches(owner, name)
                 .map(branchesMapper)
                 .subscribe(new Observer<List<Branch>>() {
                     @Override
                     public void onCompleted() {
+                        hideInfoLoadingState();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        view.showError(e.getMessage());
+                        hideInfoLoadingState();
+                        showError(e);
                     }
 
                     @Override
@@ -65,11 +66,13 @@ public class RepoInfoPresenter extends BasePresenter {
                 .subscribe(new Observer<List<Contributor>>() {
                     @Override
                     public void onCompleted() {
+                        hideInfoLoadingState();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        view.showError(e.getMessage());
+                        hideInfoLoadingState();
+                        showError(e);
                     }
 
                     @Override
@@ -83,9 +86,18 @@ public class RepoInfoPresenter extends BasePresenter {
     }
 
     public void onCreate(RepoInfoView view, Repository repository) {
+        super.onCreate(view);
         App.getComponent().inject(this);
         this.view = view;
         this.repository = repository;
+    }
+
+    protected synchronized void hideInfoLoadingState() {
+        countCompletedSubscription++;
+
+        if (countCompletedSubscription == 2) {
+            hideLoadingState();
+        }
     }
 
     public void onCreateView(Bundle savedInstanceState) {

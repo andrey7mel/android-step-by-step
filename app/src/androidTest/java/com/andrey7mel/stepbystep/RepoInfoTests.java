@@ -1,6 +1,5 @@
 package com.andrey7mel.stepbystep;
 
-import android.os.SystemClock;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
@@ -50,13 +49,13 @@ public class RepoInfoTests {
         onView(withId(R.id.edit_text)).perform(clearText());
         onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
         onView(withId(R.id.button_search)).perform(click());
-        SystemClock.sleep(TestConst.STANDARD_DELAY);
+//        SystemClock.sleep(TestConst.TEST_DELAY);
     }
 
     private void clickRepo() {
         onView(withId(R.id.recycler_view)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(2, click()));
-        SystemClock.sleep(TestConst.STANDARD_DELAY);
+//        SystemClock.sleep(TestConst.TEST_DELAY);
     }
 
     @Test
@@ -208,11 +207,7 @@ public class RepoInfoTests {
         onView(withId(R.id.recycler_view)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(2, click()));
 
-        SystemClock.sleep(TestConst.SHOW_LOADING_DELAY);
-        onView(withId(R.id.toolbar_progress_bar)).check(matches(isDisplayed()));
-
-        SystemClock.sleep(TestConst.HIDE_LOADING_DELAY);
-        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
     }
 
     @Test
@@ -222,11 +217,7 @@ public class RepoInfoTests {
         onView(withId(R.id.recycler_view)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(2, click()));
 
-        SystemClock.sleep(TestConst.SHOW_LOADING_DELAY);
-        onView(withId(R.id.toolbar_progress_bar)).check(matches(isDisplayed()));
-
-        SystemClock.sleep(TestConst.HIDE_LOADING_DELAY);
-        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
     }
 
     @Test
@@ -236,11 +227,7 @@ public class RepoInfoTests {
         onView(withId(R.id.recycler_view)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(2, click()));
 
-        SystemClock.sleep(TestConst.SHOW_LOADING_DELAY);
-        onView(withId(R.id.toolbar_progress_bar)).check(matches(isDisplayed()));
-
-        SystemClock.sleep(TestConst.HIDE_LOADING_DELAY);
-        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
     }
 
     @Test
@@ -250,11 +237,7 @@ public class RepoInfoTests {
         onView(withId(R.id.recycler_view)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(2, click()));
 
-        SystemClock.sleep(TestConst.SHOW_LOADING_DELAY);
-        onView(withId(R.id.toolbar_progress_bar)).check(matches(isDisplayed()));
-
-        SystemClock.sleep(TestConst.HIDE_LOADING_DELAY);
-        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
     }
 
 

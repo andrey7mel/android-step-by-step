@@ -55,7 +55,9 @@ public class RepoInfoFragment extends BaseFragment implements RepoInfoView {
 
     @Override
     protected BasePresenter getPresenter() {
-        App.getComponent().inject(this);
+//        if(presenter == null) {
+//            App.getComponent().inject(this);
+//        }
         return presenter;
     }
 
@@ -66,8 +68,8 @@ public class RepoInfoFragment extends BaseFragment implements RepoInfoView {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         App.getComponent().inject(this);
+        super.onCreate(savedInstanceState);
         presenter.onCreate(this, getRepositoryVO());
     }
 

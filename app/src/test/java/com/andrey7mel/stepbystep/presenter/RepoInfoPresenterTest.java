@@ -67,9 +67,6 @@ public class RepoInfoPresenterTest extends BaseTest {
         super.setUp();
         component.inject(this);
 
-        contributorList = contributorsMapper.call(contributorDTOs);
-        branchList = branchesMapper.call(branchDTOs);
-
         mockView = mock(RepoInfoView.class);
         repoInfoPresenter = new RepoInfoPresenter();
         repoInfoPresenter.onCreate(mockView, repository);

@@ -49,7 +49,8 @@ public class RepoListPresenterTest extends IntegrationBaseTest {
         doAnswer(invocation -> TestConst.TEST_OWNER)
                 .when(mockView)
                 .getUserName();
-        repoListPresenter = new RepoListPresenter(mockView, activityCallback);
+        repoListPresenter = new RepoListPresenter(mockView);
+        repoListPresenter.onCreate(mockView);
     }
 
 
@@ -82,7 +83,7 @@ public class RepoListPresenterTest extends IntegrationBaseTest {
 
         repoListPresenter.clickRepo(repository);
 
-        verify(activityCallback).startRepoInfoFragment(repository);
+        verify(mockView).startRepoInfoFragment(repository);
     }
 
     @Test

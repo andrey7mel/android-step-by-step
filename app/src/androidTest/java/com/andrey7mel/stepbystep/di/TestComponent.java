@@ -22,4 +22,5 @@ public interface TestComponent extends AppComponent {
     void inject(RepoInfoTests repoInfoTests);
 
     void inject(RepoListTests repoListTests);
+
 }

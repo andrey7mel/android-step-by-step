@@ -6,6 +6,4 @@ public interface Presenter {
     void onCreate(View view);
     void onStop();
 
-    void onCreate(View view);
-
 }

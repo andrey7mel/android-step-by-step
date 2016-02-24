@@ -1,6 +1,8 @@
 package com.andrey7mel.stepbystep;
 
 import android.os.SystemClock;
+import android.support.test.espresso.Espresso;
+import android.support.test.espresso.IdlingPolicies;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -10,6 +12,7 @@ import com.andrey7mel.stepbystep.di.ApiConfig;
 import com.andrey7mel.stepbystep.di.TestComponent;
 import com.andrey7mel.stepbystep.other.App;
 import com.andrey7mel.stepbystep.tools.EspressoTools;
+import com.andrey7mel.stepbystep.tools.IndlingMy;
 import com.andrey7mel.stepbystep.tools.TestConst;
 import com.andrey7mel.stepbystep.view.MainActivity;
 
@@ -17,6 +20,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -45,10 +50,13 @@ public class RepoListTests {
     @Before
     public void setUp() {
         ((TestComponent) App.getComponent()).inject(this);
+        Espresso.registerIdlingResources(new IndlingMy(5600));
     }
 
     @Test
     public void testElementsDisplayed() {
+        IdlingPolicies.setIdlingResourceTimeout(1, TimeUnit.MILLISECONDS);
+
         onView(withId(R.id.button_search)).check(matches(isDisplayed()));
         onView(withId(R.id.edit_text)).check(matches(isDisplayed()));
     }
@@ -59,7 +67,7 @@ public class RepoListTests {
         onView(withId(R.id.edit_text)).perform(clearText());
         onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
         onView(withId(R.id.button_search)).perform(click());
-        SystemClock.sleep(TestConst.STANDARD_DELAY);
+        SystemClock.sleep(TestConst.TEST_DELAY);
 
         onView(withId(R.id.recycler_view)).check(EspressoTools.hasItemsCount(7));
 
@@ -74,7 +82,7 @@ public class RepoListTests {
         onView(withId(R.id.edit_text)).perform(clearText());
         onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
         onView(withId(R.id.button_search)).perform(click());
-        SystemClock.sleep(TestConst.STANDARD_DELAY);
+        SystemClock.sleep(TestConst.TEST_DELAY);
 
         onView(allOf(withId(android.support.design.R.id.snackbar_text), withText(TestConst.TEST_ERROR)))
                 .check(matches(isDisplayed()));
@@ -89,11 +97,7 @@ public class RepoListTests {
         onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
         onView(withId(R.id.button_search)).perform(click());
 
-        SystemClock.sleep(TestConst.SHOW_LOADING_DELAY);
-        onView(withId(R.id.toolbar_progress_bar)).check(matches(isDisplayed()));
-
-        SystemClock.sleep(TestConst.HIDE_LOADING_DELAY);
-        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
 
     }
 
@@ -105,12 +109,7 @@ public class RepoListTests {
         onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
         onView(withId(R.id.button_search)).perform(click());
 
-        SystemClock.sleep(TestConst.SHOW_LOADING_DELAY);
-        onView(withId(R.id.toolbar_progress_bar)).check(matches(isDisplayed()));
-
-        SystemClock.sleep(TestConst.HIDE_LOADING_DELAY);
-        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
-
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
     }
 
 

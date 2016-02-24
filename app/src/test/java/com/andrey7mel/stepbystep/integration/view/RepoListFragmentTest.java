@@ -39,7 +39,7 @@ public class RepoListFragmentTest extends IntegrationBaseTest {
 
         repoListFragment = spy(new RepoListFragment());
         activity = Robolectric.setupActivity(MainActivity.class);
-
+        repoListFragment.onAttach(activity);
         doAnswer(invocation -> TestConst.TEST_OWNER)
                 .when(repoListFragment)
                 .getUserName();

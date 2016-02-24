@@ -72,13 +72,13 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         if (viewComponent == null) {
             viewComponent = DaggerViewComponent.builder()
-                    .viewDynamicModule(new ViewDynamicModule(this, activityCallback))
+                    .viewDynamicModule(new ViewDynamicModule(this))
                     .build();
         }
         viewComponent.inject(this);
+        super.onCreate(savedInstanceState);
     }
 
     public void setViewComponent(ViewComponent viewComponent) {
