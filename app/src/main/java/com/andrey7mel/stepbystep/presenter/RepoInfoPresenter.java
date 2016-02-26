@@ -9,6 +9,7 @@ import com.andrey7mel.stepbystep.presenter.vo.Branch;
 import com.andrey7mel.stepbystep.presenter.vo.Contributor;
 import com.andrey7mel.stepbystep.presenter.vo.Repository;
 import com.andrey7mel.stepbystep.view.fragments.RepoInfoView;
+import com.andrey7mel.stepbystep.view.fragments.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +87,6 @@ public class RepoInfoPresenter extends BasePresenter {
     }
 
     public void onCreate(RepoInfoView view, Repository repository) {
-        super.onCreate(view);
         App.getComponent().inject(this);
         this.view = view;
         this.repository = repository;
@@ -122,5 +122,10 @@ public class RepoInfoPresenter extends BasePresenter {
         if (branchList != null)
             outState.putSerializable(BUNDLE_BRANCHES_KEY, new ArrayList<>(branchList));
 
+    }
+
+    @Override
+    protected View getView() {
+        return view;
     }
 }

@@ -16,22 +16,17 @@ import com.andrey7mel.stepbystep.view.fragments.RepoInfoView;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import rx.Observable;
-import rx.Subscription;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -149,21 +144,6 @@ public class RepoInfoPresenterTest extends BaseTest {
 
     }
 
-
-    @Test
-    public void testSubscribe() {
-        repoInfoPresenter = spy(new RepoInfoPresenter()); //for ArgumentCaptor
-        repoInfoPresenter.onCreate(mockView, repository);
-        repoInfoPresenter.onCreateView(null);
-        repoInfoPresenter.onStop();
-
-        ArgumentCaptor<Subscription> captor = ArgumentCaptor.forClass(Subscription.class);
-        verify(repoInfoPresenter, times(2)).addSubscription(captor.capture());
-        List<Subscription> subscriptions = captor.getAllValues();
-        assertEquals(2, subscriptions.size());
-        assertTrue(subscriptions.get(0).isUnsubscribed());
-        assertTrue(subscriptions.get(1).isUnsubscribed());
-    }
 
     @Test
     public void testSaveState() {

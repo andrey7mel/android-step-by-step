@@ -50,7 +50,6 @@ public class RepoListPresenterTest extends IntegrationBaseTest {
                 .when(mockView)
                 .getUserName();
         repoListPresenter = new RepoListPresenter(mockView);
-        repoListPresenter.onCreate(mockView);
     }
 
 

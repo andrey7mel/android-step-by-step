@@ -7,6 +7,7 @@ import com.andrey7mel.stepbystep.other.App;
 import com.andrey7mel.stepbystep.presenter.mappers.RepoListMapper;
 import com.andrey7mel.stepbystep.presenter.vo.Repository;
 import com.andrey7mel.stepbystep.view.fragments.RepoListView;
+import com.andrey7mel.stepbystep.view.fragments.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,16 +28,19 @@ public class RepoListPresenter extends BasePresenter {
 
     private List<Repository> repoList;
 
-
     // for DI
     @Inject
     public RepoListPresenter() {
     }
 
-    // Выпилить activityCallback
     public RepoListPresenter(RepoListView view) {
         App.getComponent().inject(this);
         this.view = view;
+    }
+
+    @Override
+    protected View getView() {
+        return view;
     }
 
     public void onSearchButtonClick() {

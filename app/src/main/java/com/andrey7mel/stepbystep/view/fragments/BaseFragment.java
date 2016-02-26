@@ -1,7 +1,6 @@
 package com.andrey7mel.stepbystep.view.fragments;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.andrey7mel.stepbystep.presenter.Presenter;
@@ -23,12 +22,6 @@ public abstract class BaseFragment extends Fragment implements View {
             throw new ClassCastException(activity.toString()
                     + " must implement activityCallback");
         }
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getPresenter().onCreate(this);
     }
 
     @Override

@@ -55,9 +55,6 @@ public class RepoInfoFragment extends BaseFragment implements RepoInfoView {
 
     @Override
     protected BasePresenter getPresenter() {
-//        if(presenter == null) {
-//            App.getComponent().inject(this);
-//        }
         return presenter;
     }
 
