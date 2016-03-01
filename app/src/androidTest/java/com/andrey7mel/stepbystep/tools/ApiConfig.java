@@ -1,10 +1,9 @@
-package com.andrey7mel.stepbystep.di;
+package com.andrey7mel.stepbystep.tools;
 
 import com.andrey7mel.stepbystep.model.api.ApiInterface;
 import com.andrey7mel.stepbystep.model.dto.BranchDTO;
 import com.andrey7mel.stepbystep.model.dto.ContributorDTO;
 import com.andrey7mel.stepbystep.model.dto.RepositoryDTO;
-import com.andrey7mel.stepbystep.tools.TestConst;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;

@@ -79,4 +79,6 @@ public class RepoListFragmentTest extends BaseTest {
         repoListFragment.onSaveInstanceState(bundle);
         verify(repoListPresenter).onSaveInstanceState(bundle);
     }
+
+
 }

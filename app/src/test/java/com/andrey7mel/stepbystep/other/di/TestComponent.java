@@ -6,6 +6,7 @@ import com.andrey7mel.stepbystep.presenter.RepoListPresenterTest;
 import com.andrey7mel.stepbystep.presenter.mappers.RepoBranchesMapperTest;
 import com.andrey7mel.stepbystep.presenter.mappers.RepoContributorsMapperTest;
 import com.andrey7mel.stepbystep.presenter.mappers.RepoListMapperTest;
+import com.andrey7mel.stepbystep.view.fragments.BaseFragmentTest;
 import com.andrey7mel.stepbystep.view.fragments.RepoInfoFragmentTest;
 import com.andrey7mel.stepbystep.view.fragments.RepoListFragmentTest;
 
@@ -33,4 +34,6 @@ public interface TestComponent extends AppComponent {
     void inject(RepoInfoFragmentTest repoInfoFragmentTest);
 
     void inject(RepoListFragmentTest repoListFragmentTest);
+
+    void inject(BaseFragmentTest baseFragmentTest);
 }

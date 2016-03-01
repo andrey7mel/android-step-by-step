@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
-//TODO выпилить отсюда view, пусть будет в каждом фрагменте.
 public abstract class BasePresenter implements Presenter {
 
     @Inject
@@ -22,8 +21,6 @@ public abstract class BasePresenter implements Presenter {
         App.getComponent().inject(this);
     }
 
-    protected abstract View getView();
-
     protected void addSubscription(Subscription subscription) {
         compositeSubscription.add(subscription);
     }
@@ -33,15 +30,17 @@ public abstract class BasePresenter implements Presenter {
         compositeSubscription.clear();
     }
 
-    protected final void showLoadingState() {
+    protected abstract View getView();
+
+    protected void showLoadingState() {
         getView().showLoadingState();
     }
 
-    protected final void hideLoadingState() {
+    protected void hideLoadingState() {
         getView().hideLoadingState();
     }
 
-    protected final void showError(Throwable e) {
+    protected void showError(Throwable e) {
         getView().showError(e.getMessage());
     }
 

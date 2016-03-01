@@ -12,6 +12,15 @@ public abstract class BaseFragment extends Fragment implements View {
 
     protected abstract Presenter getPresenter();
 
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (getPresenter() != null) {
+            getPresenter().onStop();
+        }
+    }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -23,15 +32,6 @@ public abstract class BaseFragment extends Fragment implements View {
                     + " must implement activityCallback");
         }
     }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (getPresenter() != null) {
-            getPresenter().onStop();
-        }
-    }
-
     @Override
     public void showLoadingState() {
         activityCallback.showLoadingState();

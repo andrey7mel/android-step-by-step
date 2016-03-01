@@ -6,7 +6,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.andrey7mel.stepbystep.di.ApiConfig;
+import com.andrey7mel.stepbystep.tools.ApiConfig;
 import com.andrey7mel.stepbystep.di.TestComponent;
 import com.andrey7mel.stepbystep.other.App;
 import com.andrey7mel.stepbystep.tools.EspressoTools;
