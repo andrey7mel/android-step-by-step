@@ -19,7 +19,7 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" >
 
-            <ProgressBar
+            <com.andrey7mel.stepbystep.view.TestableProgressBar
                 android:id="@+id/toolbar_progress_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

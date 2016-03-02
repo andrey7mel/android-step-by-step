@@ -5,6 +5,7 @@ import com.andrey7mel.stepbystep.RepoListTests;
 import com.andrey7mel.stepbystep.other.di.AppComponent;
 import com.andrey7mel.stepbystep.other.di.PresenterModule;
 import com.andrey7mel.stepbystep.other.di.ViewModule;
+import com.andrey7mel.stepbystep.tools.ApiConfig;
 
 import javax.inject.Singleton;
 

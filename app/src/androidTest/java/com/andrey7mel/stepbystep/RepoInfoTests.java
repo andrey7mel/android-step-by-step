@@ -6,9 +6,9 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.andrey7mel.stepbystep.tools.ApiConfig;
 import com.andrey7mel.stepbystep.di.TestComponent;
 import com.andrey7mel.stepbystep.other.App;
+import com.andrey7mel.stepbystep.tools.ApiConfig;
 import com.andrey7mel.stepbystep.tools.EspressoTools;
 import com.andrey7mel.stepbystep.tools.TestConst;
 import com.andrey7mel.stepbystep.view.MainActivity;
@@ -29,6 +29,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.andrey7mel.stepbystep.tools.EspressoTools.hasSetINVISIBLECount;
+import static com.andrey7mel.stepbystep.tools.EspressoTools.hasSetVISIBLECount;
+import static com.andrey7mel.stepbystep.tools.EspressoTools.hasSetVisibilityCount;
 import static org.hamcrest.core.AllOf.allOf;
 
 @RunWith(AndroidJUnit4.class)
@@ -205,7 +208,7 @@ public class RepoInfoTests {
         onView(withId(R.id.recycler_view)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(2, click()));
 
-        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
+        checkProgressBar();
     }
 
     @Test
@@ -215,7 +218,7 @@ public class RepoInfoTests {
         onView(withId(R.id.recycler_view)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(2, click()));
 
-        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
+        checkProgressBar();
     }
 
     @Test
@@ -225,7 +228,7 @@ public class RepoInfoTests {
         onView(withId(R.id.recycler_view)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(2, click()));
 
-        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
+        checkProgressBar();
     }
 
     @Test
@@ -235,7 +238,15 @@ public class RepoInfoTests {
         onView(withId(R.id.recycler_view)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(2, click()));
 
-        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
+        checkProgressBar();
     }
 
+    private void checkProgressBar() {
+        onView(withId(R.id.toolbar_progress_bar)).check(hasSetVisibilityCount(4));
+
+        onView(withId(R.id.toolbar_progress_bar)).check(hasSetVISIBLECount(2));
+        onView(withId(R.id.toolbar_progress_bar)).check(hasSetINVISIBLECount(2));
+
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
+    }
 }
