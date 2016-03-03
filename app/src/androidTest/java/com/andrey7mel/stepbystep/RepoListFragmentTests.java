@@ -28,9 +28,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.andrey7mel.stepbystep.tools.EspressoTools.hasChangeVisibilityCount;
-import static com.andrey7mel.stepbystep.tools.EspressoTools.hasSetINVISIBLECount;
-import static com.andrey7mel.stepbystep.tools.EspressoTools.hasSetVISIBLECount;
 import static org.hamcrest.core.AllOf.allOf;
 
 
@@ -90,7 +87,7 @@ public class RepoListFragmentTests {
         onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
         onView(withId(R.id.button_search)).perform(click());
 
-        checkProgressBar();
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
     }
 
 
@@ -101,16 +98,8 @@ public class RepoListFragmentTests {
         onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
         onView(withId(R.id.button_search)).perform(click());
 
-        checkProgressBar();
-    }
-
-    private void checkProgressBar() {
-
-        onView(withId(R.id.toolbar_progress_bar)).check(hasChangeVisibilityCount(2));
-
-        onView(withId(R.id.toolbar_progress_bar)).check(hasSetVISIBLECount(1));
-        onView(withId(R.id.toolbar_progress_bar)).check(hasSetINVISIBLECount(1));
-
         onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
     }
+
+
 }

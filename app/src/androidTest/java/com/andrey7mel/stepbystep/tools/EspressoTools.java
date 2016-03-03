@@ -10,7 +10,6 @@ import android.support.test.espresso.util.TreeIterables;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.andrey7mel.stepbystep.view.TestableProgressBar;
 import com.google.common.truth.Truth;
 
 import org.hamcrest.Matcher;
@@ -41,59 +40,6 @@ public final class EspressoTools {
             }
         };
     }
-
-    public static ViewAssertion hasChangeVisibilityCount(final int count) {
-        return new ViewAssertion() {
-            @Override
-            public void check(View view, NoMatchingViewException e) {
-                if (!(view instanceof TestableProgressBar)) {
-                    throw e;
-                }
-                TestableProgressBar testableProgressBar = (TestableProgressBar) view;
-                Truth.assertThat(testableProgressBar.getCountChangeVisibility()).isEqualTo(count);
-            }
-        };
-    }
-
-    public static ViewAssertion hasSetVISIBLECount(final int count) {
-        return new ViewAssertion() {
-            @Override
-            public void check(View view, NoMatchingViewException e) {
-                if (!(view instanceof TestableProgressBar)) {
-                    throw e;
-                }
-                TestableProgressBar testableProgressBar = (TestableProgressBar) view;
-                Truth.assertThat(testableProgressBar.getCountSetVISIBLE()).isEqualTo(count);
-            }
-        };
-    }
-
-    public static ViewAssertion hasSetINVISIBLECount(final int count) {
-        return new ViewAssertion() {
-            @Override
-            public void check(View view, NoMatchingViewException e) {
-                if (!(view instanceof TestableProgressBar)) {
-                    throw e;
-                }
-                TestableProgressBar testableProgressBar = (TestableProgressBar) view;
-                Truth.assertThat(testableProgressBar.getCountSetINVISIBLE()).isEqualTo(count);
-            }
-        };
-    }
-
-    public static ViewAssertion hasSetGONECount(final int count) {
-        return new ViewAssertion() {
-            @Override
-            public void check(View view, NoMatchingViewException e) {
-                if (!(view instanceof TestableProgressBar)) {
-                    throw e;
-                }
-                TestableProgressBar testableProgressBar = (TestableProgressBar) view;
-                Truth.assertThat(testableProgressBar.getCountSetGONE()).isEqualTo(count);
-            }
-        };
-    }
-
 
 
     public static ViewAssertion hasHolderItemAtPosition(final int index,

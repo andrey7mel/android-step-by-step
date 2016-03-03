@@ -29,9 +29,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.andrey7mel.stepbystep.tools.EspressoTools.hasChangeVisibilityCount;
-import static com.andrey7mel.stepbystep.tools.EspressoTools.hasSetINVISIBLECount;
-import static com.andrey7mel.stepbystep.tools.EspressoTools.hasSetVISIBLECount;
 import static org.hamcrest.core.AllOf.allOf;
 
 @RunWith(AndroidJUnit4.class)
@@ -207,7 +204,7 @@ public class RepoInfoFragmentTests {
         onView(withId(R.id.recycler_view)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(2, click()));
 
-        checkProgressBar();
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
     }
 
     @Test
@@ -217,7 +214,7 @@ public class RepoInfoFragmentTests {
         onView(withId(R.id.recycler_view)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(2, click()));
 
-        checkProgressBar();
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
     }
 
     @Test
@@ -227,7 +224,7 @@ public class RepoInfoFragmentTests {
         onView(withId(R.id.recycler_view)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(2, click()));
 
-        checkProgressBar();
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
     }
 
     @Test
@@ -237,15 +234,8 @@ public class RepoInfoFragmentTests {
         onView(withId(R.id.recycler_view)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(2, click()));
 
-        checkProgressBar();
-    }
-
-    private void checkProgressBar() {
-        onView(withId(R.id.toolbar_progress_bar)).check(hasChangeVisibilityCount(4));
-
-        onView(withId(R.id.toolbar_progress_bar)).check(hasSetVISIBLECount(2));
-        onView(withId(R.id.toolbar_progress_bar)).check(hasSetINVISIBLECount(2));
-
         onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
     }
+
+
 }
