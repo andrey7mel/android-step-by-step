@@ -6,7 +6,7 @@ public interface ActivityCallback {
 
     void startRepoInfoFragment(Repository repository);
 
-    void showLoadingState();
+    void showProgressBar();
 
-    void hideLoadingState();
+    void hideProgressBar();
 }

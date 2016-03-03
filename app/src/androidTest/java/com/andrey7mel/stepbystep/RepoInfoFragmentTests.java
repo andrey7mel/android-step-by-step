@@ -36,7 +36,7 @@ import static org.hamcrest.core.AllOf.allOf;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class RepoInfoTests {
+public class RepoInfoFragmentTests {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule(MainActivity.class);
@@ -47,7 +47,6 @@ public class RepoInfoTests {
     @Before
     public void setUp() {
         ((TestComponent) App.getComponent()).inject(this);
-
         apiConfig.setCorrectAnswer();
         onView(withId(R.id.edit_text)).perform(clearText());
         onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));

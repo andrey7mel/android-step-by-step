@@ -54,12 +54,12 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     }
 
     @Override
-    public void showLoadingState() {
+    public void showProgressBar() {
         progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void hideLoadingState() {
+    public void hideProgressBar() {
         progressBar.setVisibility(View.INVISIBLE);
     }
 

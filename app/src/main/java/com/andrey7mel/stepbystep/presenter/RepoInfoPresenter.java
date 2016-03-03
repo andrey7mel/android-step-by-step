@@ -35,7 +35,7 @@ public class RepoInfoPresenter extends BasePresenter {
 
     private Repository repository;
 
-    public void loadData() {
+    private void loadData() {
         String owner = repository.getOwnerName();
         String name = repository.getRepoName();
 
@@ -92,6 +92,7 @@ public class RepoInfoPresenter extends BasePresenter {
         this.repository = repository;
     }
 
+    //TODO Коля, проверить
     protected synchronized void hideInfoLoadingState() {
         countCompletedSubscription++;
 

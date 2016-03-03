@@ -113,44 +113,72 @@ public class RepoInfoPresenterTest extends IntegrationBaseTest {
 
 
     @Test
-    public void testLoadingState() {
+    public void testShowLoading() {
         repoInfoPresenter.onCreateView(null);
-        repoInfoPresenter.onStop();
 
-
-        verify(mockView).showLoadingState();
-        verify(mockView).hideLoadingState();
+        verify(mockView).showLoading();
     }
 
     @Test
-    public void testLoadingStateWithError() {
+    public void testHideLoading() {
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).hideLoading();
+    }
+
+    @Test
+    public void testShowLoadingOnError() {
         setErrorAnswerWebServer();
 
         repoInfoPresenter.onCreateView(null);
-        repoInfoPresenter.onStop();
 
-        verify(mockView).showLoadingState();
-        verify(mockView).hideLoadingState();
+        verify(mockView).showLoading();
     }
 
     @Test
-    public void testOnErrorBranchesLoadingState() {
+    public void testHideLoadingOnError() {
+        setErrorAnswerWebServer();
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).hideLoading();
+    }
+
+    @Test
+    public void testShowLoadingOnErrorBranches() {
         setCustomAnswer(false, true);
 
         repoInfoPresenter.onCreateView(null);
 
-        verify(mockView).showLoadingState();
-        verify(mockView).hideLoadingState();
+        verify(mockView).showLoading();
     }
 
     @Test
-    public void testOnErrorContributorsLoadingState() {
+    public void testHideLoadingOnErrorBranches() {
+        setCustomAnswer(false, true);
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).hideLoading();
+    }
+
+    @Test
+    public void testShowLoadingOnErrorContributors() {
+        setCustomAnswer(true, false);
+
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).showLoading();
+    }
+
+    @Test
+    public void testHideLoadingOnErrorContributors() {
         setCustomAnswer(true, false);
 
         repoInfoPresenter.onCreateView(null);
 
-        verify(mockView).showLoadingState();
-        verify(mockView).hideLoadingState();
+        verify(mockView).hideLoading();
     }
 
 

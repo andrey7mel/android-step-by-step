@@ -41,15 +41,15 @@ public class BaseFragmentTest extends BaseTest {
 
     @Test
     public void testShowLoadingState() throws Exception {
-        baseFragment.showLoadingState();
-        verify(activity).showLoadingState();
+        baseFragment.showLoading();
+        verify(activity).showProgressBar();
 
     }
 
     @Test
     public void testHideLoadingState() throws Exception {
-        baseFragment.hideLoadingState();
-        verify(activity).hideLoadingState();
+        baseFragment.hideLoading();
+        verify(activity).hideProgressBar();
     }
 
     @Test

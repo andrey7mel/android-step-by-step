@@ -36,13 +36,13 @@ public class BasePresenterTest extends BaseTest {
     @Test
     public void testShowLoadingState() throws Exception {
         basePresenter.showLoadingState();
-        verify(view).showLoadingState();
+        verify(view).showLoading();
     }
 
     @Test
     public void testHideLoadingState() throws Exception {
         basePresenter.hideLoadingState();
-        verify(view).hideLoadingState();
+        verify(view).hideLoading();
     }
 
     @Test

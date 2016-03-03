@@ -33,13 +33,13 @@ public abstract class BaseFragment extends Fragment implements View {
         }
     }
     @Override
-    public void showLoadingState() {
-        activityCallback.showLoadingState();
+    public void showLoading() {
+        activityCallback.showProgressBar();
     }
 
     @Override
-    public void hideLoadingState() {
-        activityCallback.hideLoadingState();
+    public void hideLoading() {
+        activityCallback.hideProgressBar();
     }
 }
 

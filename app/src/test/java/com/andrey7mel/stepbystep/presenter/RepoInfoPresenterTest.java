@@ -163,41 +163,21 @@ public class RepoInfoPresenterTest extends BaseTest {
     }
 
     @Test
-    public void testLoadingState() {
+    public void testShowLoading() {
         repoInfoPresenter.onCreateView(null);
-        repoInfoPresenter.onStop();
 
-        verify(mockView).showLoadingState();
-        verify(mockView).hideLoadingState();
+        verify(mockView).showLoading();
     }
 
     @Test
-    public void testOnErrorBranchesLoadingState() {
-        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
-                .when(model)
-                .getRepoBranches(TestConst.TEST_OWNER, TestConst.TEST_REPO);
-
+    public void testHideLoading() {
         repoInfoPresenter.onCreateView(null);
 
-        verify(mockView).showLoadingState();
-        verify(mockView).hideLoadingState();
+        verify(mockView).hideLoading();
     }
 
     @Test
-    public void testOnErrorContributorsLoadingState() {
-        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
-                .when(model)
-                .getRepoContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO);
-
-        repoInfoPresenter.onCreateView(null);
-
-        verify(mockView).showLoadingState();
-        verify(mockView).hideLoadingState();
-    }
-
-
-    @Test
-    public void testOnErrorAllLoadingState() {
+    public void testShowLoadingOnError() {
         doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
                 .when(model)
                 .getRepoContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO);
@@ -207,8 +187,65 @@ public class RepoInfoPresenterTest extends BaseTest {
 
         repoInfoPresenter.onCreateView(null);
 
-        verify(mockView).showLoadingState();
-        verify(mockView).hideLoadingState();
+        verify(mockView).showLoading();
+    }
+
+    @Test
+    public void testHideLoadingOnError() {
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO);
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoBranches(TestConst.TEST_OWNER, TestConst.TEST_REPO);
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).hideLoading();
+    }
+
+    @Test
+    public void testShowLoadingOnErrorBranches() {
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoBranches(TestConst.TEST_OWNER, TestConst.TEST_REPO);
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).showLoading();
+    }
+
+    @Test
+    public void testHideLoadingOnErrorBranches() {
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoBranches(TestConst.TEST_OWNER, TestConst.TEST_REPO);
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).hideLoading();
+    }
+
+    @Test
+    public void testShowLoadingOnErrorContributors() {
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO);
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).showLoading();
+    }
+
+    @Test
+    public void testHideLoadingOnErrorContributors() {
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO);
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).hideLoading();
     }
 
 }

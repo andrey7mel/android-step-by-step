@@ -33,11 +33,11 @@ public abstract class BasePresenter implements Presenter {
     protected abstract View getView();
 
     protected void showLoadingState() {
-        getView().showLoadingState();
+        getView().showLoading();
     }
 
     protected void hideLoadingState() {
-        getView().hideLoadingState();
+        getView().hideLoading();
     }
 
     protected void showError(Throwable e) {

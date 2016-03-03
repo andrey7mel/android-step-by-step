@@ -4,7 +4,7 @@ public interface View {
 
     void showError(String error);
 
-    void showLoadingState();
+    void showLoading();
 
-    void hideLoadingState();
+    void hideLoading();
 }

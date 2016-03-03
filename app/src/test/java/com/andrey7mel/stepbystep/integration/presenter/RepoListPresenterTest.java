@@ -117,8 +117,8 @@ public class RepoListPresenterTest extends IntegrationBaseTest {
         repoListPresenter.onSearchButtonClick();
         repoListPresenter.onStop();
 
-        verify(mockView).showLoadingState();
-        verify(mockView).hideLoadingState();
+        verify(mockView).showLoading();
+        verify(mockView).hideLoading();
     }
 
     @Test
@@ -126,7 +126,7 @@ public class RepoListPresenterTest extends IntegrationBaseTest {
         setErrorAnswerWebServer();
         repoListPresenter.onSearchButtonClick();
 
-        verify(mockView).showLoadingState();
-        verify(mockView).hideLoadingState();
+        verify(mockView).showLoading();
+        verify(mockView).hideLoading();
     }
 }
