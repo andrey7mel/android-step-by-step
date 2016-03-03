@@ -81,7 +81,7 @@ public class RepoListFragmentTests {
     }
 
     @Test
-    public void testLoadingState() {
+    public void testHideProgressBar() {
         apiConfig.setCorrectAnswer();
         onView(withId(R.id.edit_text)).perform(clearText());
         onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
@@ -92,7 +92,7 @@ public class RepoListFragmentTests {
 
 
     @Test
-    public void testLoadingStateError() {
+    public void testHideProgressBarOnError() {
         apiConfig.setErrorAnswer();
         onView(withId(R.id.edit_text)).perform(clearText());
         onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));

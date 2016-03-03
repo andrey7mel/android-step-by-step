@@ -200,7 +200,7 @@ public class RepoInfoFragmentTests {
 
 
     @Test
-    public void testLoadingState() {
+    public void testHideProgressBar() {
         onView(withId(R.id.recycler_view)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(2, click()));
 
@@ -208,7 +208,7 @@ public class RepoInfoFragmentTests {
     }
 
     @Test
-    public void testLoadingStateError() {
+    public void testHideProgressBarOnError() {
         apiConfig.setErrorAnswer();
 
         onView(withId(R.id.recycler_view)).perform(
@@ -218,7 +218,7 @@ public class RepoInfoFragmentTests {
     }
 
     @Test
-    public void testLoadingStateErrorBranches() {
+    public void testHideProgressBarOnErrorBranches() {
         apiConfig.setCustomAnswer(false, true);
 
         onView(withId(R.id.recycler_view)).perform(
@@ -228,7 +228,7 @@ public class RepoInfoFragmentTests {
     }
 
     @Test
-    public void testLoadingStateErrorContributors() {
+    public void testHideProgressBarOnErrorContributors() {
         apiConfig.setCustomAnswer(true, false);
 
         onView(withId(R.id.recycler_view)).perform(
