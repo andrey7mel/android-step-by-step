@@ -6,7 +6,7 @@ import android.widget.ProgressBar;
 
 public class TestableProgressBar extends ProgressBar {
 
-    private int countSetVisibility;
+    private int countChangeVisibility;
 
     private int countSetVISIBLE;
     private int countSetINVISIBLE;
@@ -24,8 +24,8 @@ public class TestableProgressBar extends ProgressBar {
         super(context, attrs, defStyleAttr);
     }
 
-    public int getCountSetVisibility() {
-        return countSetVisibility;
+    public int getCountChangeVisibility() {
+        return countChangeVisibility;
     }
 
     public int getCountSetVISIBLE() {
@@ -43,7 +43,7 @@ public class TestableProgressBar extends ProgressBar {
     @Override
     public void setVisibility(int v) {
         super.setVisibility(v);
-        countSetVisibility++;
+        countChangeVisibility++;
 
         switch (v) {
             case VISIBLE:

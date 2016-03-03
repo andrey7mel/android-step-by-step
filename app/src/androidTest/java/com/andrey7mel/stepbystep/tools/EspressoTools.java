@@ -42,7 +42,7 @@ public final class EspressoTools {
         };
     }
 
-    public static ViewAssertion hasSetVisibilityCount(final int count) {
+    public static ViewAssertion hasChangeVisibilityCount(final int count) {
         return new ViewAssertion() {
             @Override
             public void check(View view, NoMatchingViewException e) {
@@ -50,7 +50,7 @@ public final class EspressoTools {
                     throw e;
                 }
                 TestableProgressBar testableProgressBar = (TestableProgressBar) view;
-                Truth.assertThat(testableProgressBar.getCountSetVisibility()).isEqualTo(count);
+                Truth.assertThat(testableProgressBar.getCountChangeVisibility()).isEqualTo(count);
             }
         };
     }

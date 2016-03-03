@@ -29,9 +29,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.andrey7mel.stepbystep.tools.EspressoTools.hasChangeVisibilityCount;
 import static com.andrey7mel.stepbystep.tools.EspressoTools.hasSetINVISIBLECount;
 import static com.andrey7mel.stepbystep.tools.EspressoTools.hasSetVISIBLECount;
-import static com.andrey7mel.stepbystep.tools.EspressoTools.hasSetVisibilityCount;
 import static org.hamcrest.core.AllOf.allOf;
 
 @RunWith(AndroidJUnit4.class)
@@ -242,7 +242,7 @@ public class RepoInfoTests {
     }
 
     private void checkProgressBar() {
-        onView(withId(R.id.toolbar_progress_bar)).check(hasSetVisibilityCount(4));
+        onView(withId(R.id.toolbar_progress_bar)).check(hasChangeVisibilityCount(4));
 
         onView(withId(R.id.toolbar_progress_bar)).check(hasSetVISIBLECount(2));
         onView(withId(R.id.toolbar_progress_bar)).check(hasSetINVISIBLECount(2));
