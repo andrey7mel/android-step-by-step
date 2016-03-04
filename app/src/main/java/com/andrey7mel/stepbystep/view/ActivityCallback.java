@@ -9,4 +9,5 @@ public interface ActivityCallback {
     void showProgressBar();
 
     void hideProgressBar();
+
 }

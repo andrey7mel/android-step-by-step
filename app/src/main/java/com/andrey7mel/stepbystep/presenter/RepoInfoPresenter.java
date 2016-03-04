@@ -31,6 +31,7 @@ public class RepoInfoPresenter extends BasePresenter {
     protected RepoContributorsMapper contributorsMapper;
 
     private int countCompletedSubscription = 0;
+
     private RepoInfoView view;
 
     private List<Contributor> contributorList;

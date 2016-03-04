@@ -46,6 +46,7 @@ public class ApiConfig {
     }
 
     public void setErrorAnswer() {
+
         when(apiInterface.getRepositories(TestConst.TEST_OWNER))
                 .thenReturn(getErrorObservableWithDelay());
 

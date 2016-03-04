@@ -20,7 +20,6 @@ public class TestUtils {
         return gson;
     }
 
-
     public <T> T readJson(String fileName, Class<T> inClass) {
         return gson.fromJson(readString(fileName), inClass);
     }

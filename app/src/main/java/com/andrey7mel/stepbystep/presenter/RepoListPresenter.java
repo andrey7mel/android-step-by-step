@@ -51,6 +51,7 @@ public class RepoListPresenter extends BasePresenter {
         Subscription subscription = model.getRepoList(name)
                 .map(repoListMapper)
                 .subscribe(new Observer<List<Repository>>() {
+
                     @Override
                     public void onCompleted() {
                         hideLoadingState();

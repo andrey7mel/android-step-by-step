@@ -29,18 +29,22 @@ import butterknife.ButterKnife;
 
 public class RepoInfoFragment extends BaseFragment implements RepoInfoView {
 
-    public static final String BUNDLE_REPO_KEY = "BUNDLE_REPO_KEY";
+    private static final String BUNDLE_REPO_KEY = "BUNDLE_REPO_KEY";
+
     @Bind(R.id.repo_info)
-    TextView info;
+    protected TextView info;
+
     @Bind(R.id.recycler_view_branches)
-    RecyclerView branchesRecyclerView;
+    protected RecyclerView branchesRecyclerView;
+
     @Bind(R.id.recycler_view_contributors)
-    RecyclerView contributorsRecyclerView;
+    protected RecyclerView contributorsRecyclerView;
+
     @Bind(R.id.linear_layout)
-    View layout;
+    protected View layout;
 
     @Inject
-    RepoInfoPresenter presenter;
+    protected RepoInfoPresenter presenter;
 
     public static RepoInfoFragment newInstance(Repository repository) {
         RepoInfoFragment myFragment = new RepoInfoFragment();
@@ -113,7 +117,6 @@ public class RepoInfoFragment extends BaseFragment implements RepoInfoView {
     @Override
     public void showBranches(List<Branch> branches) {
         branchesRecyclerView.setAdapter(new BranchesAdapter(branches));
-
     }
 
 }

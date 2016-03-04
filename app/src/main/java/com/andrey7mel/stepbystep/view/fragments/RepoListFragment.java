@@ -34,16 +34,16 @@ import butterknife.OnClick;
 public class RepoListFragment extends BaseFragment implements RepoListView {
 
     @Bind(R.id.recycler_view)
-    RecyclerView recyclerView;
+    protected RecyclerView recyclerView;
 
     @Bind(R.id.edit_text)
-    EditText editText;
+    protected EditText editText;
 
     @Bind(R.id.button_search)
-    Button searchButton;
+    protected Button searchButton;
 
     @Inject
-    RepoListPresenter presenter;
+    protected RepoListPresenter presenter;
 
     private RepoListAdapter adapter;
 

@@ -38,7 +38,6 @@ public class RepoListFragmentTests {
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule(MainActivity.class);
 
-
     @Inject
     ApiConfig apiConfig;
 
@@ -53,12 +52,11 @@ public class RepoListFragmentTests {
         onView(withId(R.id.edit_text)).check(matches(isDisplayed()));
     }
 
+
     @Test
     public void testGetUserRepo() {
         apiConfig.setCorrectAnswer();
-        onView(withId(R.id.edit_text)).perform(clearText());
-        onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
-        onView(withId(R.id.button_search)).perform(click());
+        enterOwner();
 
         onView(withId(R.id.recycler_view)).check(EspressoTools.hasItemsCount(7));
 
@@ -70,9 +68,7 @@ public class RepoListFragmentTests {
     @Test
     public void testGetUserRepoError() {
         apiConfig.setErrorAnswer();
-        onView(withId(R.id.edit_text)).perform(clearText());
-        onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
-        onView(withId(R.id.button_search)).perform(click());
+        enterOwner();
 
         onView(allOf(withId(android.support.design.R.id.snackbar_text), withText(TestConst.TEST_ERROR)))
                 .check(matches(isDisplayed()));
@@ -83,9 +79,7 @@ public class RepoListFragmentTests {
     @Test
     public void testHideProgressBar() {
         apiConfig.setCorrectAnswer();
-        onView(withId(R.id.edit_text)).perform(clearText());
-        onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
-        onView(withId(R.id.button_search)).perform(click());
+        enterOwner();
 
         onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
     }
@@ -94,11 +88,15 @@ public class RepoListFragmentTests {
     @Test
     public void testHideProgressBarOnError() {
         apiConfig.setErrorAnswer();
+        enterOwner();
+
+        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
+    }
+
+    private void enterOwner() {
         onView(withId(R.id.edit_text)).perform(clearText());
         onView(withId(R.id.edit_text)).perform(typeText(TestConst.TEST_OWNER));
         onView(withId(R.id.button_search)).perform(click());
-
-        onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
     }
 
 

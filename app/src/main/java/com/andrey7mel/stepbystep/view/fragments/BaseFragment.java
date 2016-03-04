@@ -12,7 +12,6 @@ public abstract class BaseFragment extends Fragment implements View {
 
     protected abstract Presenter getPresenter();
 
-
     @Override
     public void onStop() {
         super.onStop();

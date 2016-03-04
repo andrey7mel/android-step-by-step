@@ -22,10 +22,10 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     private static String TAG = "TAG";
 
     @Bind(R.id.toolbar)
-    Toolbar toolbar;
+    protected Toolbar toolbar;
 
     @Bind((R.id.toolbar_progress_bar))
-    ProgressBar progressBar;
+    protected ProgressBar progressBar;
 
     private FragmentManager fragmentManager;
 

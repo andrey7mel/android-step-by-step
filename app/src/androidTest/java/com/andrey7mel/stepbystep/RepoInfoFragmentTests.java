@@ -39,7 +39,7 @@ public class RepoInfoFragmentTests {
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule(MainActivity.class);
 
     @Inject
-    ApiConfig apiConfig;
+    protected ApiConfig apiConfig;
 
     @Before
     public void setUp() {
@@ -236,6 +236,5 @@ public class RepoInfoFragmentTests {
 
         onView(withId(R.id.toolbar_progress_bar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
     }
-
 
 }
