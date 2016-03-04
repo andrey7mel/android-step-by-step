@@ -23,10 +23,13 @@ public class RepoInfoPresenter extends BasePresenter {
 
     private static final String BUNDLE_BRANCHES_KEY = "BUNDLE_BRANCHES_KEY";
     private static final String BUNDLE_CONTRIBUTORS_KEY = "BUNDLE_CONTRIBUTORS_KEY";
+
     @Inject
     protected RepoBranchesMapper branchesMapper;
+
     @Inject
     protected RepoContributorsMapper contributorsMapper;
+
     private int countCompletedSubscription = 0;
     private RepoInfoView view;
 

@@ -29,11 +29,11 @@ public class ModelModule {
         return AndroidSchedulers.mainThread();
     }
 
-
     @Provides
     @Singleton
     @Named(Const.IO_THREAD)
     Scheduler provideSchedulerIO() {
         return Schedulers.io();
     }
+
 }

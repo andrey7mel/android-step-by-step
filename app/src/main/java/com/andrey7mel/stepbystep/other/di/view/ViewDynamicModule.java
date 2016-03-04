@@ -20,5 +20,4 @@ public class ViewDynamicModule {
         return new RepoListPresenter(view);
     }
 
-
 }
