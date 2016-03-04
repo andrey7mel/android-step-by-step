@@ -46,7 +46,6 @@ public class RepoListPresenterTest extends BaseTest {
     private RepoListPresenter repoListPresenter;
     private ActivityCallback activityCallback;
 
-
     @Before
     public void setUp() throws Exception {
         super.setUp();

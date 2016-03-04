@@ -21,12 +21,11 @@ import static org.junit.Assert.assertEquals;
 
 public class ModelTest extends IntegrationBaseTest {
 
+    @Inject
+    protected ApiInterface apiInterface;
 
     @Inject
-    ApiInterface apiInterface;
-
-    @Inject
-    Model model;
+    protected Model model;
 
     @Before
     public void setUp() throws Exception {

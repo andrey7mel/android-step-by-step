@@ -15,13 +15,11 @@ import static org.mockito.Mockito.verify;
 
 public class BaseFragmentTest extends BaseTest {
 
-    BaseFragment baseFragment;
-    MainActivity activity;
-
-    BasePresenter basePresenter;
-
     @Inject
-    Repository repository;
+    protected Repository repository;
+    private BaseFragment baseFragment;
+    private MainActivity activity;
+    private BasePresenter basePresenter;
 
     @Override
     @Before

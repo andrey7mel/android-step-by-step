@@ -21,7 +21,6 @@ public class RepoBranchesMapperTest extends BaseTest {
 
     private List<BranchDTO> branchDTOs;
 
-
     @Before
     public void setUp() throws Exception {
         super.setUp();

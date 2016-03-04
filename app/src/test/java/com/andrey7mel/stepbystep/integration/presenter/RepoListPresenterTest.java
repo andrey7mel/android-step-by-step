@@ -8,7 +8,6 @@ import com.andrey7mel.stepbystep.other.TestConst;
 import com.andrey7mel.stepbystep.presenter.RepoListPresenter;
 import com.andrey7mel.stepbystep.presenter.mappers.RepoListMapper;
 import com.andrey7mel.stepbystep.presenter.vo.Repository;
-import com.andrey7mel.stepbystep.view.ActivityCallback;
 import com.andrey7mel.stepbystep.view.fragments.RepoListView;
 
 import org.junit.Before;
@@ -28,6 +27,7 @@ public class RepoListPresenterTest extends IntegrationBaseTest {
 
     @Inject
     protected RepoListMapper repoListMapper;
+
     @Inject
     protected Model model;
 
@@ -36,14 +36,11 @@ public class RepoListPresenterTest extends IntegrationBaseTest {
 
     private RepoListView mockView;
     private RepoListPresenter repoListPresenter;
-    private ActivityCallback activityCallback;
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
         component.inject(this);
-
-        activityCallback = mock(ActivityCallback.class);
 
         mockView = mock(RepoListView.class);
         doAnswer(invocation -> TestConst.TEST_OWNER)

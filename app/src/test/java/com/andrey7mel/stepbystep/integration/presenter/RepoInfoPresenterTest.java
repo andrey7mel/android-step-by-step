@@ -26,7 +26,6 @@ import static org.mockito.Mockito.verify;
 
 public class RepoInfoPresenterTest extends IntegrationBaseTest {
 
-
     @Inject
     protected List<Contributor> contributorList;
 
@@ -38,10 +37,13 @@ public class RepoInfoPresenterTest extends IntegrationBaseTest {
 
     @Inject
     protected RepoContributorsMapper contributorsMapper;
+
     @Inject
     protected Repository repository;
+
     @Inject
-    Model model;
+    protected Model model;
+
     private RepoInfoView mockView;
     private RepoInfoPresenter repoInfoPresenter;
 

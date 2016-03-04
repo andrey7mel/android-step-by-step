@@ -18,6 +18,7 @@ import dagger.Component;
 @Singleton
 @Component(modules = {IntegrationTestModelModule.class, PresenterModule.class, ViewModule.class, DataTestModule.class})
 public interface IntegrationTestComponent extends AppComponent {
+
     void inject(ModelTest modelTest);
 
     void inject(RepoInfoPresenterTest repoInfoPresenterTest);
@@ -29,4 +30,5 @@ public interface IntegrationTestComponent extends AppComponent {
     void inject(RepoListFragmentTest repoListFragmentTest);
 
     void inject(IntegrationBaseTest integrationBaseTest);
+
 }

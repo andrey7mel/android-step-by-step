@@ -24,9 +24,9 @@ import static org.mockito.Mockito.when;
 public class ModelImplTest extends BaseTest {
 
     @Inject
-    ApiInterface apiInterface;
+    protected ApiInterface apiInterface;
 
-    Model model;
+    private Model model;
 
     @Before
     public void setUp() throws Exception {

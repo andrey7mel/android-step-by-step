@@ -7,5 +7,4 @@ public class TestConst {
     public static final String ERROR_RESPONSE_500 = "HTTP 500 OK";
     public static final String ERROR_RESPONSE_404 = "HTTP 404 OK";
 
-
 }

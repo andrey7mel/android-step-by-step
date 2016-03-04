@@ -19,8 +19,7 @@ public class RepoContributorsMapperTest extends BaseTest {
     @Inject
     protected RepoContributorsMapper repoContributorsMapper;
 
-    protected List<ContributorDTO> contributorDTOs;
-
+    private List<ContributorDTO> contributorDTOs;
 
     @Before
     public void setUp() throws Exception {

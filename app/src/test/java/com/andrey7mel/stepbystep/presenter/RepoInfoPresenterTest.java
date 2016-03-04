@@ -52,8 +52,10 @@ public class RepoInfoPresenterTest extends BaseTest {
 
     @Inject
     protected Model model;
+
     @Inject
     protected Repository repository;
+
     private RepoInfoView mockView;
     private RepoInfoPresenter repoInfoPresenter;
 

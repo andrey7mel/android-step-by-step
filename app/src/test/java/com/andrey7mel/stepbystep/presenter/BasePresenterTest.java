@@ -19,9 +19,8 @@ import static org.mockito.Mockito.verify;
 
 public class BasePresenterTest extends BaseTest {
 
-    protected BasePresenter basePresenter;
-
     protected View view;
+    private BasePresenter basePresenter;
 
     @Override
     @Before
