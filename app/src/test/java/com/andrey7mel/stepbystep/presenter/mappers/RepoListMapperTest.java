@@ -25,7 +25,7 @@ public class RepoListMapperTest extends BaseTest {
     public void setUp() throws Exception {
         super.setUp();
         component.inject(this);
-        RepositoryDTO[] repositoryDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/repos"), RepositoryDTO[].class);
+        RepositoryDTO[] repositoryDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/repos.json"), RepositoryDTO[].class);
         repositoryDTOs = Arrays.asList(repositoryDTOArray);
 
     }

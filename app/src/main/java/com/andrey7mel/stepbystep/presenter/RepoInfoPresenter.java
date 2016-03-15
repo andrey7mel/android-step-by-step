@@ -96,8 +96,7 @@ public class RepoInfoPresenter extends BasePresenter {
         this.repository = repository;
     }
 
-    //TODO Коля, проверить
-    protected synchronized void hideInfoLoadingState() {
+    protected void hideInfoLoadingState() {
         countCompletedSubscription++;
 
         if (countCompletedSubscription == 2) {

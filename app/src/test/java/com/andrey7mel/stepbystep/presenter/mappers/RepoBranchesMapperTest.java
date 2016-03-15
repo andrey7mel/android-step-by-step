@@ -25,7 +25,7 @@ public class RepoBranchesMapperTest extends BaseTest {
     public void setUp() throws Exception {
         super.setUp();
         component.inject(this);
-        BranchDTO[] branchDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/branches"), BranchDTO[].class);
+        BranchDTO[] branchDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/branches.json"), BranchDTO[].class);
         branchDTOs = Arrays.asList(branchDTOArray);
 
     }

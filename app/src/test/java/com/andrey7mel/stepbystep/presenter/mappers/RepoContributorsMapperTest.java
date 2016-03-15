@@ -25,7 +25,7 @@ public class RepoContributorsMapperTest extends BaseTest {
     public void setUp() throws Exception {
         super.setUp();
         component.inject(this);
-        ContributorDTO[] contributorDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/contributors"), ContributorDTO[].class);
+        ContributorDTO[] contributorDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/contributors.json"), ContributorDTO[].class);
         contributorDTOs = Arrays.asList(contributorDTOArray);
 
     }
