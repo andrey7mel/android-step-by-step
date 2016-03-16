@@ -23,6 +23,7 @@ public class RepoInfoPresenter extends BasePresenter {
 
     private static final String BUNDLE_BRANCHES_KEY = "BUNDLE_BRANCHES_KEY";
     private static final String BUNDLE_CONTRIBUTORS_KEY = "BUNDLE_CONTRIBUTORS_KEY";
+    private static final int COUNT_SUBSCRIPTION = 2;
 
     @Inject
     protected RepoBranchesMapper branchesMapper;
@@ -99,8 +100,9 @@ public class RepoInfoPresenter extends BasePresenter {
     protected void hideInfoLoadingState() {
         countCompletedSubscription++;
 
-        if (countCompletedSubscription == 2) {
+        if (countCompletedSubscription == COUNT_SUBSCRIPTION) {
             hideLoadingState();
+            countCompletedSubscription = 0;
         }
     }
 
