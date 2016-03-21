@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import javax.inject.Inject;
 
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -38,10 +39,14 @@ public class BaseFragmentTest extends BaseTest {
     }
 
     @Test
+    public void testAttachActivityCallback() throws Exception {
+        assertNotNull(baseFragment.activityCallback);
+    }
+
+    @Test
     public void testShowLoadingState() throws Exception {
         baseFragment.showLoading();
         verify(activity).showProgressBar();
-
     }
 
     @Test

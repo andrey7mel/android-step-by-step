@@ -8,6 +8,7 @@ import com.andrey7mel.stepbystep.other.BaseTest;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -22,6 +23,11 @@ public class MainActivityTest extends BaseTest {
         mainActivity = new MainActivity();
         progressBar = mock(ProgressBar.class);
         mainActivity.progressBar = progressBar;
+    }
+
+    @Test
+    public void testHaveProgressBar() throws Exception {
+        assertNotNull(progressBar);
     }
 
     @Test

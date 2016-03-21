@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     @Bind(R.id.toolbar)
     protected Toolbar toolbar;
 
-    @Bind((R.id.toolbar_progress_bar))
+    @Bind(R.id.toolbar_progress_bar)
     protected ProgressBar progressBar;
 
     private FragmentManager fragmentManager;

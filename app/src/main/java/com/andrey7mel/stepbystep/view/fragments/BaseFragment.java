@@ -8,7 +8,7 @@ import com.andrey7mel.stepbystep.view.ActivityCallback;
 
 public abstract class BaseFragment extends Fragment implements View {
 
-    private ActivityCallback activityCallback;
+    protected ActivityCallback activityCallback;
 
     protected abstract Presenter getPresenter();
 
