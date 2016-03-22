@@ -108,22 +108,4 @@ public class RepoListPresenterTest extends IntegrationBaseTest {
     }
 
 
-    @Test
-    public void testLoadingState() {
-        repoListPresenter.onCreateView(null);
-        repoListPresenter.onSearchButtonClick();
-        repoListPresenter.onStop();
-
-        verify(mockView).showLoading();
-        verify(mockView).hideLoading();
-    }
-
-    @Test
-    public void testOnErrorLoadingState() {
-        setErrorAnswerWebServer();
-        repoListPresenter.onSearchButtonClick();
-
-        verify(mockView).showLoading();
-        verify(mockView).hideLoading();
-    }
 }

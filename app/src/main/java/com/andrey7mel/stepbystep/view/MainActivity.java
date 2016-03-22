@@ -6,8 +6,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import com.andrey7mel.stepbystep.R;
 import com.andrey7mel.stepbystep.presenter.vo.Repository;
@@ -23,9 +21,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
 
     @Bind(R.id.toolbar)
     protected Toolbar toolbar;
-
-    @Bind(R.id.toolbar_progress_bar)
-    protected ProgressBar progressBar;
 
     private FragmentManager fragmentManager;
 
@@ -52,16 +47,5 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
     public void startRepoInfoFragment(Repository repository) {
         replaceFragment(RepoInfoFragment.newInstance(repository), true);
     }
-
-    @Override
-    public void showProgressBar() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgressBar() {
-        progressBar.setVisibility(View.INVISIBLE);
-    }
-
 
 }

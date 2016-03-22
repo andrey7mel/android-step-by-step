@@ -31,19 +31,6 @@ public class BasePresenterTest extends BaseTest {
         view = repoListView;
     }
 
-
-    @Test
-    public void testShowLoadingState() throws Exception {
-        basePresenter.showLoadingState();
-        verify(view).showLoading();
-    }
-
-    @Test
-    public void testHideLoadingState() throws Exception {
-        basePresenter.hideLoadingState();
-        verify(view).hideLoading();
-    }
-
     @Test
     public void testShowError() throws Exception {
         Throwable throwable = new Throwable(TestConst.TEST_ERROR);

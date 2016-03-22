@@ -44,18 +44,16 @@ public class RepoInfoPresenter extends BasePresenter {
         String owner = repository.getOwnerName();
         String name = repository.getRepoName();
 
-        showLoadingState();
         Subscription subscriptionBranches = model.getRepoBranches(owner, name)
                 .map(branchesMapper)
                 .subscribe(new Observer<List<Branch>>() {
                     @Override
                     public void onCompleted() {
-                        hideInfoLoadingState();
+                        ;
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        hideInfoLoadingState();
                         showError(e);
                     }
 
@@ -72,12 +70,11 @@ public class RepoInfoPresenter extends BasePresenter {
                 .subscribe(new Observer<List<Contributor>>() {
                     @Override
                     public void onCompleted() {
-                        hideInfoLoadingState();
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        hideInfoLoadingState();
                         showError(e);
                     }
 
@@ -97,14 +94,6 @@ public class RepoInfoPresenter extends BasePresenter {
         this.repository = repository;
     }
 
-    protected void hideInfoLoadingState() {
-        countCompletedSubscription++;
-
-        if (countCompletedSubscription == COUNT_SUBSCRIPTION) {
-            hideLoadingState();
-            countCompletedSubscription = 0;
-        }
-    }
 
     public void onCreateView(Bundle savedInstanceState) {
 

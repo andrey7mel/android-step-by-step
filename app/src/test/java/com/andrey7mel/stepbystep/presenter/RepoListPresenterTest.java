@@ -145,40 +145,4 @@ public class RepoListPresenterTest extends BaseTest {
         verify(model).getRepoList(TestConst.TEST_OWNER);
     }
 
-    @Test
-    public void testShowLoading() {
-        repoListPresenter.onSearchButtonClick();
-
-        verify(mockView).showLoading();
-    }
-
-    @Test
-    public void testHideLoading() {
-        repoListPresenter.onSearchButtonClick();
-
-        verify(mockView).hideLoading();
-    }
-
-    @Test
-    public void testShowLoadingOnError() {
-        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
-                .when(model)
-                .getRepoList(TestConst.TEST_OWNER);
-
-        repoListPresenter.onSearchButtonClick();
-
-        verify(mockView).showLoading();
-    }
-
-    @Test
-    public void testHideLoadingOnError() {
-        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
-                .when(model)
-                .getRepoList(TestConst.TEST_OWNER);
-
-        repoListPresenter.onSearchButtonClick();
-
-        verify(mockView).hideLoading();
-    }
-
 }

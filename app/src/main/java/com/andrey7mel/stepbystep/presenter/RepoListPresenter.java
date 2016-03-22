@@ -47,19 +47,17 @@ public class RepoListPresenter extends BasePresenter {
         String name = view.getUserName();
         if (TextUtils.isEmpty(name)) return;
 
-        showLoadingState();
         Subscription subscription = model.getRepoList(name)
                 .map(repoListMapper)
                 .subscribe(new Observer<List<Repository>>() {
 
                     @Override
                     public void onCompleted() {
-                        hideLoadingState();
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        hideLoadingState();
                         showError(e);
                     }
 
