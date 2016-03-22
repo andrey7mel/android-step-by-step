@@ -1,0 +1,23 @@
+[
+    {
+        "name": "QuickStart",
+        "commit": {
+            "sha": "94870e23f1cfafe7201bf82985b61188f650b245",
+            "url": "https://api.github.com/repos/andrey7mel/Android-Rate/commits/94870e23f1cfafe7201bf82985b61188f650b245"
+        }
+    },
+    {
+        "name": "gh-pages",
+        "commit": {
+            "sha": "b8821296cbeb44342dba76383af3e1f4b583703d",
+            "url": "https://api.github.com/repos/andrey7mel/Android-Rate/commits/b8821296cbeb44342dba76383af3e1f4b583703d"
+        }
+    },
+    {
+        "name": "master",
+        "commit": {
+            "sha": "1894e80b244d009e24e3ed62c70dd83e7aaa381b",
+            "url": "https://api.github.com/repos/andrey7mel/Android-Rate/commits/1894e80b244d009e24e3ed62c70dd83e7aaa381b"
+        }
+    }
+]
