@@ -11,4 +11,7 @@ public interface RepoListView extends View {
     void showEmptyList();
 
     String getUserName();
+
+    void startRepoInfoFragment(Repository repository);
+
 }

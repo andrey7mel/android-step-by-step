@@ -23,7 +23,8 @@ import static org.mockito.Mockito.verify;
 public class RepoListFragmentTest extends BaseTest {
 
     @Inject
-    RepoListPresenter repoListPresenter;
+    protected RepoListPresenter repoListPresenter;
+
     private RepoListFragment repoListFragment;
     private MainActivity activity;
 
@@ -79,4 +80,6 @@ public class RepoListFragmentTest extends BaseTest {
         repoListFragment.onSaveInstanceState(bundle);
         verify(repoListPresenter).onSaveInstanceState(bundle);
     }
+
+
 }

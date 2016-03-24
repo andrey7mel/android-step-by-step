@@ -23,4 +23,5 @@ public interface AppComponent {
     void inject(RepoInfoPresenter repoInfoPresenter);
 
     void inject(RepoInfoFragment repoInfoFragment);
+
 }

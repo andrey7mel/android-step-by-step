@@ -16,22 +16,17 @@ import com.andrey7mel.stepbystep.view.fragments.RepoInfoView;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import rx.Observable;
-import rx.Subscription;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -57,8 +52,10 @@ public class RepoInfoPresenterTest extends BaseTest {
 
     @Inject
     protected Model model;
+
     @Inject
     protected Repository repository;
+
     private RepoInfoView mockView;
     private RepoInfoPresenter repoInfoPresenter;
 
@@ -66,9 +63,6 @@ public class RepoInfoPresenterTest extends BaseTest {
     public void setUp() throws Exception {
         super.setUp();
         component.inject(this);
-
-        contributorList = contributorsMapper.call(contributorDTOs);
-        branchList = branchesMapper.call(branchDTOs);
 
         mockView = mock(RepoInfoView.class);
         repoInfoPresenter = new RepoInfoPresenter();
@@ -88,7 +82,6 @@ public class RepoInfoPresenterTest extends BaseTest {
     public void testLoadData() {
         repoInfoPresenter.onCreateView(null);
         repoInfoPresenter.onStop();
-
 
         verify(mockView).showBranches(branchList);
         verify(mockView).showContributors(contributorList);
@@ -119,6 +112,7 @@ public class RepoInfoPresenterTest extends BaseTest {
         repoInfoPresenter.onCreateView(null);
 
         verify(mockView).showError(TestConst.TEST_ERROR);
+        verify(mockView).showContributors(contributorList);
     }
 
     @Test
@@ -130,23 +124,28 @@ public class RepoInfoPresenterTest extends BaseTest {
         repoInfoPresenter.onCreateView(null);
 
         verify(mockView).showError(TestConst.TEST_ERROR);
+        verify(mockView).showBranches(branchList);
     }
 
 
     @Test
-    public void testSubscribe() {
-        repoInfoPresenter = spy(new RepoInfoPresenter()); //for ArgumentCaptor
-        repoInfoPresenter.onCreate(mockView, repository);
-        repoInfoPresenter.onCreateView(null);
-        repoInfoPresenter.onStop();
+    public void testOnErrorAll() {
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO);
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoBranches(TestConst.TEST_OWNER, TestConst.TEST_REPO);
 
-        ArgumentCaptor<Subscription> captor = ArgumentCaptor.forClass(Subscription.class);
-        verify(repoInfoPresenter, times(2)).addSubscription(captor.capture());
-        List<Subscription> subscriptions = captor.getAllValues();
-        assertEquals(2, subscriptions.size());
-        assertTrue(subscriptions.get(0).isUnsubscribed());
-        assertTrue(subscriptions.get(1).isUnsubscribed());
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView, times(2)).showError(TestConst.TEST_ERROR);
+        verify(mockView, never()).showBranches(any());
+        verify(mockView, never()).showContributors(contributorList);
+
     }
+
 
     @Test
     public void testSaveState() {
@@ -164,4 +163,91 @@ public class RepoInfoPresenterTest extends BaseTest {
         verify(model).getRepoContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO);
         verify(model).getRepoBranches(TestConst.TEST_OWNER, TestConst.TEST_REPO);
     }
+
+    @Test
+    public void testShowLoading() {
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).showLoading();
+    }
+
+    @Test
+    public void testHideLoading() {
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).hideLoading();
+    }
+
+    @Test
+    public void testShowLoadingOnError() {
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO);
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoBranches(TestConst.TEST_OWNER, TestConst.TEST_REPO);
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).showLoading();
+    }
+
+    @Test
+    public void testHideLoadingOnError() {
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO);
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoBranches(TestConst.TEST_OWNER, TestConst.TEST_REPO);
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).hideLoading();
+    }
+
+    @Test
+    public void testShowLoadingOnErrorBranches() {
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoBranches(TestConst.TEST_OWNER, TestConst.TEST_REPO);
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).showLoading();
+    }
+
+    @Test
+    public void testHideLoadingOnErrorBranches() {
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoBranches(TestConst.TEST_OWNER, TestConst.TEST_REPO);
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).hideLoading();
+    }
+
+    @Test
+    public void testShowLoadingOnErrorContributors() {
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO);
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).showLoading();
+    }
+
+    @Test
+    public void testHideLoadingOnErrorContributors() {
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO);
+
+        repoInfoPresenter.onCreateView(null);
+
+        verify(mockView).hideLoading();
+    }
+
 }

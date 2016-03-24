@@ -45,7 +45,7 @@ public class DataTestModule {
     @Provides
     @Singleton
     List<ContributorDTO> provideContributorDTOList() {
-        ContributorDTO[] contributorDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/contributors"), ContributorDTO[].class);
+        ContributorDTO[] contributorDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/contributors.json"), ContributorDTO[].class);
         return Arrays.asList(contributorDTOArray);
     }
 
@@ -53,14 +53,14 @@ public class DataTestModule {
     @Provides
     @Singleton
     List<BranchDTO> provideBranchDTOList() {
-        BranchDTO[] branchDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/branches"), BranchDTO[].class);
+        BranchDTO[] branchDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/branches.json"), BranchDTO[].class);
         return Arrays.asList(branchDTOArray);
     }
 
     @Provides
     @Singleton
     List<RepositoryDTO> provideRepositoryDTOList() {
-        RepositoryDTO[] repositoryDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/repos"), RepositoryDTO[].class);
+        RepositoryDTO[] repositoryDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/repos.json"), RepositoryDTO[].class);
         return Arrays.asList(repositoryDTOArray);
     }
 

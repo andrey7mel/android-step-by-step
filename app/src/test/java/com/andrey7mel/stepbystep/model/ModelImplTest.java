@@ -24,9 +24,9 @@ import static org.mockito.Mockito.when;
 public class ModelImplTest extends BaseTest {
 
     @Inject
-    ApiInterface apiInterface;
+    protected ApiInterface apiInterface;
 
-    Model model;
+    private Model model;
 
     @Before
     public void setUp() throws Exception {
@@ -37,7 +37,7 @@ public class ModelImplTest extends BaseTest {
 
     @Test
     public void testGetRepoList() {
-        RepositoryDTO[] repositoryDTOs = testUtils.getGson().fromJson(testUtils.readString("json/repos"), RepositoryDTO[].class);
+        RepositoryDTO[] repositoryDTOs = testUtils.getGson().fromJson(testUtils.readString("json/repos.json"), RepositoryDTO[].class);
 
         when(apiInterface.getRepositories(TestConst.TEST_OWNER)).thenReturn(Observable.just(Arrays.asList(repositoryDTOs)));
 
@@ -58,7 +58,7 @@ public class ModelImplTest extends BaseTest {
     @Test
     public void testGetRepoBranches() {
 
-        BranchDTO[] branchDTOs = testUtils.getGson().fromJson(testUtils.readString("json/branches"), BranchDTO[].class);
+        BranchDTO[] branchDTOs = testUtils.getGson().fromJson(testUtils.readString("json/branches.json"), BranchDTO[].class);
 
         when(apiInterface.getBranches(TestConst.TEST_OWNER, TestConst.TEST_REPO)).thenReturn(Observable.just(Arrays.asList(branchDTOs)));
 
@@ -78,7 +78,7 @@ public class ModelImplTest extends BaseTest {
 
     @Test
     public void testGetRepoContributors() {
-        ContributorDTO[] contributorDTOs = testUtils.getGson().fromJson(testUtils.readString("json/contributors"), ContributorDTO[].class);
+        ContributorDTO[] contributorDTOs = testUtils.getGson().fromJson(testUtils.readString("json/contributors.json"), ContributorDTO[].class);
 
         when(apiInterface.getContributors(TestConst.TEST_OWNER, TestConst.TEST_REPO)).thenReturn(Observable.just(Arrays.asList(contributorDTOs)));
 

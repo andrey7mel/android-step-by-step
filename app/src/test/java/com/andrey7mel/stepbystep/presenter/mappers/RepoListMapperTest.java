@@ -19,14 +19,13 @@ public class RepoListMapperTest extends BaseTest {
     @Inject
     protected RepoListMapper repoListMapper;
 
-    protected List<RepositoryDTO> repositoryDTOs;
-
+    private List<RepositoryDTO> repositoryDTOs;
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
         component.inject(this);
-        RepositoryDTO[] repositoryDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/repos"), RepositoryDTO[].class);
+        RepositoryDTO[] repositoryDTOArray = testUtils.getGson().fromJson(testUtils.readString("json/repos.json"), RepositoryDTO[].class);
         repositoryDTOs = Arrays.asList(repositoryDTOArray);
 
     }

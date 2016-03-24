@@ -39,13 +39,13 @@ public class ApiInterfaceTest extends BaseTest {
 
                 if (request.getPath().equals("/users/" + TestConst.TEST_OWNER + "/repos")) {
                     return new MockResponse().setResponseCode(200)
-                            .setBody(testUtils.readString("json/repos"));
+                            .setBody(testUtils.readString("json/repos.json"));
                 } else if (request.getPath().equals("/repos/" + TestConst.TEST_OWNER + "/" + TestConst.TEST_REPO + "/branches")) {
                     return new MockResponse().setResponseCode(200)
-                            .setBody(testUtils.readString("json/branches"));
+                            .setBody(testUtils.readString("json/branches.json"));
                 } else if (request.getPath().equals("/repos/" + TestConst.TEST_OWNER + "/" + TestConst.TEST_REPO + "/contributors")) {
                     return new MockResponse().setResponseCode(200)
-                            .setBody(testUtils.readString("json/contributors"));
+                            .setBody(testUtils.readString("json/contributors.json"));
                 }
                 return new MockResponse().setResponseCode(404);
             }

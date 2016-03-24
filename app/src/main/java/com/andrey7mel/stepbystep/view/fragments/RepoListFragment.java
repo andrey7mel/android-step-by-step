@@ -34,16 +34,16 @@ import butterknife.OnClick;
 public class RepoListFragment extends BaseFragment implements RepoListView {
 
     @Bind(R.id.recycler_view)
-    RecyclerView recyclerView;
+    protected RecyclerView recyclerView;
 
     @Bind(R.id.edit_text)
-    EditText editText;
+    protected EditText editText;
 
     @Bind(R.id.button_search)
-    Button searchButton;
+    protected Button searchButton;
 
     @Inject
-    RepoListPresenter presenter;
+    protected RepoListPresenter presenter;
 
     private RepoListAdapter adapter;
 
@@ -62,8 +62,6 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
         try {
             activityCallback = (ActivityCallback) activity;
         } catch (ClassCastException e) {
@@ -74,13 +72,13 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         if (viewComponent == null) {
             viewComponent = DaggerViewComponent.builder()
-                    .viewDynamicModule(new ViewDynamicModule(this, activityCallback))
+                    .viewDynamicModule(new ViewDynamicModule(this))
                     .build();
         }
         viewComponent.inject(this);
+        super.onCreate(savedInstanceState);
     }
 
     public void setViewComponent(ViewComponent viewComponent) {
@@ -98,18 +96,10 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
         adapter = new RepoListAdapter(new ArrayList<>(), presenter);
         recyclerView.setAdapter(adapter);
 
-//        searchButton.setOnClickListener(v -> presenter.onSearchButtonClick());
-
         presenter.onCreateView(savedInstanceState);
 
         return view;
     }
-
-    public void clickSearchButton() {
-
-    }
-
-
 
     private void makeToast(String text) {
         Snackbar.make(recyclerView, text, Snackbar.LENGTH_LONG).show();
@@ -139,6 +129,11 @@ public class RepoListFragment extends BaseFragment implements RepoListView {
     @Override
     public String getUserName() {
         return editText.getText().toString();
+    }
+
+    @Override
+    public void startRepoInfoFragment(Repository repository) {
+        activityCallback.startRepoInfoFragment(repository);
     }
 
     @Override

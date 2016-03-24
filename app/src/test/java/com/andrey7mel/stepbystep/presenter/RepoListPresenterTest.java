@@ -13,7 +13,6 @@ import com.andrey7mel.stepbystep.view.fragments.RepoListView;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,14 +20,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import rx.Observable;
-import rx.Subscription;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -51,7 +46,6 @@ public class RepoListPresenterTest extends BaseTest {
     private RepoListPresenter repoListPresenter;
     private ActivityCallback activityCallback;
 
-
     @Before
     public void setUp() throws Exception {
         super.setUp();
@@ -60,8 +54,7 @@ public class RepoListPresenterTest extends BaseTest {
         activityCallback = mock(ActivityCallback.class);
 
         mockView = mock(RepoListView.class);
-        repoListPresenter = new RepoListPresenter(mockView, activityCallback);
-
+        repoListPresenter = new RepoListPresenter(mockView);
         doAnswer(invocation -> Observable.just(repositoryDTOs))
                 .when(model)
                 .getRepoList(TestConst.TEST_OWNER);
@@ -134,21 +127,7 @@ public class RepoListPresenterTest extends BaseTest {
 
         repoListPresenter.clickRepo(repository);
 
-        verify(activityCallback).startRepoInfoFragment(repository);
-    }
-
-    @Test
-    public void testSubscribe() {
-        repoListPresenter = spy(new RepoListPresenter(mockView, activityCallback)); //for ArgumentCaptor
-        repoListPresenter.onCreateView(null);
-        repoListPresenter.onSearchButtonClick();
-        repoListPresenter.onStop();
-
-        ArgumentCaptor<Subscription> captor = ArgumentCaptor.forClass(Subscription.class);
-        verify(repoListPresenter).addSubscription(captor.capture());
-        List<Subscription> subscriptions = captor.getAllValues();
-        assertEquals(1, subscriptions.size());
-        assertTrue(subscriptions.get(0).isUnsubscribed());
+        verify(mockView).startRepoInfoFragment(repository);
     }
 
     @Test
@@ -165,4 +144,41 @@ public class RepoListPresenterTest extends BaseTest {
         verify(mockView, times(2)).showRepoList(repoList);
         verify(model).getRepoList(TestConst.TEST_OWNER);
     }
+
+    @Test
+    public void testShowLoading() {
+        repoListPresenter.onSearchButtonClick();
+
+        verify(mockView).showLoading();
+    }
+
+    @Test
+    public void testHideLoading() {
+        repoListPresenter.onSearchButtonClick();
+
+        verify(mockView).hideLoading();
+    }
+
+    @Test
+    public void testShowLoadingOnError() {
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoList(TestConst.TEST_OWNER);
+
+        repoListPresenter.onSearchButtonClick();
+
+        verify(mockView).showLoading();
+    }
+
+    @Test
+    public void testHideLoadingOnError() {
+        doAnswer(invocation -> Observable.error(new Throwable(TestConst.TEST_ERROR)))
+                .when(model)
+                .getRepoList(TestConst.TEST_OWNER);
+
+        repoListPresenter.onSearchButtonClick();
+
+        verify(mockView).hideLoading();
+    }
+
 }

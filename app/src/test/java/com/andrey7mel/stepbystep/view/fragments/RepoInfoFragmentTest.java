@@ -24,6 +24,7 @@ public class RepoInfoFragmentTest extends BaseTest {
 
     @Inject
     RepoInfoPresenter repoInfoPresenter;
+
     private RepoInfoFragment repoInfoFragment;
     private Repository repository;
 

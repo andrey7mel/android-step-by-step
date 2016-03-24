@@ -18,5 +18,4 @@ public class TestViewDynamicModule {
         return mock(RepoListPresenter.class);
     }
 
-
 }

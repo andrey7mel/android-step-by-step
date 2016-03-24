@@ -14,7 +14,6 @@ public class RepoListMapper implements Func1<List<RepositoryDTO>, List<Repositor
 
     @Inject
     public RepoListMapper() {
-
     }
 
     @Override
