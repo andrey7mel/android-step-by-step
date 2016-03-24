@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCallback 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.container, fragment, TAG);
         if (addBackStack) transaction.addToBackStack(null);
-        transaction.commit();
     }
 
     @Override
